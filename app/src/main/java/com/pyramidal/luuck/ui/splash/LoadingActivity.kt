@@ -1,0 +1,95 @@
+package com.pyramidal.luuck.ui.splash
+
+
+import android.animation.*
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.graphics.drawable.GradientDrawable
+import android.os.Bundle
+import android.os.Handler
+import android.view.View
+import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import com.pyramidal.luuck.R
+import com.pyramidal.luuck.databinding.ActivitySplashBinding
+import com.pyramidal.luuck.ui.login.LoginActivity
+import com.pyramidal.luuck.ui.main.privacy.PrivacyActivity
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
+
+
+class LoadingActivity : AppCompatActivity(), CoroutineScope {
+    private val flag: Boolean = false
+    private val binding by lazy { ActivitySplashBinding.inflate(layoutInflater) }
+    private lateinit var job: Job
+    override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
+
+    private var currentOvalIndex = 1
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val view = binding.root
+        setContentView(view)
+        job = Job()
+        loadingNextActivity()
+        startOvalAnimations()
+    }
+
+    private fun loadingNextActivity() {
+        Handler().postDelayed({
+            if (!flag) {
+                // run PrivacyActivity
+                val go = Intent(this@LoadingActivity, PrivacyActivity::class.java)
+                startActivity(go)
+            } else {
+                // run LoginActivity
+                val go = Intent(this@LoadingActivity, LoginActivity::class.java)
+                startActivity(go)
+            }
+            finish()
+        }, 3 * 1000.toLong())
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+    }
+
+    private fun startOvalAnimations() {
+        animateOvalsSequentially(binding.progressBar.progressBarLayout)
+    }
+
+    @SuppressLint("DiscouragedApi")
+    private fun animateOvalsSequentially(progressBarLayout: ViewGroup) {
+        if (currentOvalIndex > 12) {
+            return
+        }
+
+        val ovalId = resources.getIdentifier("oval$currentOvalIndex", "id", packageName)
+        val ovalView = progressBarLayout.findViewById<View>(ovalId)
+
+        val colorAnimator = createColorAnimator(ovalView)
+        colorAnimator.addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator) {
+                currentOvalIndex++
+                animateOvalsSequentially(progressBarLayout) // run anim next ellipse
+            }
+        })
+
+        colorAnimator.start()
+    }
+
+    private fun createColorAnimator(view: View): ValueAnimator {
+        val colorFrom = resources.getColor(R.color.startColorGradient)
+        val colorTo = resources.getColor(R.color.centerColorGradient)
+
+        val colorAnimator = ValueAnimator.ofObject(ArgbEvaluator(), colorFrom, colorTo)
+        colorAnimator.addUpdateListener { animator ->
+            val color = animator.animatedValue as Int
+            val ovalDrawable = view.background as GradientDrawable
+            ovalDrawable.setColor(color)
+        }
+        colorAnimator.duration = 200
+        return colorAnimator
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
+    }
+}
