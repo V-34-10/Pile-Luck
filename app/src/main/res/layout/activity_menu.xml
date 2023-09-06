@@ -4,6 +4,79 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".ui.main.menu.MenuActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/phone_control"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/btn_register"
+            android:layout_width="@dimen/dp175"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/dp10"
+            android:clickable="true"
+            android:contentDescription="@string/btn_register"
+            android:focusable="true"
+            android:src="@drawable/btn_register"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ImageContrastCheck" />
+
+        <ImageView
+            android:id="@+id/btn_settings"
+            android:layout_width="@dimen/dp75"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/dp10"
+            android:clickable="true"
+            android:contentDescription="@string/btn_settings"
+            android:focusable="true"
+            android:src="@drawable/btn_settings"
+            app:layout_constraintStart_toEndOf="@+id/btn_register"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ImageContrastCheck" />
+
+        <ImageView
+            android:id="@+id/btn_exit"
+            android:layout_width="@dimen/dp75"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/dp10"
+            android:clickable="true"
+            android:contentDescription="@string/btn_exit"
+            android:focusable="true"
+            android:src="@drawable/btn_exit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_settings"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ImageContrastCheck" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phone_control">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/games_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:scaleType="centerCrop"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/phone_control" />
+
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

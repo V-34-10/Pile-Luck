@@ -49,5 +49,8 @@
     <string name="you_agree">Do you agree?</string>
     <string name="btn_no">btn_no</string>
     <string name="btn_yes">btn_yes</string>
+    <string name="btn_register">btn_register</string>
+    <string name="btn_settings">btn_settings</string>
+    <string name="btn_exit">btn_exit</string>
 
 </resources>
