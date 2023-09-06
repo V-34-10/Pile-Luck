@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.FragmentEmailBinding
 import com.pyramidal.luuck.databinding.FragmentPhoneBinding
@@ -49,10 +50,13 @@ class PhoneFragment : Fragment() {
             if (isPhoneValid(fullPhoneNumber)) {
                 savePhoneToSharedPreferences(fullPhoneNumber)
             } else {
-                R.string.phone_hint.toString().also { fullPhoneNumber = it }
-                savePhoneToSharedPreferences(fullPhoneNumber)
+                Toast.makeText(context, "Invalid phone, format: +380 " + R.string.phone_hint, Toast.LENGTH_LONG).show()
             }
             loadingNextActivity()
+        }
+        binding.btnBack.setOnClickListener {
+            binding.btnBack.startAnimation(animation)
+            fragmentManager?.popBackStack()
         }
     }
 

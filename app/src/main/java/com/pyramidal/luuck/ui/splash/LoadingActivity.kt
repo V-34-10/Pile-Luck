@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.ActivitySplashBinding
 import com.pyramidal.luuck.ui.login.LoginActivity
+import com.pyramidal.luuck.ui.main.menu.MenuActivity
 import com.pyramidal.luuck.ui.main.privacy.PrivacyActivity
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
@@ -38,6 +39,9 @@ class LoadingActivity : AppCompatActivity(), CoroutineScope {
     private fun loadingNextActivity() {
         initSharedPreferences()
         val flag = sharedPref.getBoolean("flag_key", false)
+        val hasEmail = sharedPref?.contains("email_key") ?: false
+        val hasPhone = sharedPref?.contains("phone_key") ?: false
+
         Handler().postDelayed({
             if (!flag) {
                 // run PrivacyActivity
@@ -46,6 +50,10 @@ class LoadingActivity : AppCompatActivity(), CoroutineScope {
                 val editor = sharedPref.edit()
                 editor.putBoolean("flag_key", true)
                 editor.apply()
+            } else if (hasEmail || hasPhone) {
+                // run MenuActivity
+                val go = Intent(this@LoadingActivity, MenuActivity::class.java)
+                startActivity(go)
             } else {
                 // run LoginActivity
                 val go = Intent(this@LoadingActivity, LoginActivity::class.java)

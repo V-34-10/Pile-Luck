@@ -14,33 +14,23 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="title_activity_settings">SettingsActivity</string>
-
     <!-- ActivitySettings -->
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
-
     <!-- Messages Preferences -->
     <string name="signature_title">Your signature</string>
     <string name="reply_title">Default reply action</string>
-
     <!-- Sync Preferences -->
     <string name="sync_title">Sync email periodically</string>
     <string name="attachment_title">Download incoming attachments</string>
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Authorization -->
     <string name="title_sign_up">Sign Up</string>
     <string name="title_email">Via email</string>
     <string name="title_phone">Via phone</string>
-    <string name="title_privacy">Privacy Policy and Terms</string>
-    <string name="title_description">Do you accept with our privacy?</string>
-    <string name="btn_privacy">btn_privacy</string>
-    <string name="you_agree">Do you agree?</string>
-    <string name="btn_no">btn_no</string>
-    <string name="btn_yes">btn_yes</string>
     <string name="title_sign_up_description">if you want to save score</string>
     <string name="policy"><u>privacy</u></string>
     <string name="btn_phone">btn_phone</string>
@@ -52,4 +42,12 @@
     <string name="testEmail">test@gmail.com</string>
     <string name="title_phone_description">Enter your phone</string>
     <string name="phone_hint">0668459578</string>
+    <!-- ActivityPrivacy  -->
+    <string name="title_privacy">Privacy Policy and Terms</string>
+    <string name="title_description">Do you accept with our privacy?</string>
+    <string name="btn_privacy">btn_privacy</string>
+    <string name="you_agree">Do you agree?</string>
+    <string name="btn_no">btn_no</string>
+    <string name="btn_yes">btn_yes</string>
+
 </resources>

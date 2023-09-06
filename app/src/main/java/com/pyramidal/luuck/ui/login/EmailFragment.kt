@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.FragmentEmailBinding
 import com.pyramidal.luuck.ui.main.menu.MenuActivity
@@ -37,14 +38,17 @@ class EmailFragment : Fragment() {
         }
         binding.btnPlay.setOnClickListener {
             binding.btnPlay.startAnimation(animation)
-            var enteredEmail = binding.emailLayout.text.toString()
+            val enteredEmail = binding.emailLayout.text.toString()
             if (isEmailValid(enteredEmail)) {
                 saveEmailToSharedPreferences(enteredEmail)
             } else {
-                R.string.testEmail.toString().also { enteredEmail = it }
-                saveEmailToSharedPreferences(enteredEmail)
+                Toast.makeText(context, "Invalid email, format: " + R.string.testEmail, Toast.LENGTH_LONG).show()
             }
             loadingNextActivity()
+        }
+        binding.btnBack.setOnClickListener {
+            binding.btnBack.startAnimation(animation)
+            fragmentManager?.popBackStack()
         }
     }
 

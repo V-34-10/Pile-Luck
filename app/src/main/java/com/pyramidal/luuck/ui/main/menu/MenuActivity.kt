@@ -11,4 +11,9 @@ class MenuActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
     }
+
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        //no back click
+    }
 }
