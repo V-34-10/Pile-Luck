@@ -3,7 +3,9 @@ package com.pyramidal.luuck.ui.splash
 
 import android.animation.*
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.os.Handler
@@ -19,11 +21,10 @@ import kotlin.coroutines.CoroutineContext
 
 
 class LoadingActivity : AppCompatActivity(), CoroutineScope {
-    private val flag: Boolean = false
     private val binding by lazy { ActivitySplashBinding.inflate(layoutInflater) }
     private lateinit var job: Job
     override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
-
+    private lateinit var sharedPref: SharedPreferences
     private var currentOvalIndex = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,11 +36,16 @@ class LoadingActivity : AppCompatActivity(), CoroutineScope {
     }
 
     private fun loadingNextActivity() {
+        initSharedPreferences()
+        val flag = sharedPref.getBoolean("flag_key", false)
         Handler().postDelayed({
             if (!flag) {
                 // run PrivacyActivity
                 val go = Intent(this@LoadingActivity, PrivacyActivity::class.java)
                 startActivity(go)
+                val editor = sharedPref.edit()
+                editor.putBoolean("flag_key", true)
+                editor.apply()
             } else {
                 // run LoginActivity
                 val go = Intent(this@LoadingActivity, LoginActivity::class.java)
@@ -48,6 +54,14 @@ class LoadingActivity : AppCompatActivity(), CoroutineScope {
             finish()
         }, 3 * 1000.toLong())
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+    }
+
+    private fun initSharedPreferences(){
+        sharedPref = getSharedPreferences("my_prefs", Context.MODE_PRIVATE)
+        val flag = sharedPref.getBoolean("flag_key", false)
+        val editor = sharedPref.edit()
+        editor.putBoolean("flag_key", flag)
+        editor.apply()
     }
 
     private fun startOvalAnimations() {

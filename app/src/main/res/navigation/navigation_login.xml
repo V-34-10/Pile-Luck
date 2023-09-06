@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_login"
+    app:startDestination="@id/signUpFragment">
+
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.pyramidal.luuck.ui.login.SignUpFragment"
+        android:label="@string/title_sign_up"
+        tools:layout="@layout/fragment_sign_up" />
+    <fragment
+        android:id="@+id/emailFragment"
+        android:name="com.pyramidal.luuck.ui.login.EmailFragment"
+        android:label="@string/title_email"
+        tools:layout="@layout/fragment_email" />
+    <fragment
+        android:id="@+id/phoneFragment"
+        android:name="com.pyramidal.luuck.ui.login.PhoneFragment"
+        android:label="@string/title_phone"
+        tools:layout="@layout/fragment_phone" />
+
+</navigation>

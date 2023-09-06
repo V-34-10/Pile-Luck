@@ -7,14 +7,113 @@
     android:background="@drawable/background"
     tools:context=".ui.main.privacy.PrivacyActivity">
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragment_container"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/privacy_control"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout="@layout/activity_login" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/text_privacy"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:fontFamily="@font/alumni_sans_inline_one"
+            android:shadowColor="@color/black"
+            android:shadowDx="5"
+            android:shadowDy="5"
+            android:shadowRadius="2"
+            android:text="@string/title_privacy"
+            android:textAlignment="center"
+            android:textColor="@color/pink"
+            android:textSize="@dimen/size_textMain"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TextContrastCheck" />
+
+        <TextView
+            android:id="@+id/text_description"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:fontFamily="@font/alumni_sans_inline_one"
+            android:text="@string/title_description"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_textDescription"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_privacy" />
+
+        <ImageView
+            android:id="@+id/btn_privacy"
+            android:layout_width="@dimen/dp275"
+            android:layout_height="0dp"
+            android:clickable="true"
+            android:contentDescription="@string/btn_privacy"
+            android:focusable="true"
+            android:src="@drawable/btn_privacy"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_description"
+            tools:ignore="ImageContrastCheck" />
+
+        <TextView
+            android:id="@+id/text_you_sure"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:fontFamily="@font/alumni_sans_inline_one"
+            android:shadowColor="@color/black"
+            android:shadowDx="5"
+            android:shadowDy="5"
+            android:shadowRadius="2"
+            android:text="@string/you_agree"
+            android:textAlignment="center"
+            android:textColor="@color/pink"
+            android:textSize="@dimen/size_textMain"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_privacy" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/control_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_you_sure">
+
+            <ImageView
+                android:id="@+id/btn_yes"
+                android:layout_width="@dimen/size_btn"
+                android:layout_height="0dp"
+                android:clickable="true"
+                android:contentDescription="@string/btn_yes"
+                android:focusable="true"
+                android:src="@drawable/btn_yes"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ImageContrastCheck" />
+
+            <ImageView
+                android:id="@+id/btn_no"
+                android:layout_width="@dimen/size_btn"
+                android:layout_height="0dp"
+                android:layout_marginEnd="25dp"
+                android:clickable="true"
+                android:contentDescription="@string/btn_no"
+                android:focusable="true"
+                android:src="@drawable/btn_no"
+                app:layout_constraintEnd_toStartOf="@+id/btn_yes"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ImageContrastCheck" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

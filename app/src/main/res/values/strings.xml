@@ -30,4 +30,15 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_sign_up">Sign Up</string>
+    <string name="title_email">Via email</string>
+    <string name="title_phone">Via phone</string>
+    <string name="title_privacy">Privacy Policy and Terms</string>
+    <string name="title_description">Do you accept with our privacy?</string>
+    <string name="btn_privacy">btn_privacy</string>
+    <string name="you_agree">Do you agree?</string>
+    <string name="btn_no">btn_no</string>
+    <string name="btn_yes">btn_yes</string>
 </resources>
