@@ -56,7 +56,7 @@ class LoadingActivity : AppCompatActivity(), CoroutineScope {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
     }
 
-    private fun initSharedPreferences(){
+    private fun initSharedPreferences() {
         sharedPref = getSharedPreferences("my_prefs", Context.MODE_PRIVATE)
         val flag = sharedPref.getBoolean("flag_key", false)
         val editor = sharedPref.edit()

@@ -41,4 +41,15 @@
     <string name="you_agree">Do you agree?</string>
     <string name="btn_no">btn_no</string>
     <string name="btn_yes">btn_yes</string>
+    <string name="title_sign_up_description">if you want to save score</string>
+    <string name="policy"><u>privacy</u></string>
+    <string name="btn_phone">btn_phone</string>
+    <string name="btn_email">btn_email</string>
+    <string name="title_email_description">Enter your email</string>
+    <string name="anonymous_mode"><u>anonymous mode</u></string>
+    <string name="btn_play">btn_play</string>
+    <string name="btn_back">btn_back</string>
+    <string name="testEmail">test@gmail.com</string>
+    <string name="title_phone_description">Enter your phone</string>
+    <string name="phone_hint">0668459578</string>
 </resources>
