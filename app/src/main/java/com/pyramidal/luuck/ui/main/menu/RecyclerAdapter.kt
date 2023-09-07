@@ -3,14 +3,27 @@ package com.pyramidal.luuck.ui.main.menu
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import com.pyramidal.luuck.R
+import com.pyramidal.luuck.databinding.ItemLargeBinding
+import com.pyramidal.luuck.databinding.ItemSmallBinding
 
-class RecyclerAdapter(private val dataList: List<Any>) :
+class RecyclerAdapter(private val dataList: List<Any>, private val clickListener: OnItemClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object {
         const val VIEW_TYPE_SMALL = 1
         const val VIEW_TYPE_LARGE = 2
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(item: Any)
+    }
+
+    private var listener: OnItemClickListener? = null
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        this.listener = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -22,6 +35,7 @@ class RecyclerAdapter(private val dataList: List<Any>) :
                     false
                 )
             )
+
             VIEW_TYPE_LARGE -> LargeViewHolder(
                 LayoutInflater.from(parent.context).inflate(
                     R.layout.item_large,
@@ -29,6 +43,7 @@ class RecyclerAdapter(private val dataList: List<Any>) :
                     false
                 )
             )
+
             else -> throw IllegalArgumentException("Unknown view type: $viewType")
         }
     }
@@ -38,10 +53,17 @@ class RecyclerAdapter(private val dataList: List<Any>) :
             is SmallViewHolder -> {
                 val smallData = dataList[position] as SmallData
                 holder.bind(smallData)
+                holder.itemView.setOnClickListener {
+                    listener?.onItemClick(smallData)
+                }
             }
+
             is LargeViewHolder -> {
                 val largeData = dataList[position] as LargeData
                 holder.bind(largeData)
+                holder.itemView.setOnClickListener {
+                    listener?.onItemClick(largeData)
+                }
             }
         }
     }
@@ -59,14 +81,16 @@ class RecyclerAdapter(private val dataList: List<Any>) :
     }
 
     inner class SmallViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val bindingSmall: ItemSmallBinding = ItemSmallBinding.bind(itemView)
         fun bind(smallData: SmallData) {
-
+            bindingSmall.imageViewSmall.setImageResource(smallData.imageResId)
         }
     }
 
     inner class LargeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val bindingLarge: ItemLargeBinding = ItemLargeBinding.bind(itemView)
         fun bind(largeData: LargeData) {
-
+            bindingLarge.imageViewLarge.setImageResource(largeData.imageResId)
         }
     }
 }
