@@ -85,7 +85,7 @@
                 android:fontFamily="@font/alumni_sans_inline_one"
                 android:hint="@string/phone_hint"
                 android:inputType="phone"
-                android:maxLength="10"
+                android:maxLength="9"
                 android:padding="@dimen/dp10"
                 android:textAlignment="center"
                 android:textColor="@color/white"

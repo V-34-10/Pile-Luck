@@ -19,7 +19,7 @@ class PhoneFragment : Fragment() {
 
     private lateinit var binding: FragmentPhoneBinding
     private lateinit var countryCode: String
-    private lateinit var fullPhoneNumber: String
+    private var fullPhoneNumber: String = ""
     private lateinit var phoneNumber: String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,7 +50,8 @@ class PhoneFragment : Fragment() {
             if (isPhoneValid(fullPhoneNumber)) {
                 savePhoneToSharedPreferences(fullPhoneNumber)
             } else {
-                Toast.makeText(context, "Invalid phone, format: +380 " + R.string.phone_hint, Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Invalid phone: $fullPhoneNumber, correct format: +380 ${context?.getString(R.string.phone_hint)}", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
             }
             loadingNextActivity()
         }

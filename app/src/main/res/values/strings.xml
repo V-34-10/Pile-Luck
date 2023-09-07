@@ -41,7 +41,7 @@
     <string name="btn_back">btn_back</string>
     <string name="testEmail">test@gmail.com</string>
     <string name="title_phone_description">Enter your phone</string>
-    <string name="phone_hint">0668459578</string>
+    <string name="phone_hint">668459578</string>
     <!-- ActivityPrivacy  -->
     <string name="title_privacy">Privacy Policy and Terms</string>
     <string name="title_description">Do you accept with our privacy?</string>
@@ -52,5 +52,6 @@
     <string name="btn_register">btn_register</string>
     <string name="btn_settings">btn_settings</string>
     <string name="btn_exit">btn_exit</string>
+    <string name="small">small</string>
 
 </resources>
