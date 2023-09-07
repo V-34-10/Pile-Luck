@@ -50,7 +50,11 @@ class PhoneFragment : Fragment() {
             if (isPhoneValid(fullPhoneNumber)) {
                 savePhoneToSharedPreferences(fullPhoneNumber)
             } else {
-                Toast.makeText(context, "Invalid phone: $fullPhoneNumber, correct format: +380 ${context?.getString(R.string.phone_hint)}", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    context,
+                    "Invalid phone: $fullPhoneNumber, correct format: +380 ${context?.getString(R.string.phone_hint)}",
+                    Toast.LENGTH_LONG
+                ).show()
                 return@setOnClickListener
             }
             loadingNextActivity()

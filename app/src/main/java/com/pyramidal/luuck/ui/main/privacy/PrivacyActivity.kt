@@ -8,6 +8,7 @@ import android.view.animation.AnimationUtils
 import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.ActivityPrivacyBinding
 import com.pyramidal.luuck.ui.login.LoginActivity
+import com.pyramidal.luuck.utils.HideUIConfigUtils
 
 class PrivacyActivity : AppCompatActivity() {
     private val binding by lazy { ActivityPrivacyBinding.inflate(layoutInflater) }
@@ -15,6 +16,7 @@ class PrivacyActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val view = binding.root
         setContentView(view)
+        HideUIConfigUtils.hideUINavigation(this)
         controlButton()
     }
 

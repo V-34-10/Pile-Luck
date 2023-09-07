@@ -17,6 +17,7 @@ import com.pyramidal.luuck.databinding.ActivitySplashBinding
 import com.pyramidal.luuck.ui.login.LoginActivity
 import com.pyramidal.luuck.ui.main.menu.MenuActivity
 import com.pyramidal.luuck.ui.main.privacy.PrivacyActivity
+import com.pyramidal.luuck.utils.HideUIConfigUtils
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
@@ -32,6 +33,7 @@ class LoadingActivity : AppCompatActivity(), CoroutineScope {
         val view = binding.root
         setContentView(view)
         job = Job()
+        HideUIConfigUtils.hideUINavigation(this)
         loadingNextActivity()
         startOvalAnimations()
     }
@@ -61,7 +63,6 @@ class LoadingActivity : AppCompatActivity(), CoroutineScope {
             }
             finish()
         }, 3 * 1000.toLong())
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
     }
 
     private fun initSharedPreferences() {

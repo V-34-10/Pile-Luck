@@ -16,6 +16,9 @@
         android:theme="@style/Theme.PyramideLuck"
         tools:targetApi="31">
         <activity
+            android:name=".ui.main.scene.SceneActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.main.menu.MenuActivity"
             android:exported="false">
             <meta-data

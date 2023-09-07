@@ -42,7 +42,11 @@ class EmailFragment : Fragment() {
             if (isEmailValid(enteredEmail)) {
                 saveEmailToSharedPreferences(enteredEmail)
             } else {
-                Toast.makeText(context, "Invalid email: $enteredEmail, correct format: ${context?.getString(R.string.testEmail)}", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    context,
+                    "Invalid email: $enteredEmail, correct format: ${context?.getString(R.string.testEmail)}",
+                    Toast.LENGTH_LONG
+                ).show()
                 return@setOnClickListener
             }
             loadingNextActivity()
