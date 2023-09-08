@@ -1,17 +1,14 @@
 package com.pyramidal.luuck.ui.main.menu
 
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.ActivityMenuBinding
 import com.pyramidal.luuck.ui.login.LoginActivity
-import com.pyramidal.luuck.ui.main.privacy.PrivacyActivity
 import com.pyramidal.luuck.ui.main.scene.SceneActivity
 import com.pyramidal.luuck.ui.main.settings.SettingsActivity
 import com.pyramidal.luuck.utils.HideUIConfigUtils

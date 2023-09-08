@@ -24,4 +24,6 @@
     <dimen name="sp18">18sp</dimen>
     <dimen name="dp175">175dp</dimen>
     <dimen name="dp0">0dp</dimen>
+    <dimen name="oval_width">25dp</dimen>
+    <dimen name="oval_height">20dp</dimen>
 </resources>

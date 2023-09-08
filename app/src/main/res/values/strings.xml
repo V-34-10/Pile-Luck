@@ -53,5 +53,11 @@
     <string name="btn_settings">btn_settings</string>
     <string name="btn_exit">btn_exit</string>
     <string name="small">small</string>
+    <!-- ActivitySettings  -->
+    <string name="title_settings">Settings</string>
+    <string name="title_sounds">Sounds</string>
+    <string name="title_vibration">Vibration</string>
+    <string name="title_reset_score"><u>Reset \nscore</u></string>
+    <string name="title_remove_account"><u>Remove\naccount</u></string>
 
 </resources>

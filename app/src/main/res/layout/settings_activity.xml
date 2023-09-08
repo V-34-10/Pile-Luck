@@ -1,9 +1,151 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".ui.main.settings.SettingsActivity">
 
-    <FrameLayout
-        android:id="@+id/settings"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/settings_control"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</LinearLayout>
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_back">
+
+        <TextView
+            android:id="@+id/text_settings"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:fontFamily="@font/alumni_sans_inline_one"
+            android:shadowColor="@color/black"
+            android:shadowDx="5"
+            android:shadowDy="5"
+            android:shadowRadius="2"
+            android:text="@string/title_settings"
+            android:textAlignment="center"
+            android:textColor="@color/pink"
+            android:textSize="@dimen/size_textMain"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TextContrastCheck" />
+
+        <TextView
+            android:id="@+id/text_title_sounds"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="75dp"
+            android:fontFamily="@font/alumni_sans_inline_one"
+            android:text="@string/title_sounds"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_textDescription"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_settings" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/sound_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_title_sounds">
+
+            <include
+                android:id="@+id/sound_bar"
+                layout="@layout/progress_bar"
+                android:clickable="true"
+                android:focusable="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/text_title_vibration"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="75dp"
+            android:fontFamily="@font/alumni_sans_inline_one"
+            android:text="@string/title_vibration"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_textDescription"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sound_bar_layout" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/vibration_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_title_vibration">
+
+            <include
+                android:id="@+id/vibration_bar"
+                layout="@layout/progress_bar"
+                android:clickable="true"
+                android:focusable="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/btn_back"
+        android:layout_width="@dimen/dp75"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/dp10"
+        android:clickable="true"
+        android:contentDescription="@string/btn_back"
+        android:focusable="true"
+        android:src="@drawable/btn_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ImageContrastCheck" />
+
+    <TextView
+        android:id="@+id/text_reset_score"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_margin="50dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/alumni_sans_inline_one"
+        android:text="@string/title_reset_score"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_textDescription"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <TextView
+        android:id="@+id/text_remove_account"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_margin="50dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/alumni_sans_inline_one"
+        android:text="@string/title_remove_account"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_textDescription"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
