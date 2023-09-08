@@ -41,28 +41,34 @@ class PhoneFragment : Fragment() {
         }
 
         binding.codeCountry.setOnCountryChangeListener {
-            countryCode = binding.codeCountry.selectedCountryCode
-            phoneNumber = binding.phoneNumber.text.toString()
-            fullPhoneNumber = countryCode + phoneNumber
+            setFullPhone()
         }
         binding.btnPlay.setOnClickListener {
+            setFullPhone()
             binding.btnPlay.startAnimation(animation)
             if (isPhoneValid(fullPhoneNumber)) {
                 savePhoneToSharedPreferences(fullPhoneNumber)
             } else {
                 Toast.makeText(
                     context,
-                    "Invalid phone: $fullPhoneNumber, correct format: +380 ${context?.getString(R.string.phone_hint)}",
+                    "Invalid phone: $fullPhoneNumber correct format: +380 ${context?.getString(R.string.phone_hint)}",
                     Toast.LENGTH_LONG
                 ).show()
                 return@setOnClickListener
             }
             loadingNextActivity()
+            requireActivity().finish()
         }
         binding.btnBack.setOnClickListener {
             binding.btnBack.startAnimation(animation)
             fragmentManager?.popBackStack()
         }
+    }
+
+    private fun setFullPhone() {
+        countryCode = binding.codeCountry.selectedCountryCode
+        phoneNumber = binding.phoneNumber.text.toString()
+        fullPhoneNumber = countryCode + phoneNumber
     }
 
     private fun isPhoneValid(phone: String): Boolean {

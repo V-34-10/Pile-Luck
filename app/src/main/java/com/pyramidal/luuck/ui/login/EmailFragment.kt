@@ -13,7 +13,6 @@ import android.widget.Toast
 import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.FragmentEmailBinding
 import com.pyramidal.luuck.ui.main.menu.MenuActivity
-import com.pyramidal.luuck.ui.main.privacy.RemotePrivacy
 
 class EmailFragment : Fragment() {
 
@@ -44,12 +43,14 @@ class EmailFragment : Fragment() {
             } else {
                 Toast.makeText(
                     context,
-                    "Invalid email: $enteredEmail, correct format: ${context?.getString(R.string.testEmail)}",
+                    "Invalid email: $enteredEmail correct format: ${context?.getString(R.string.testEmail)}",
                     Toast.LENGTH_LONG
                 ).show()
                 return@setOnClickListener
             }
             loadingNextActivity()
+
+            requireActivity().finish()
         }
         binding.btnBack.setOnClickListener {
             binding.btnBack.startAnimation(animation)
