@@ -16,14 +16,24 @@ import com.pyramidal.luuck.utils.HideUIConfigUtils
 class MenuActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMenuBinding.inflate(layoutInflater) }
     private lateinit var sharedPref: SharedPreferences
+    private var dataList = listOf(
+        LargeData(R.drawable.item_large, "Rome&Egypt"),
+        SmallData(R.drawable.item_large2, "HelioPOPolis"),
+        SmallData(R.drawable.item_small_block, "Cleo'sBook"),
+        LargeData(R.drawable.item_small3_block, "FortunePlay"),
+        SmallData(R.drawable.item_large3, "EgyptPlay"),
+        SmallData(R.drawable.item_small2, "SunGoddess"),
+        LargeData(R.drawable.item_large4, "Mysterious")
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val view = binding.root
         setContentView(view)
         HideUIConfigUtils.hideUINavigation(this)
+        checkUserSignIn()
         initRecycler()
         controlButton()
-        checkUserSignIn()
     }
 
     private fun controlButton() {
@@ -53,38 +63,29 @@ class MenuActivity : AppCompatActivity() {
     private fun initRecycler() {
         val spanCount = 2
         val layoutManager = GridLayoutManager(this, spanCount)
-        val dataList = listOf(
-            LargeData(R.drawable.item_large),
-            SmallData(R.drawable.item_large2),
-            SmallData(R.drawable.item_small),
-            SmallData(R.drawable.item_small3),
-            LargeData(R.drawable.item_large3),
-            SmallData(R.drawable.item_small2),
-            LargeData(R.drawable.item_large4)
-        )
 
-        val adapter = RecyclerAdapter(dataList, object : RecyclerAdapter.OnItemClickListener {
-            override fun onItemClick(item: Any) {
-                when (item) {
-                    is SmallData -> {
-                        val intent = Intent(this@MenuActivity, SceneActivity::class.java)
-                        startActivity(intent)
-                        overridePendingTransition(R.anim.scale_up, R.anim.scale_up)
-                        finish()
-                    }
 
-                    is LargeData -> {
-                        val intent = Intent(this@MenuActivity, SceneActivity::class.java)
-                        startActivity(intent)
-                        overridePendingTransition(R.anim.scale_up, R.anim.scale_up)
-                        finish()
-                    }
-                }
-            }
-        })
+
+        val adapter = RecyclerAdapter(dataList)
         binding.gamesContainer.adapter = adapter
         binding.gamesContainer.layoutManager = layoutManager
         layoutManager.spanSizeLookup = SpanSizeLookup(adapter)
+
+        adapter.setOnItemClickListener(object : RecyclerAdapter.OnItemClickListener {
+            override fun onItemClick(item: Any) {
+                val intent = Intent(this@MenuActivity, SceneActivity::class.java)
+                intent.putExtra(
+                    "nameGame", when (item) {
+                        is LargeData -> item.nameGame
+                        is SmallData -> item.nameGame
+                        else -> ""
+                    }
+                )
+                startActivity(intent)
+                overridePendingTransition(R.anim.scale_up, R.anim.scale_up)
+                finish()
+            }
+        })
     }
 
     private fun checkUserSignIn() {
@@ -95,6 +96,18 @@ class MenuActivity : AppCompatActivity() {
             // change image on statusLevel
             binding.btnRegister.setImageResource(R.drawable.status_level)
             binding.btnRegister.isClickable = false
+            binding.btnRegister.isFocusable = false
+            binding.btnRegister.isEnabled = false
+            // change block games
+            dataList = listOf(
+                LargeData(R.drawable.item_large, "Rome&Egypt"),
+                SmallData(R.drawable.item_large2, "HelioPOPolis"),
+                SmallData(R.drawable.item_small, "Cleo'sBook"),
+                LargeData(R.drawable.item_small3, "FortunePlay"),
+                SmallData(R.drawable.item_large3, "EgyptPlay"),
+                SmallData(R.drawable.item_small2, "SunGoddess"),
+                LargeData(R.drawable.item_large4, "Mysterious")
+            )
         }
     }
 

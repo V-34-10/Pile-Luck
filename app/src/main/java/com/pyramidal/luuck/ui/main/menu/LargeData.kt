@@ -1,3 +1,6 @@
 package com.pyramidal.luuck.ui.main.menu
 
-data class LargeData(val imageResId: Int)
+data class LargeData(
+    val imageResId: Int,
+    val nameGame: String
+)

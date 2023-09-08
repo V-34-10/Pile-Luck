@@ -3,13 +3,12 @@ package com.pyramidal.luuck.ui.main.menu
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.ItemLargeBinding
 import com.pyramidal.luuck.databinding.ItemSmallBinding
 
-class RecyclerAdapter(private val dataList: List<Any>, private val clickListener: OnItemClickListener) :
+class RecyclerAdapter(private val dataList: List<Any>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object {
         const val VIEW_TYPE_SMALL = 1
@@ -85,6 +84,16 @@ class RecyclerAdapter(private val dataList: List<Any>, private val clickListener
         fun bind(smallData: SmallData) {
             bindingSmall.imageViewSmall.setImageResource(smallData.imageResId)
         }
+
+       /* init {
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val item = dataList[position]
+                    clickListener.onItemClick(item)
+                }
+            }
+        }*/
     }
 
     inner class LargeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -92,5 +101,15 @@ class RecyclerAdapter(private val dataList: List<Any>, private val clickListener
         fun bind(largeData: LargeData) {
             bindingLarge.imageViewLarge.setImageResource(largeData.imageResId)
         }
+
+        /*init {
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val item = dataList[position]
+                    clickListener.onItemClick(item)
+                }
+            }
+        }*/
     }
 }

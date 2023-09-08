@@ -9,9 +9,11 @@
         android:layout_width="match_parent"
         android:layout_margin="15dp"
         android:layout_height="0dp"
+        android:clickable="true"
         android:src="@drawable/item_large"
         android:contentDescription="@string/small"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:focusable="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

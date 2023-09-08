@@ -44,20 +44,37 @@ class PhoneFragment : Fragment() {
             setFullPhone()
         }
         binding.btnPlay.setOnClickListener {
-            setFullPhone()
             binding.btnPlay.startAnimation(animation)
-            if (isPhoneValid(fullPhoneNumber)) {
+            val selectedCountryCode = binding.codeCountry.selectedCountryCode
+            val phoneNumber = binding.phoneNumber.text.toString().trim()
+            val fullPhoneNumber = selectedCountryCode + phoneNumber
+
+            if (phoneNumber.isEmpty()) {
+                Toast.makeText(
+                    context,
+                    "Phone number cannot be empty",
+                    Toast.LENGTH_LONG
+                ).show()
+                return@setOnClickListener
+            }else if (hasConsecutiveDigits(fullPhoneNumber)) {
+                Toast.makeText(
+                    context,
+                    "Invalid phone: $fullPhoneNumber (consecutive digits not allowed)",
+                    Toast.LENGTH_LONG
+                ).show()
+                return@setOnClickListener
+            } else if (isPhoneValid(fullPhoneNumber)) {
                 savePhoneToSharedPreferences(fullPhoneNumber)
+                loadingNextActivity()
             } else {
                 Toast.makeText(
                     context,
                     "Invalid phone: $fullPhoneNumber correct format: +380 ${context?.getString(R.string.phone_hint)}",
                     Toast.LENGTH_LONG
                 ).show()
-                return@setOnClickListener
             }
+
             loadingNextActivity()
-            requireActivity().finish()
         }
         binding.btnBack.setOnClickListener {
             binding.btnBack.startAnimation(animation)
@@ -67,11 +84,19 @@ class PhoneFragment : Fragment() {
 
     private fun setFullPhone() {
         countryCode = binding.codeCountry.selectedCountryCode
-        phoneNumber = binding.phoneNumber.text.toString()
+        phoneNumber = binding.phoneNumber.text.toString().trim()
         fullPhoneNumber = countryCode + phoneNumber
     }
 
+    private fun hasConsecutiveDigits(phoneNumber: String): Boolean {
+        val consecutiveDigitsPattern = "(\\d)\\1{5,}"
+        val regex = Regex(consecutiveDigitsPattern)
+        return regex.containsMatchIn(phoneNumber)
+    }
     private fun isPhoneValid(phone: String): Boolean {
+        if (hasConsecutiveDigits(phone)) {
+            return false
+        }
         val pattern = Patterns.PHONE// check phone
         return pattern.matcher(phone).matches()
     }
@@ -88,5 +113,6 @@ class PhoneFragment : Fragment() {
         val go = Intent(activity, MenuActivity::class.java)
         startActivity(go)
         fragmentManager?.beginTransaction()?.remove(this)?.commit()
+        requireActivity().finish()
     }
 }

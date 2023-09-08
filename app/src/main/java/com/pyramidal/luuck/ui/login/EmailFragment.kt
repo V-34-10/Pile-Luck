@@ -50,7 +50,7 @@ class EmailFragment : Fragment() {
             }
             loadingNextActivity()
 
-            requireActivity().finish()
+
         }
         binding.btnBack.setOnClickListener {
             binding.btnBack.startAnimation(animation)
@@ -59,8 +59,8 @@ class EmailFragment : Fragment() {
     }
 
     private fun isEmailValid(email: String): Boolean {
-        val pattern = Patterns.EMAIL_ADDRESS // check email
-        return pattern.matcher(email).matches()
+        val regexPattern = "^[A-Za-z0-9+_.-]+@(.+)\$".toRegex()
+        return regexPattern.matches(email)
     }
 
     private fun saveEmailToSharedPreferences(email: String) {
@@ -75,5 +75,6 @@ class EmailFragment : Fragment() {
         val go = Intent(activity, MenuActivity::class.java)
         startActivity(go)
         fragmentManager?.beginTransaction()?.remove(this)?.commit()
+        requireActivity().finish()
     }
 }

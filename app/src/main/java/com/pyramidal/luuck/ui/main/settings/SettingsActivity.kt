@@ -3,6 +3,7 @@ package com.pyramidal.luuck.ui.main.settings
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ArgbEvaluator
+import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Context
@@ -96,13 +97,12 @@ class SettingsActivity : AppCompatActivity() {
 
     private fun startOvalAnimations(progressBar: ViewGroup) {
         if (isAnimating) {
-            // Якщо вже відбувається анімація, зупиніть її і зменшіть гучність музики
             stopOvalAnimations(progressBar)
-            decreaseVolume()
+            //decreaseVolume()
         } else {
             isAnimating = true
             animateOvalsSequentially(progressBar)
-            increaseVolume()
+            //increaseVolume()
         }
     }
 
@@ -153,7 +153,7 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("DiscouragedApi")
+    @SuppressLint("DiscouragedApi", "ObjectAnimatorBinding")
     private fun animateOvalsSequentially(progressBarLayout: ViewGroup) {
         if (currentOvalIndex > 12) {
             decreaseVolume()
@@ -161,20 +161,26 @@ class SettingsActivity : AppCompatActivity() {
             return
         }
 
-        val ovalView = createOvalView()
+        val ovalId = resources.getIdentifier("oval$currentOvalIndex", "id", packageName)
+        val ovalView = progressBarLayout.findViewById<View>(ovalId)
         val whiteColor = ContextCompat.getColor(this, R.color.white)
-        progressBarLayout.addView(ovalView)
+        val startColor = ContextCompat.getColor(this, R.color.startColorGradient)
 
-        val colorAnimator = createColorAnimator(ovalView, whiteColor)
+        val colorAnimator = ObjectAnimator.ofObject(
+            ovalView.background, "color", ArgbEvaluator(), startColor, whiteColor
+        )
+        colorAnimator.duration = 200
         colorAnimator.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator) {
                 currentOvalIndex++
-                animateOvalsSequentially(progressBarLayout) // Запустити анімацію наступного овала
+                animateOvalsSequentially(progressBarLayout)
             }
         })
 
         colorAnimator.start()
     }
+
+
 
     private fun animateToWhite(progressBarLayout: ViewGroup) {
         val whiteColor = ContextCompat.getColor(this, R.color.white)
@@ -201,7 +207,7 @@ class SettingsActivity : AppCompatActivity() {
         return colorAnimator
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
+    /*@SuppressLint("UseCompatLoadingForDrawables")
     private fun createOvalView(): View {
         val ovalView = View(this)
         ovalView.layoutParams = ViewGroup.LayoutParams(
@@ -212,5 +218,5 @@ class SettingsActivity : AppCompatActivity() {
         ovalDrawable.setColor(resources.getColor(R.color.startColorGradient))
         ovalView.background = ovalDrawable
         return ovalView
-    }
+    }*/
 }
