@@ -21,11 +21,14 @@ import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.pyramidal.luuck.R
+import com.pyramidal.luuck.databinding.ActivityMenuBinding
 import com.pyramidal.luuck.databinding.SettingsActivityBinding
 import com.pyramidal.luuck.ui.main.menu.MenuActivity
+import com.pyramidal.luuck.utils.HideUIConfigUtils
 
 class SettingsActivity : AppCompatActivity() {
     private val binding by lazy { SettingsActivityBinding.inflate(layoutInflater) }
+    private val bindingMenu by lazy { ActivityMenuBinding.inflate(layoutInflater) }
     private lateinit var sharedPref: SharedPreferences
     private var isAnimating = false
     private var currentOvalIndex = 1
@@ -35,6 +38,7 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val view = binding.root
         setContentView(view)
+        HideUIConfigUtils.hideUINavigation(this)
         startStateBar()
         controlButton()
         audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
@@ -57,28 +61,31 @@ class SettingsActivity : AppCompatActivity() {
             val editor = sharedPref.edit()
             editor.clear()
             editor.apply()
+            // change block games
+            bindingMenu.gameThree.setImageResource(R.drawable.item_small_block)
+            bindingMenu.gameFour.setImageResource(R.drawable.item_small3_block)
         }
         binding.textResetScore.setOnClickListener {
             binding.textResetScore.startAnimation(animation)
             //TODO score clean
         }
         binding.soundBar.progressBarLayout.setOnClickListener {
-            if (isAnimating) {
+            /*if (isAnimating) {
                 stopOvalAnimations(binding.soundBar.progressBarLayout)
                 decreaseVolume()
             } else {
                 startOvalAnimations(binding.soundBar.progressBarLayout)
                 increaseVolume()
-            }
+            }*/
         }
         binding.vibrationBar.progressBarLayout.setOnClickListener {
-            if (isAnimating) {
+            /*if (isAnimating) {
                 stopOvalAnimations(binding.vibrationBar.progressBarLayout)
                 decreaseVibration()
             } else {
                 startOvalAnimations(binding.vibrationBar.progressBarLayout)
                 increaseVibration()
-            }
+            }*/
         }
     }
 
@@ -95,7 +102,7 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-    private fun startOvalAnimations(progressBar: ViewGroup) {
+   /* private fun startOvalAnimations(progressBar: ViewGroup) {
         if (isAnimating) {
             stopOvalAnimations(progressBar)
             //decreaseVolume()
@@ -181,7 +188,6 @@ class SettingsActivity : AppCompatActivity() {
     }
 
 
-
     private fun animateToWhite(progressBarLayout: ViewGroup) {
         val whiteColor = ContextCompat.getColor(this, R.color.white)
 
@@ -205,7 +211,7 @@ class SettingsActivity : AppCompatActivity() {
         }
         colorAnimator.duration = 200
         return colorAnimator
-    }
+    }*/
 
     /*@SuppressLint("UseCompatLoadingForDrawables")
     private fun createOvalView(): View {

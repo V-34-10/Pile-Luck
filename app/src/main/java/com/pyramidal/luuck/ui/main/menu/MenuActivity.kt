@@ -16,7 +16,7 @@ import com.pyramidal.luuck.utils.HideUIConfigUtils
 class MenuActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMenuBinding.inflate(layoutInflater) }
     private lateinit var sharedPref: SharedPreferences
-    private var dataList = listOf(
+    /*private var dataList = listOf(
         LargeData(R.drawable.item_large, "Rome&Egypt"),
         SmallData(R.drawable.item_large2, "HelioPOPolis"),
         SmallData(R.drawable.item_small_block, "Cleo'sBook"),
@@ -24,6 +24,13 @@ class MenuActivity : AppCompatActivity() {
         SmallData(R.drawable.item_large3, "EgyptPlay"),
         SmallData(R.drawable.item_small2, "SunGoddess"),
         LargeData(R.drawable.item_large4, "Mysterious")
+    )*/
+    private var dataGameNameList = listOf(
+        "RomeEgypt",
+        "HelioPOPolis",
+        "Cleo'sBook",
+        "FortunePlay",
+        "EgyptPlay"
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,12 +39,12 @@ class MenuActivity : AppCompatActivity() {
         setContentView(view)
         HideUIConfigUtils.hideUINavigation(this)
         checkUserSignIn()
-        initRecycler()
+        controlGameButton()
+        //initRecycler()
         controlButton()
     }
 
     private fun controlButton() {
-
         val animation = AnimationUtils.loadAnimation(this, R.anim.scale_up)
         binding.btnExit.setOnClickListener {
             binding.btnExit.startAnimation(animation)
@@ -60,7 +67,28 @@ class MenuActivity : AppCompatActivity() {
         }
     }
 
-    private fun initRecycler() {
+    private fun controlGameButton() {
+        val animation = AnimationUtils.loadAnimation(this, R.anim.scale_up)
+
+        val buttonList = listOf(
+            binding.gameFirst,
+            binding.gameSecond,
+            binding.gameThree,
+            binding.gameFour,
+            binding.gameFife
+        )
+
+        for ((index, button) in buttonList.withIndex()) {
+            button.setOnClickListener {
+                it.startAnimation(animation)
+                val go = Intent(this@MenuActivity, SceneActivity::class.java)
+                go.putExtra("name_game", dataGameNameList[index])
+                finish()
+            }
+        }
+    }
+
+    /*private fun initRecycler() {
         val spanCount = 2
         val layoutManager = GridLayoutManager(this, spanCount)
 
@@ -86,7 +114,7 @@ class MenuActivity : AppCompatActivity() {
                 finish()
             }
         })
-    }
+    }*/
 
     private fun checkUserSignIn() {
         sharedPref = getSharedPreferences("my_prefs", MODE_PRIVATE)
@@ -99,15 +127,12 @@ class MenuActivity : AppCompatActivity() {
             binding.btnRegister.isFocusable = false
             binding.btnRegister.isEnabled = false
             // change block games
-            dataList = listOf(
-                LargeData(R.drawable.item_large, "Rome&Egypt"),
-                SmallData(R.drawable.item_large2, "HelioPOPolis"),
-                SmallData(R.drawable.item_small, "Cleo'sBook"),
-                LargeData(R.drawable.item_small3, "FortunePlay"),
-                SmallData(R.drawable.item_large3, "EgyptPlay"),
-                SmallData(R.drawable.item_small2, "SunGoddess"),
-                LargeData(R.drawable.item_large4, "Mysterious")
-            )
+            binding.gameThree.setImageResource(R.drawable.item_small)
+            binding.gameThree.isClickable = false
+            binding.gameThree.isFocusable = false
+            binding.gameFour.setImageResource(R.drawable.item_small3)
+            binding.gameFour.isClickable = false
+            binding.gameFour.isFocusable = false
         }
     }
 

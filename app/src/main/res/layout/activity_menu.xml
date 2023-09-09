@@ -57,16 +57,123 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/games_container"
-        android:layout_width="match_parent"
+
+    <ScrollView
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:orientation="vertical"
-        android:scaleType="centerCrop"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phone_control" />
+        app:layout_constraintTop_toBottomOf="@+id/phone_control">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/games_container"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/phone_control">
+
+
+            <ImageView
+                android:id="@+id/game_first"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/dp10"
+                android:clickable="true"
+                android:contentDescription="@string/btn_game_first"
+                android:focusable="true"
+                android:src="@drawable/item_large"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/games_container_middle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/game_first">
+
+                <ImageView
+                    android:id="@+id/game_second"
+                    android:layout_width="190dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="@dimen/dp10"
+                    android:clickable="true"
+                    android:contentDescription="@string/btn_game_second"
+                    android:focusable="true"
+                    android:src="@drawable/item_large2"
+                    app:layout_constraintEnd_toStartOf="@+id/game_three"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/game_three"
+                    android:layout_width="175dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="@dimen/dp10"
+                    android:contentDescription="@string/btn_game_three"
+                    android:src="@drawable/item_small_block"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/game_four"
+                    android:layout_width="175dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="@dimen/dp10"
+                    android:contentDescription="@string/btn_game_four"
+                    android:src="@drawable/item_small3_block"
+                    app:layout_constraintBottom_toBottomOf="@+id/game_second"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <ImageView
+                    android:id="@+id/game_fife"
+                    android:layout_width="250dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="@dimen/dp10"
+                    android:clickable="true"
+                    android:contentDescription="@string/btn_game_fife"
+                    android:focusable="true"
+                    android:src="@drawable/item_large3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/game_second" />
+
+                <ImageView
+                    android:id="@+id/game_six"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_margin="@dimen/dp10"
+                    android:clickable="true"
+                    android:contentDescription="@string/btn_game_six"
+                    android:focusable="true"
+                    android:src="@drawable/item_small2"
+                    app:layout_constraintBottom_toBottomOf="@+id/game_fife"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <ImageView
+                android:id="@+id/btn_game_seven"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/dp10"
+                android:clickable="true"
+                android:contentDescription="@string/btn_game_seven"
+                android:focusable="true"
+                android:src="@drawable/item_large4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/games_container_middle" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

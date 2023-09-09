@@ -59,5 +59,18 @@
     <string name="title_vibration">Vibration</string>
     <string name="title_reset_score"><u>Reset \nscore</u></string>
     <string name="title_remove_account"><u>Remove\naccount</u></string>
+    <!-- ActivityScene  -->
+    <string name="btn_game_first">btn_game_first</string>
+    <string name="btn_game_second">btn_game_second</string>
+    <string name="btn_game_three">btn_game_three</string>
+    <string name="btn_game_four">btn_game_four</string>
+    <string name="btn_game_fife">btn_game_fife</string>
+    <string name="btn_game_six">btn_game_six</string>
+    <string name="btn_game_seven">btn_game_seven</string>
+    <string name="title_game_first">RomeEgypt</string>
+    <string name="title_game_second">HelioPOPolis</string>
+    <string name="title_game_three">"Cleo'sBook"</string>
+    <string name="title_game_four">"FortunePlay"</string>
+    <string name="title_game_fife">"EgyptPlay"</string>
 
 </resources>
