@@ -16,15 +16,6 @@ import com.pyramidal.luuck.utils.HideUIConfigUtils
 class MenuActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMenuBinding.inflate(layoutInflater) }
     private lateinit var sharedPref: SharedPreferences
-    /*private var dataList = listOf(
-        LargeData(R.drawable.item_large, "Rome&Egypt"),
-        SmallData(R.drawable.item_large2, "HelioPOPolis"),
-        SmallData(R.drawable.item_small_block, "Cleo'sBook"),
-        LargeData(R.drawable.item_small3_block, "FortunePlay"),
-        SmallData(R.drawable.item_large3, "EgyptPlay"),
-        SmallData(R.drawable.item_small2, "SunGoddess"),
-        LargeData(R.drawable.item_large4, "Mysterious")
-    )*/
     private var dataGameNameList = listOf(
         "RomeEgypt",
         "HelioPOPolis",
@@ -40,7 +31,6 @@ class MenuActivity : AppCompatActivity() {
         HideUIConfigUtils.hideUINavigation(this)
         checkUserSignIn()
         controlGameButton()
-        //initRecycler()
         controlButton()
     }
 
@@ -83,38 +73,11 @@ class MenuActivity : AppCompatActivity() {
                 it.startAnimation(animation)
                 val go = Intent(this@MenuActivity, SceneActivity::class.java)
                 go.putExtra("name_game", dataGameNameList[index])
+                startActivity(go)
                 finish()
             }
         }
     }
-
-    /*private fun initRecycler() {
-        val spanCount = 2
-        val layoutManager = GridLayoutManager(this, spanCount)
-
-
-
-        val adapter = RecyclerAdapter(dataList)
-        binding.gamesContainer.adapter = adapter
-        binding.gamesContainer.layoutManager = layoutManager
-        layoutManager.spanSizeLookup = SpanSizeLookup(adapter)
-
-        adapter.setOnItemClickListener(object : RecyclerAdapter.OnItemClickListener {
-            override fun onItemClick(item: Any) {
-                val intent = Intent(this@MenuActivity, SceneActivity::class.java)
-                intent.putExtra(
-                    "nameGame", when (item) {
-                        is LargeData -> item.nameGame
-                        is SmallData -> item.nameGame
-                        else -> ""
-                    }
-                )
-                startActivity(intent)
-                overridePendingTransition(R.anim.scale_up, R.anim.scale_up)
-                finish()
-            }
-        })
-    }*/
 
     private fun checkUserSignIn() {
         sharedPref = getSharedPreferences("my_prefs", MODE_PRIVATE)
