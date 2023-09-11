@@ -1,24 +1,24 @@
 package com.pyramidal.luuck.ui.main.settings
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.animation.ArgbEvaluator
-import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
-import android.annotation.SuppressLint
+import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.graphics.drawable.GradientDrawable
 import android.media.AudioManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.provider.Settings
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.ActivityMenuBinding
@@ -30,19 +30,19 @@ class SettingsActivity : AppCompatActivity() {
     private val binding by lazy { SettingsActivityBinding.inflate(layoutInflater) }
     private val bindingMenu by lazy { ActivityMenuBinding.inflate(layoutInflater) }
     private lateinit var sharedPref: SharedPreferences
-    private var isAnimating = false
-    private var currentOvalIndex = 1
-    private lateinit var audioManager: AudioManager
-    private lateinit var vibrator: Vibrator
+    private val audioManager by lazy { getSystemService(Context.AUDIO_SERVICE) as AudioManager }
+    private var previousVolume: Int = 0
+    private val vibrator by lazy { getSystemService(Context.VIBRATOR_SERVICE) as Vibrator }
+    private var isSoundOn = false
+    private var isVibrationOn = false
+    private val MY_PERMISSIONS_REQUEST_AUDIO_SETTINGS = 123
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val view = binding.root
         setContentView(view)
         HideUIConfigUtils.hideUINavigation(this)
-        startStateBar()
+        initializeBars()
         controlButton()
-        audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
-        vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
     }
 
     private fun controlButton() {
@@ -69,160 +69,113 @@ class SettingsActivity : AppCompatActivity() {
             binding.textResetScore.startAnimation(animation)
             //TODO score clean
         }
+    }
+
+    private fun initializeBars() {
+        setOvalColor(isSoundOn, binding.soundBar.progressBarLayout)
+        setOvalColor(isVibrationOn, binding.vibrationBar.progressBarLayout)
+
         binding.soundBar.progressBarLayout.setOnClickListener {
-            /*if (isAnimating) {
-                stopOvalAnimations(binding.soundBar.progressBarLayout)
-                decreaseVolume()
-            } else {
-                startOvalAnimations(binding.soundBar.progressBarLayout)
-                increaseVolume()
-            }*/
+            toggleSound()
         }
+
         binding.vibrationBar.progressBarLayout.setOnClickListener {
-            /*if (isAnimating) {
-                stopOvalAnimations(binding.vibrationBar.progressBarLayout)
-                decreaseVibration()
-            } else {
-                startOvalAnimations(binding.vibrationBar.progressBarLayout)
-                increaseVibration()
-            }*/
+            toggleVibration()
         }
     }
 
-    private fun startStateBar() {
-        val ovalIds = arrayOf(
-            R.id.oval1, R.id.oval2, R.id.oval3, R.id.oval4, R.id.oval5, R.id.oval6
-        )
-
-        for (i in 0 until 6) {
-            val ovalId = ovalIds[i]
-            val ovalView = findViewById<View>(ovalId)
-            val ovalDrawable = ovalView.background as GradientDrawable
-            ovalDrawable.setColor(resources.getColor(R.color.startColorGradient))
-        }
-    }
-
-   /* private fun startOvalAnimations(progressBar: ViewGroup) {
-        if (isAnimating) {
-            stopOvalAnimations(progressBar)
-            //decreaseVolume()
+    private fun toggleSound() {
+        isSoundOn = !isSoundOn
+        if (isSoundOn) {
+            enableSystemSound()
         } else {
-            isAnimating = true
-            animateOvalsSequentially(progressBar)
-            //increaseVolume()
+            disableSystemSound()
         }
+        setOvalColor(isSoundOn, binding.soundBar.progressBarLayout)
     }
 
-    private fun stopOvalAnimations(progressBar: ViewGroup) {
-        isAnimating = false
-        currentOvalIndex = 0
-        progressBar.removeAllViews()
-    }
-
-    private fun increaseVolume() {
-        val currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
-        val maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
-
-        val newVolume = currentVolume + 1
-        if (newVolume <= maxVolume) {
-            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, newVolume, 0)
-        }
-    }
-
-    private fun decreaseVolume() {
-        val currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
-
-        val newVolume = currentVolume - 1
-        if (newVolume >= 0) {
-            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, newVolume, 0)
-        }
-    }
-
-    private fun increaseVibration() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && vibrator.hasAmplitudeControl()) {
-            vibrator.vibrate(
-                VibrationEffect.createOneShot(
-                    100,
-                    VibrationEffect.DEFAULT_AMPLITUDE + 1
-                )
-            )
-        }
-    }
-
-    private fun decreaseVibration() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && vibrator.hasAmplitudeControl()) {
-            vibrator.vibrate(
-                VibrationEffect.createOneShot(
-                    100,
-                    VibrationEffect.DEFAULT_AMPLITUDE - 1
-                )
-            )
-        }
-    }
-
-    @SuppressLint("DiscouragedApi", "ObjectAnimatorBinding")
-    private fun animateOvalsSequentially(progressBarLayout: ViewGroup) {
-        if (currentOvalIndex > 12) {
-            decreaseVolume()
-            animateToWhite(progressBarLayout)
-            return
-        }
-
-        val ovalId = resources.getIdentifier("oval$currentOvalIndex", "id", packageName)
-        val ovalView = progressBarLayout.findViewById<View>(ovalId)
-        val whiteColor = ContextCompat.getColor(this, R.color.white)
-        val startColor = ContextCompat.getColor(this, R.color.startColorGradient)
-
-        val colorAnimator = ObjectAnimator.ofObject(
-            ovalView.background, "color", ArgbEvaluator(), startColor, whiteColor
-        )
-        colorAnimator.duration = 200
-        colorAnimator.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator) {
-                currentOvalIndex++
-                animateOvalsSequentially(progressBarLayout)
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            MY_PERMISSIONS_REQUEST_AUDIO_SETTINGS -> {
+                if (grantResults.isNotEmpty() &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED
+                ) {
+                    toggleSound()
+                } else {
+                    val alertDialog = AlertDialog.Builder(this)
+                    alertDialog.setTitle("Дозвіл на зміну звуку")
+                    alertDialog.setMessage(
+                        "Для використання цієї функції потрібно надати дозвіл на зміну звуку. " +
+                                "Без цього дозволу функціональність може бути обмежено. " +
+                                "Для надання дозволу перейдіть до налаштувань пристрою."
+                    )
+                    alertDialog.setPositiveButton("Перейти до налаштувань") { _, _ ->
+                        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                        val uri = Uri.fromParts("package", packageName, null)
+                        intent.data = uri
+                        startActivity(intent)
+                    }
+                    alertDialog.setNegativeButton("Закрити") { _, _ ->
+                        closeContextMenu()
+                    }
+                    alertDialog.show()
+                }
+                return
             }
-        })
-
-        colorAnimator.start()
+        }
     }
 
+    private fun toggleVibration() {
+        isVibrationOn = !isVibrationOn
+        if (isVibrationOn) {
+            enableSystemVibration()
+        } else {
+            disableSystemVibration()
+        }
+        setOvalColor(isVibrationOn, binding.vibrationBar.progressBarLayout)
+    }
 
-    private fun animateToWhite(progressBarLayout: ViewGroup) {
-        val whiteColor = ContextCompat.getColor(this, R.color.white)
-
-        for (i in currentOvalIndex until 12) {
+    private fun setOvalColor(isActive: Boolean, progressBar: ViewGroup) {
+        val ovalColor = if (isActive) {
+            resources.getColor(R.color.startColorGradient)
+        } else {
+            resources.getColor(R.color.white)
+        }
+        for (i in 1..12) {
             val ovalId = resources.getIdentifier("oval$i", "id", packageName)
-            val ovalView = progressBarLayout.findViewById<View>(ovalId)
-            val colorAnimator = createColorAnimator(ovalView, whiteColor)
-            colorAnimator.duration = 200
-            colorAnimator.start()
+            val ovalView = progressBar.findViewById<View>(ovalId)
+            val ovalDrawable = ovalView.background as GradientDrawable
+            ovalDrawable.setColor(ovalColor)
         }
     }
 
-    private fun createColorAnimator(view: View, toColor: Int): ValueAnimator {
-        val colorFrom = resources.getColor(R.color.startColorGradient)
+    private fun enableSystemSound() {
+        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, previousVolume, 0)
+    }
 
-        val colorAnimator = ValueAnimator.ofObject(ArgbEvaluator(), colorFrom, toColor)
-        colorAnimator.addUpdateListener { animator ->
-            val color = animator.animatedValue as Int
-            val ovalDrawable = view.background as GradientDrawable
-            ovalDrawable.setColor(color)
+    private fun disableSystemSound() {
+        previousVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
+        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0)
+    }
+
+    private fun enableSystemVibration() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibrator.vibrate(
+                VibrationEffect.createOneShot(
+                    1000,
+                    VibrationEffect.DEFAULT_AMPLITUDE
+                )
+            )
+        } else {
+            vibrator.vibrate(1000)
         }
-        colorAnimator.duration = 200
-        return colorAnimator
-    }*/
+    }
 
-    /*@SuppressLint("UseCompatLoadingForDrawables")
-    private fun createOvalView(): View {
-        val ovalView = View(this)
-        ovalView.layoutParams = ViewGroup.LayoutParams(
-            resources.getDimensionPixelSize(R.dimen.oval_width),
-            resources.getDimensionPixelSize(R.dimen.oval_height)
-        )
-        val ovalDrawable = resources.getDrawable(R.drawable.ellipse) as GradientDrawable
-        ovalDrawable.setColor(resources.getColor(R.color.startColorGradient))
-        ovalView.background = ovalDrawable
-        return ovalView
-    }*/
+    private fun disableSystemVibration() {
+        vibrator.cancel()
+    }
 }
