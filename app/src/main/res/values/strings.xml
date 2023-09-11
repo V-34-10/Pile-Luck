@@ -2,7 +2,6 @@
     <!-- ActivitySplash -->
     <string name="app_name">Pyramide Luck</string>
     <string name="loading_text">Loading</string>
-
     <!-- ActivityLogin -->
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
@@ -59,7 +58,7 @@
     <string name="title_vibration">Vibration</string>
     <string name="title_reset_score"><u>Reset \nscore</u></string>
     <string name="title_remove_account"><u>Remove\naccount</u></string>
-    <!-- ActivityScene  -->
+    <!-- ActivityMenu  -->
     <string name="btn_game_first">btn_game_first</string>
     <string name="btn_game_second">btn_game_second</string>
     <string name="btn_game_three">btn_game_three</string>
@@ -67,10 +66,16 @@
     <string name="btn_game_fife">btn_game_fife</string>
     <string name="btn_game_six">btn_game_six</string>
     <string name="btn_game_seven">btn_game_seven</string>
+    <!-- ActivityScene  -->
     <string name="title_game_first">RomeEgypt</string>
     <string name="title_game_second">HelioPOPolis</string>
     <string name="title_game_three">"Cleo'sBook"</string>
     <string name="title_game_four">"FortunePlay"</string>
     <string name="title_game_fife">"EgyptPlay"</string>
+    <string name="title_win">WIN 1000</string>
+    <string name="title_total">Total 1000</string>
+    <string name="title_bid">1000</string>
+    <string name="btn_minus">btn_minus</string>
+    <string name="btn_spin">btn_spin</string>
 
 </resources>

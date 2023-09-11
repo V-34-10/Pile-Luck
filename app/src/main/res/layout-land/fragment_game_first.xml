@@ -3,6 +3,132 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background_first_game_land"
     tools:context=".ui.main.scene.GameFirstFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/status_game"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/text_win"
+            android:layout_width="@dimen/dp175"
+            android:layout_height="0dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginEnd="35dp"
+            android:background="@drawable/text_background"
+            android:fontFamily="@font/alumni_sans_inline_one"
+            android:padding="@dimen/dp10"
+            android:text="@string/title_win"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_textDescription"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_total"
+            android:layout_width="@dimen/dp175"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="35dp"
+            android:background="@drawable/text_background"
+            android:fontFamily="@font/alumni_sans_inline_one"
+            android:padding="@dimen/dp10"
+            android:text="@string/title_total"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_textDescription"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_win" />
+
+        <ImageView
+            android:id="@+id/btn_spin"
+            android:layout_width="@dimen/dp175"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="150dp"
+            android:clickable="true"
+            android:contentDescription="@string/btn_spin"
+            android:focusable="true"
+            android:src="@drawable/btn_spin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_total"
+            tools:ignore="ImageContrastCheck" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/sceneGame"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/dp75"
+        android:background="@drawable/container_slots_game"
+        android:orientation="vertical"
+        android:padding="@dimen/dp20"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/control_game"
+        app:layout_constraintEnd_toStartOf="@+id/status_game"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/control_game"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/dp10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/status_game"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/btn_minus"
+            android:layout_width="90dp"
+            android:layout_height="72dp"
+            android:clickable="true"
+            android:contentDescription="@string/btn_minus"
+            android:focusable="true"
+            android:src="@drawable/btn_minus"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="ImageContrastCheck" />
+
+        <ImageView
+            android:id="@+id/btn_plus"
+            android:layout_width="@dimen/dp75"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:clickable="true"
+            android:contentDescription="@string/btn_exit"
+            android:focusable="true"
+            android:src="@drawable/btn_plus"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/text_bid"
+            tools:ignore="ImageContrastCheck" />
+
+        <TextView
+            android:id="@+id/text_bid"
+            android:layout_width="@dimen/dp175"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/text_background"
+            android:fontFamily="@font/alumni_sans_inline_one"
+            android:padding="@dimen/dp10"
+            android:text="@string/title_bid"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_textDescription"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_minus" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

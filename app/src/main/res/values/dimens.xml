@@ -26,4 +26,6 @@
     <dimen name="dp0">0dp</dimen>
     <dimen name="oval_width">25dp</dimen>
     <dimen name="oval_height">20dp</dimen>
+    <dimen name="dp20">20dp</dimen>
+    <dimen name="dp100">100dp</dimen>
 </resources>

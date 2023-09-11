@@ -16,4 +16,8 @@ class GameFirstFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_game_first, container, false)
     }
 
+    private fun initSlotsRecycler() {
+
+    }
+
 }

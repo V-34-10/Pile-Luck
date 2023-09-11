@@ -76,7 +76,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/phone_control">
 
-
             <ImageView
                 android:id="@+id/game_first"
                 android:layout_width="match_parent"
