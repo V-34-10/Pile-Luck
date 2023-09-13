@@ -1,5 +1,6 @@
 package com.pyramidal.luuck.ui.main.scene
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,7 +14,7 @@ import com.pyramidal.luuck.databinding.FragmentGameFirstBinding
 
 class GameFirstFragment : Fragment() {
     private lateinit var binding: FragmentGameFirstBinding
-    private var slotDataList = mutableListOf(
+    private var slotFirstList = mutableListOf(
         R.drawable.slot_1,
         R.drawable.slot_2,
         R.drawable.slot_3,
@@ -24,13 +25,25 @@ class GameFirstFragment : Fragment() {
         R.drawable.slot_2,
         R.drawable.slot_3
     )
+    private var slotSecondList = mutableListOf(
+        R.drawable.slot_01,
+        R.drawable.slot_02,
+        R.drawable.slot_03,
+        R.drawable.slot_04,
+        R.drawable.slot_05,
+        R.drawable.slot_01,
+        R.drawable.slot_02,
+        R.drawable.slot_03,
+        R.drawable.slot_04
+    )
     private lateinit var slotItems: List<SlotItem>
     private lateinit var slotAdapter: SlotAdapter
     private var isAnimationInProgress = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentGameFirstBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -64,23 +77,18 @@ class GameFirstFragment : Fragment() {
 
                 override fun onAnimationEnd(animation: Animation?) {
                     isAnimationInProgress = false
-
-
                 }
 
                 override fun onAnimationRepeat(animation: Animation?) {}
             })
             binding.btnSpin.startAnimation(animation)
 
-            slotDataList.shuffle()
-            slotItems = slotDataList.map { SlotItem(it) }
-
+            switchGame()
             slotAdapter.updateData(slotItems)
-            // Перевірка на співпадіння кількості елементів і видимих елементів у RecyclerView
+
             if (slotItems.size == binding.sceneGame.layoutManager?.childCount) {
                 slotAdapter.playSpinAnimation(binding.sceneGame, requireContext())
             } else {
-                // Якщо кількість не співпадає, виконати оновлення після вигляду анімації
                 binding.sceneGame.post {
                     slotAdapter.playSpinAnimation(binding.sceneGame, requireContext())
                 }
@@ -89,8 +97,34 @@ class GameFirstFragment : Fragment() {
         }
     }
 
+    private fun switchGame() {
+        val orientation = resources.configuration.orientation
+        slotItems = slotSecondList.map { SlotItem(it) }
+        when (arguments?.getString("name_game")) {
+            "RomeEgypt" -> {
+                slotFirstList.shuffle()
+                slotItems = slotFirstList.map { SlotItem(it) }
+                if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    binding.backgroundFirstSecondGame.setBackgroundResource(R.drawable.background_first_game_land)
+                } else {
+                    binding.backgroundFirstSecondGame.setBackgroundResource(R.drawable.background_first_game)
+                }
+            }
+
+            "HelioPOPolis" -> {
+                slotSecondList.shuffle()
+                slotItems = slotSecondList.map { SlotItem(it) }
+                if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    binding.backgroundFirstSecondGame.setBackgroundResource(R.drawable.background_second_game_land)
+                } else {
+                    binding.backgroundFirstSecondGame.setBackgroundResource(R.drawable.background_second_game)
+                }
+            }
+        }
+    }
+
     private fun initSlotsRecycler() {
-        slotItems = slotDataList.map { SlotItem(it) }
+        switchGame()
         slotAdapter = SlotAdapter(slotItems)
         binding.sceneGame.apply {
             layoutManager = GridLayoutManager(context, 3)

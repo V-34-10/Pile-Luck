@@ -10,6 +10,7 @@ import com.pyramidal.luuck.utils.HideUIConfigUtils
 
 class SceneActivity : AppCompatActivity() {
     private val binding by lazy { ActivitySceneBinding.inflate(layoutInflater) }
+    val bundle = Bundle()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val view = binding.root
@@ -31,26 +32,30 @@ class SceneActivity : AppCompatActivity() {
         when (nameGame) {
             "RomeEgypt" -> {
                 val fragmentA = GameFirstFragment()
+                bundle.putString("name_game", "RomeEgypt")
+                fragmentA .arguments = bundle
                 fragmentTransaction.replace(R.id.fragment_container, fragmentA)
             }
 
             "HelioPOPolis" -> {
-                val fragmentB = GameSecondFragment()
+                val fragmentB = GameFirstFragment()
+                bundle.putString("name_game", "HelioPOPolis")
+                fragmentB.arguments = bundle
                 fragmentTransaction.replace(R.id.fragment_container, fragmentB)
             }
 
             "Cleo'sBook" -> {
-                val fragmentB = GameSecondFragment()
+                val fragmentB = GameThreeFragment()
                 fragmentTransaction.replace(R.id.fragment_container, fragmentB)
             }
 
             "FortunePlay" -> {
-                val fragmentB = GameSecondFragment()
+                val fragmentB = GameFourFragment()
                 fragmentTransaction.replace(R.id.fragment_container, fragmentB)
             }
 
             "EgyptPlay" -> {
-                val fragmentB = GameSecondFragment()
+                val fragmentB = GameFifeFragment()
                 fragmentTransaction.replace(R.id.fragment_container, fragmentB)
             }
 
