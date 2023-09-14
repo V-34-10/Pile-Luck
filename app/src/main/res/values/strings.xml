@@ -77,5 +77,8 @@
     <string name="title_bid">1000</string>
     <string name="btn_minus">btn_minus</string>
     <string name="btn_spin">btn_spin</string>
+    <string name="arrow_scene">arrow_scene</string>
+    <string name="wheel_scene">wheel_scene</string>
+    <string name="value_total">1000</string>
 
 </resources>
