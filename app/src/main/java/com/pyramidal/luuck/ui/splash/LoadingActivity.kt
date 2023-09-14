@@ -17,7 +17,7 @@ import com.pyramidal.luuck.databinding.ActivitySplashBinding
 import com.pyramidal.luuck.ui.login.LoginActivity
 import com.pyramidal.luuck.ui.main.menu.MenuActivity
 import com.pyramidal.luuck.ui.main.privacy.PrivacyActivity
-import com.pyramidal.luuck.utils.HideUIConfigUtils
+import com.pyramidal.luuck.ui.utils.HideUIConfigUtils
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 

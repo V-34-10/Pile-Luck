@@ -10,7 +10,8 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.pyramidal.luuck.R
-import com.pyramidal.luuck.ui.main.scene.decorator.SlotItemDiffCallback
+import com.pyramidal.luuck.ui.main.scene.model.SlotItem
+import com.pyramidal.luuck.ui.utils.SlotItemDiffCallback
 
 class SlotAdapter (private var dataList: List<SlotItem>) :
     RecyclerView.Adapter<SlotAdapter.SlotViewHolder>() {
@@ -27,6 +28,8 @@ class SlotAdapter (private var dataList: List<SlotItem>) :
     override fun onBindViewHolder(holder: SlotViewHolder, position: Int) {
         val slotItem = dataList[position]
         holder.slotImageView.setImageResource(slotItem.imageResId)
+        val animation = AnimationUtils.loadAnimation(holder.itemView.context, R.anim.slot_animation)
+        holder.itemView.startAnimation(animation)
     }
 
     override fun getItemCount(): Int {
@@ -51,6 +54,7 @@ class SlotAdapter (private var dataList: List<SlotItem>) :
     }
 
     fun playSpinAnimation(recyclerView: RecyclerView, context: Context) {
+        val itemCount = itemCount
         for (i in 0 until itemCount) {
             val holder = recyclerView.findViewHolderForAdapterPosition(i) as? SlotViewHolder
             holder?.let {

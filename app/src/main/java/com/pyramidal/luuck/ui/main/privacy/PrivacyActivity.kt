@@ -8,7 +8,7 @@ import android.view.animation.AnimationUtils
 import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.ActivityPrivacyBinding
 import com.pyramidal.luuck.ui.login.LoginActivity
-import com.pyramidal.luuck.utils.HideUIConfigUtils
+import com.pyramidal.luuck.ui.utils.HideUIConfigUtils
 
 class PrivacyActivity : AppCompatActivity() {
     private val binding by lazy { ActivityPrivacyBinding.inflate(layoutInflater) }

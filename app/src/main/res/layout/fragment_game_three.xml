@@ -1,8 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.scene.GameThreeFragment">
+    android:background="@drawable/background_three_game"
+    tools:context=".ui.main.scene.games.GameThreeFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/status_game"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/text_win"
+            android:layout_width="@dimen/dp175"
+            android:layout_height="0dp"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/text_background_three_game"
+            android:fontFamily="@font/alumni_sans_inline_one"
+            android:padding="@dimen/dp10"
+            android:text="@string/title_win"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_textDescription"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_total"
+            android:layout_width="@dimen/dp175"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/text_background_three_game"
+            android:fontFamily="@font/alumni_sans_inline_one"
+            android:padding="@dimen/dp10"
+            android:text="@string/title_total"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_textDescription"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/text_win"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/scene_wheel"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/control_game"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/status_game">
+
+        <ImageView
+            android:id="@+id/wheel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="@string/wheel_scene"
+            android:src="@drawable/drum"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/arrow_scene"
+            android:src="@drawable/drum_arrow"
+            app:layout_constraintBottom_toBottomOf="@+id/wheel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/wheel"
+            app:layout_constraintTop_toTopOf="@+id/wheel" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/control_game"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/btn_minus"
+            android:layout_width="@dimen/dp75"
+            android:layout_height="0dp"
+            android:clickable="true"
+            android:contentDescription="@string/btn_minus"
+            android:focusable="true"
+            android:src="@drawable/btn_minus_three_game"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ImageContrastCheck" />
+
+        <ImageView
+            android:id="@+id/btn_plus"
+            android:layout_width="@dimen/dp75"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:clickable="true"
+            android:contentDescription="@string/btn_exit"
+            android:focusable="true"
+            android:src="@drawable/btn_plus_three_game"
+            app:layout_constraintStart_toEndOf="@+id/text_bid"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ImageContrastCheck" />
+
+        <TextView
+            android:id="@+id/text_bid"
+            android:layout_width="@dimen/dp175"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/text_background_three_game"
+            android:fontFamily="@font/alumni_sans_inline_one"
+            android:padding="@dimen/dp10"
+            android:text="@string/title_bid"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_textDescription"
+            app:layout_constraintStart_toEndOf="@+id/btn_minus"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/btn_spin"
+            android:layout_width="@dimen/dp175"
+            android:layout_height="0dp"
+            android:clickable="true"
+            android:contentDescription="@string/btn_spin"
+            android:focusable="true"
+            android:src="@drawable/btn_spin_three_game"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_bid"
+            tools:ignore="ImageContrastCheck" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

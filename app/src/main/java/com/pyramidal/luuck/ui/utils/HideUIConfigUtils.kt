@@ -1,4 +1,4 @@
-package com.pyramidal.luuck.utils
+package com.pyramidal.luuck.ui.utils
 
 import android.app.Activity
 import android.view.View

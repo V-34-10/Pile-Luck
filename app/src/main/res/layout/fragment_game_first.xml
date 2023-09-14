@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_first_game"
-    tools:context=".ui.main.scene.GameFirstFragment">
+    tools:context=".ui.main.scene.games.GameFirstFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/status_game"
@@ -111,7 +111,6 @@
             android:textSize="@dimen/size_textDescription"
             app:layout_constraintStart_toEndOf="@+id/btn_minus"
             app:layout_constraintTop_toTopOf="parent" />
-
 
         <ImageView
             android:id="@+id/btn_spin"

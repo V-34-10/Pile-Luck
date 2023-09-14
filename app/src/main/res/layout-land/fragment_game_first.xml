@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_first_game_land"
-    tools:context=".ui.main.scene.GameFirstFragment">
+    tools:context=".ui.main.scene.games.GameFirstFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/status_game"

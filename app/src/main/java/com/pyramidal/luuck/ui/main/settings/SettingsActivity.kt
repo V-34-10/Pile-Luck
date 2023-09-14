@@ -24,7 +24,7 @@ import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.ActivityMenuBinding
 import com.pyramidal.luuck.databinding.SettingsActivityBinding
 import com.pyramidal.luuck.ui.main.menu.MenuActivity
-import com.pyramidal.luuck.utils.HideUIConfigUtils
+import com.pyramidal.luuck.ui.utils.HideUIConfigUtils
 
 class SettingsActivity : AppCompatActivity() {
     private val binding by lazy { SettingsActivityBinding.inflate(layoutInflater) }

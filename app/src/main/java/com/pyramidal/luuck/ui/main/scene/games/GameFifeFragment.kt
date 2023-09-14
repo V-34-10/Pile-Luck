@@ -1,4 +1,4 @@
-package com.pyramidal.luuck.ui.main.scene
+package com.pyramidal.luuck.ui.main.scene.games
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -2,11 +2,13 @@ package com.pyramidal.luuck.ui.main.scene
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import com.pyramidal.luuck.R
-import com.pyramidal.luuck.databinding.ActivityMenuBinding
 import com.pyramidal.luuck.databinding.ActivitySceneBinding
-import com.pyramidal.luuck.utils.HideUIConfigUtils
+import com.pyramidal.luuck.ui.main.scene.games.GameFifeFragment
+import com.pyramidal.luuck.ui.main.scene.games.GameFirstFragment
+import com.pyramidal.luuck.ui.main.scene.games.GameFourFragment
+import com.pyramidal.luuck.ui.main.scene.games.GameThreeFragment
+import com.pyramidal.luuck.ui.utils.HideUIConfigUtils
 
 class SceneActivity : AppCompatActivity() {
     private val binding by lazy { ActivitySceneBinding.inflate(layoutInflater) }

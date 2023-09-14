@@ -1,4 +1,4 @@
-package com.pyramidal.luuck.ui.main.scene
+package com.pyramidal.luuck.ui.main.scene.games
 
 import android.content.res.Configuration
 import android.os.Bundle
@@ -11,6 +11,8 @@ import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.GridLayoutManager
 import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.FragmentGameFirstBinding
+import com.pyramidal.luuck.ui.main.scene.SlotAdapter
+import com.pyramidal.luuck.ui.main.scene.model.SlotItem
 
 class GameFirstFragment : Fragment() {
     private lateinit var binding: FragmentGameFirstBinding
@@ -56,7 +58,7 @@ class GameFirstFragment : Fragment() {
     private fun controlButton() {
         val animation = AnimationUtils.loadAnimation(context, R.anim.scale_up)
         binding.btnSpin.setOnClickListener {
-            if (isAnimationInProgress) {
+            /*if (isAnimationInProgress) {
                 return@setOnClickListener
             }
 
@@ -92,14 +94,66 @@ class GameFirstFragment : Fragment() {
                 binding.sceneGame.post {
                     slotAdapter.playSpinAnimation(binding.sceneGame, requireContext())
                 }
+            }*/
+
+            if (isAnimationInProgress) {
+                return@setOnClickListener
             }
+
+            /*animation.setAnimationListener(object : Animation.AnimationListener {
+                override fun onAnimationStart(animation: Animation?) {
+                    isAnimationInProgress = true
+                }
+
+                override fun onAnimationEnd(animation: Animation?) {
+                    isAnimationInProgress = false
+                }
+
+                override fun onAnimationRepeat(animation: Animation?) {}
+            })
+
+            switchGame()
+            slotAdapter.updateData(slotItems)
+
+            binding.sceneGame.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
+                override fun onPreDraw(): Boolean {
+                    binding.sceneGame.viewTreeObserver.removeOnPreDrawListener(this)
+
+                    if (slotItems.size == binding.sceneGame.layoutManager?.childCount) {
+                        slotAdapter.playSpinAnimation(binding.sceneGame, requireContext())
+                    }
+
+                    return true
+                }
+            })*/
+
+            animation.setAnimationListener(object : Animation.AnimationListener {
+                override fun onAnimationStart(animation: Animation?) {
+                    isAnimationInProgress = true
+                }
+
+                override fun onAnimationEnd(animation: Animation?) {
+                    isAnimationInProgress = false
+                }
+
+                override fun onAnimationRepeat(animation: Animation?) {}
+            })
+
+            switchGame()
+            slotAdapter.updateData(slotItems)
+            slotAdapter.playSpinAnimation(binding.sceneGame, requireContext())
+
+        }
+        binding.btnPlus.setOnClickListener {
+
+        }
+        binding.btnMinus.setOnClickListener {
 
         }
     }
 
     private fun switchGame() {
         val orientation = resources.configuration.orientation
-        slotItems = slotSecondList.map { SlotItem(it) }
         when (arguments?.getString("name_game")) {
             "RomeEgypt" -> {
                 slotFirstList.shuffle()
@@ -124,6 +178,7 @@ class GameFirstFragment : Fragment() {
     }
 
     private fun initSlotsRecycler() {
+        slotItems = slotSecondList.map { SlotItem(it) }
         switchGame()
         slotAdapter = SlotAdapter(slotItems)
         binding.sceneGame.apply {

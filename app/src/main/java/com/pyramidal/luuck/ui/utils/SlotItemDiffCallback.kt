@@ -1,7 +1,7 @@
-package com.pyramidal.luuck.ui.main.scene.decorator
+package com.pyramidal.luuck.ui.utils
 
 import androidx.recyclerview.widget.DiffUtil
-import com.pyramidal.luuck.ui.main.scene.SlotItem
+import com.pyramidal.luuck.ui.main.scene.model.SlotItem
 
 class SlotItemDiffCallback(
     private val oldList: List<SlotItem>,

@@ -7,29 +7,24 @@
 
     <fragment
         android:id="@+id/game_first"
-        android:name="com.pyramidal.luuck.ui.main.scene.GameFirstFragment"
+        android:name="com.pyramidal.luuck.ui.main.scene.games.GameFirstFragment"
         android:label="@string/title_game_first"
         tools:layout="@layout/fragment_game_first" />
     <fragment
-        android:id="@+id/game_second"
-        android:name="com.pyramidal.luuck.ui.main.scene.GameSecondFragment"
-        android:label="@string/title_game_second"
-        tools:layout="@layout/fragment_game_second" />
-    <fragment
         android:id="@+id/game_three"
-        android:name="com.pyramidal.luuck.ui.main.scene.GameThreeFragment"
+        android:name="com.pyramidal.luuck.ui.main.scene.games.GameThreeFragment"
         android:label="@string/title_game_three"
         tools:layout="@layout/fragment_game_three" />
 
     <fragment
         android:id="@+id/game_four"
-        android:name="com.pyramidal.luuck.ui.main.scene.GameFourFragment"
+        android:name="com.pyramidal.luuck.ui.main.scene.games.GameFourFragment"
         android:label="@string/title_game_four"
         tools:layout="@layout/fragment_game_four" />
 
     <fragment
         android:id="@+id/game_fife"
-        android:name="com.pyramidal.luuck.ui.main.scene.GameFifeFragment"
+        android:name="com.pyramidal.luuck.ui.main.scene.games.GameFifeFragment"
         android:label="@string/title_game_fife"
         tools:layout="@layout/fragment_game_fife" />
 
