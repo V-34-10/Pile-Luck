@@ -79,6 +79,7 @@
     <string name="btn_spin">btn_spin</string>
     <string name="arrow_scene">arrow_scene</string>
     <string name="wheel_scene">wheel_scene</string>
-    <string name="value_total">1000</string>
+    <string name="chest_scene">chest_scene</string>
+    <string name="title_landscape">Please switch to landscape mode</string>
 
 </resources>

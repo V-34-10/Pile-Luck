@@ -71,8 +71,8 @@ class GameThreeFragment : Fragment() {
                     currentRotation += randomAngle
                     val degrees = binding.arrow.rotation
                     val coefficient = calculateCoefficient(degrees)
-                    Toast.makeText(requireContext(), coefficient.toString(), Toast.LENGTH_LONG)
-                        .show()
+                    /*Toast.makeText(requireContext(), coefficient.toString(), Toast.LENGTH_LONG)
+                        .show()*/
 
                 }
 
@@ -117,22 +117,19 @@ class GameThreeFragment : Fragment() {
         val normalizedDegrees =
             normalizeDegrees(degrees)  //normalizeDegrees [0, 360]
 
-        return when {
-            (normalizedDegrees in 0f..30f) -> 2f  // 2x
-            (normalizedDegrees in 40f..60f) -> 1.3f  // 1.3x
-            (normalizedDegrees in 80f..90f) -> 1f  // 1x
-
-            (normalizedDegrees in 95f..115f) -> 2f  // 2x
-            (normalizedDegrees in 130f..150f) -> 0f  // 0x
-            (normalizedDegrees in 160f..185f) -> 2f  // 2x
-
-            (normalizedDegrees in 195f..225f) -> 1.3f  // 1.3x
-            (normalizedDegrees in 240f..270f) -> 1f  // 1x
-            (normalizedDegrees in 270f..290f) -> 0f  // 0x
-
-            (normalizedDegrees in 295f..330f) -> 1f  // 1x
-            (normalizedDegrees in 340f..360f) -> 2f  // 2x
-            else -> -1f
+        Toast.makeText(requireContext(), "Normalized Degrees: $normalizedDegrees", Toast.LENGTH_SHORT)
+            .show()
+        return when (normalizedDegrees) {
+            in 0f..10f, in 175f..202f -> 2f // 2x
+            in 15f..48f, in 205f..235f -> 1.3f // 1.3x
+            in 50f..90f, in 240f..270f -> 1f // 1x
+            in 95f..130f, in 337f..360f -> 2f // 2x
+            in 130f..150f, in 270f..290f -> 0f // 0x
+            else -> {
+                Toast.makeText(requireContext(), "Invalid normalizedDegrees: $normalizedDegrees", Toast.LENGTH_SHORT)
+                    .show()
+                -1f
+            }
         }
     }
 

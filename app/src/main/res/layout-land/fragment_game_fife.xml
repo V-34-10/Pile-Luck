@@ -4,14 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_four_game"
-    tools:context=".ui.main.scene.games.GameFourFragment">
+    android:background="@drawable/background_land"
+    tools:context=".ui.main.scene.games.GameFifeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/status_game"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -19,6 +18,7 @@
             android:id="@+id/text_win"
             android:layout_width="@dimen/dp175"
             android:layout_height="0dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="35dp"
             android:background="@drawable/text_background_three_game"
             android:fontFamily="@font/alumni_sans_inline_one"
@@ -50,67 +50,131 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/scene_chest"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/button_bid"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/control_game"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/scene_game"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/status_game">
 
         <ImageView
-            android:id="@+id/chest_first"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/button_bid_first"
+            android:layout_width="@dimen/dp95"
+            android:layout_height="@dimen/dp95"
             android:layout_centerHorizontal="true"
-            android:layout_margin="20dp"
+            android:layout_margin="@dimen/dp20"
             android:clickable="true"
-            android:contentDescription="@string/chest_scene"
+            android:contentDescription="@string/title_bid"
             android:focusable="true"
-            android:src="@drawable/chest_close"
+            android:src="@drawable/btn_bid_first"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/chest_second"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/button_bid_second"
+            android:layout_width="@dimen/dp95"
+            android:layout_height="@dimen/dp95"
             android:layout_centerHorizontal="true"
-            android:layout_margin="20dp"
+            android:layout_margin="@dimen/dp20"
             android:clickable="true"
-            android:contentDescription="@string/chest_scene"
+            android:contentDescription="@string/title_bid"
             android:focusable="true"
-            android:src="@drawable/chest_close"
+            android:src="@drawable/btn_bid_second"
+            app:layout_constraintEnd_toStartOf="@+id/button_bid_three"
+            app:layout_constraintStart_toEndOf="@+id/button_bid_first"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/button_bid_three"
+            android:layout_width="@dimen/dp95"
+            android:layout_height="@dimen/dp95"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/dp20"
+            android:clickable="true"
+            android:contentDescription="@string/title_bid"
+            android:focusable="true"
+            android:src="@drawable/btn_bid_three"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/chest_three"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/button_bid_four"
+            android:layout_width="@dimen/dp95"
+            android:layout_height="@dimen/dp95"
             android:layout_centerHorizontal="true"
-            android:layout_margin="20dp"
+            android:layout_margin="@dimen/dp20"
             android:clickable="true"
-            android:contentDescription="@string/chest_scene"
+            android:contentDescription="@string/title_bid"
             android:focusable="true"
-            android:src="@drawable/chest_close"
+            android:src="@drawable/btn_bid_four"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chest_first" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
-            android:id="@+id/chest_four"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/button_bid_fife"
+            android:layout_width="@dimen/dp95"
+            android:layout_height="@dimen/dp95"
             android:layout_centerHorizontal="true"
-            android:layout_margin="20dp"
+            android:layout_margin="@dimen/dp20"
             android:clickable="true"
-            android:contentDescription="@string/chest_scene"
+            android:contentDescription="@string/title_bid"
             android:focusable="true"
-            android:src="@drawable/chest_close"
+            android:src="@drawable/btn_bid_fife"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button_bid_six"
+            app:layout_constraintStart_toEndOf="@+id/button_bid_four" />
+
+        <ImageView
+            android:id="@+id/button_bid_six"
+            android:layout_width="@dimen/dp95"
+            android:layout_height="@dimen/dp95"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/dp20"
+            android:clickable="true"
+            android:contentDescription="@string/title_bid"
+            android:focusable="true"
+            android:src="@drawable/btn_bid_six"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/scene_game"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/status_game"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/sceneGame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/dp10"
+            android:background="@drawable/container_fife_game"
+            android:orientation="vertical"
+            android:padding="@dimen/dp20"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chest_second" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/btn_spin"
+            android:layout_width="@dimen/dp175"
+            android:layout_height="65dp"
+            android:layout_marginTop="25dp"
+            android:clickable="true"
+            android:contentDescription="@string/btn_spin"
+            android:focusable="true"
+            android:src="@drawable/btn_spin_fife_game"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sceneGame"
+            tools:ignore="ImageContrastCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -119,13 +183,13 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
             android:id="@+id/btn_minus"
             android:layout_width="@dimen/dp75"
             android:layout_height="0dp"
+            android:layout_marginStart="25dp"
             android:clickable="true"
             android:contentDescription="@string/btn_minus"
             android:focusable="true"
@@ -161,18 +225,6 @@
             android:textSize="@dimen/size_textDescription"
             app:layout_constraintStart_toEndOf="@+id/btn_minus"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/btn_spin"
-            android:layout_width="@dimen/dp175"
-            android:layout_height="0dp"
-            android:clickable="true"
-            android:contentDescription="@string/btn_spin"
-            android:focusable="true"
-            android:src="@drawable/btn_spin_three_game"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_bid"
-            tools:ignore="ImageContrastCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
