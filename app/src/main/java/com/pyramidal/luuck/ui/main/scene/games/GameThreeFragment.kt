@@ -12,6 +12,8 @@ import android.widget.Toast
 import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.FragmentGameThreeBinding
 import com.pyramidal.luuck.ui.utils.StakeManager
+import com.pyramidal.luuck.ui.utils.UpdateStakeUI.setStakeManager
+import com.pyramidal.luuck.ui.utils.UpdateStakeUI.updateStakeUI
 import java.util.Random
 
 class GameThreeFragment : Fragment() {
@@ -28,10 +30,11 @@ class GameThreeFragment : Fragment() {
         totalSumStr = getString(R.string.title_total)
         val totalSumDigitsOnly = totalSumStr.replace(Regex("\\D"), "")
         totalSum = totalSumDigitsOnly.toIntOrNull() ?: 0
-        val minStakePercentage = 0.05 // 5%
+        /*val minStakePercentage = 0.05 // 5%
         val maxStakePercentage = 0.10 // 10%
         val stakeStep = 50
-        stakeManager = StakeManager(totalSum, minStakePercentage, maxStakePercentage, stakeStep)
+        stakeManager = StakeManager(totalSum, minStakePercentage, maxStakePercentage, stakeStep)*/
+        setStakeManager(totalSum)
 
         return binding.root
     }
@@ -85,26 +88,14 @@ class GameThreeFragment : Fragment() {
         binding.btnMinus.setOnClickListener {
             binding.btnMinus.startAnimation(animation)
             stakeManager.decreaseStake()
-            updateStakeUI()
+            updateStakeUI(binding, stakeManager)
         }
         binding.btnPlus.setOnClickListener {
             binding.btnPlus.startAnimation(animation)
             stakeManager.increaseStake()
-            updateStakeUI()
+            updateStakeUI(binding, stakeManager)
         }
     }
-
-    private fun updateStakeUI() {
-        val currentStake = stakeManager.getCurrentStake()
-
-        // Update UI with the current stake value
-        binding.textBid.text = currentStake.toString()
-
-        // Enable/disable buttons based on stake limits
-        binding.btnMinus.isEnabled = stakeManager.canDecreaseStake()
-        binding.btnPlus.isEnabled = stakeManager.canIncreaseStake()
-    }
-
 
     private fun setTextBid() {
         val totalSumDigitsOnly = totalSumStr.replace(Regex("\\D"), "")
@@ -117,7 +108,11 @@ class GameThreeFragment : Fragment() {
         val normalizedDegrees =
             normalizeDegrees(degrees)  //normalizeDegrees [0, 360]
 
-        Toast.makeText(requireContext(), "Normalized Degrees: $normalizedDegrees", Toast.LENGTH_SHORT)
+        Toast.makeText(
+            requireContext(),
+            "Normalized Degrees: $normalizedDegrees",
+            Toast.LENGTH_SHORT
+        )
             .show()
         return when (normalizedDegrees) {
             in 0f..10f, in 175f..202f -> 2f // 2x
@@ -126,7 +121,11 @@ class GameThreeFragment : Fragment() {
             in 95f..130f, in 337f..360f -> 2f // 2x
             in 130f..150f, in 270f..290f -> 0f // 0x
             else -> {
-                Toast.makeText(requireContext(), "Invalid normalizedDegrees: $normalizedDegrees", Toast.LENGTH_SHORT)
+                Toast.makeText(
+                    requireContext(),
+                    "Invalid normalizedDegrees: $normalizedDegrees",
+                    Toast.LENGTH_SHORT
+                )
                     .show()
                 -1f
             }

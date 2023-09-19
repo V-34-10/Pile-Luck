@@ -13,6 +13,9 @@ import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.FragmentGameFirstBinding
 import com.pyramidal.luuck.ui.main.scene.SlotAdapter
 import com.pyramidal.luuck.ui.main.scene.model.SlotItem
+import com.pyramidal.luuck.ui.utils.StakeManager
+import com.pyramidal.luuck.ui.utils.UpdateStakeUI.setStakeManager
+import com.pyramidal.luuck.ui.utils.UpdateStakeUI.updateStakeUI
 
 class GameFirstFragment : Fragment() {
     private lateinit var binding: FragmentGameFirstBinding
@@ -41,12 +44,20 @@ class GameFirstFragment : Fragment() {
     private lateinit var slotItems: List<SlotItem>
     private lateinit var slotAdapter: SlotAdapter
     private var isAnimationInProgress = false
-
+    private lateinit var stakeManager: StakeManager
+    private var totalSum: Int = 0
+    private var totalSumStr: String = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentGameFirstBinding.inflate(layoutInflater, container, false)
+
+        totalSumStr = getString(R.string.title_total)
+        val totalSumDigitsOnly = totalSumStr.replace(Regex("\\D"), "")
+        totalSum = totalSumDigitsOnly.toIntOrNull() ?: 0
+        setStakeManager(totalSum)
+
         return binding.root
     }
 
@@ -144,11 +155,15 @@ class GameFirstFragment : Fragment() {
             slotAdapter.playSpinAnimation(binding.sceneGame, requireContext())
 
         }
-        binding.btnPlus.setOnClickListener {
-
-        }
         binding.btnMinus.setOnClickListener {
-
+            binding.btnMinus.startAnimation(animation)
+            stakeManager.decreaseStake()
+            updateStakeUI(binding, stakeManager)
+        }
+        binding.btnPlus.setOnClickListener {
+            binding.btnPlus.startAnimation(animation)
+            stakeManager.increaseStake()
+            updateStakeUI(binding, stakeManager)
         }
     }
 
