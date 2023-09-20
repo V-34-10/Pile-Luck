@@ -58,59 +58,43 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/status_game">
 
-        <ImageView
-            android:id="@+id/chest_first"
+        <include
+            android:id="@+id/include_chest_first"
+            layout="@layout/chest_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_margin="20dp"
-            android:clickable="true"
-            android:contentDescription="@string/chest_scene"
-            android:focusable="true"
-            android:src="@drawable/chest_close"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/chest_second"
+        <include
+            android:id="@+id/include_chest_second"
+            layout="@layout/chest_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_margin="20dp"
-            android:clickable="true"
-            android:contentDescription="@string/chest_scene"
-            android:focusable="true"
-            android:src="@drawable/chest_close"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/chest_three"
+        <include
+            android:id="@+id/include_chest_three"
+            layout="@layout/chest_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_margin="20dp"
-            android:clickable="true"
-            android:contentDescription="@string/chest_scene"
-            android:focusable="true"
-            android:src="@drawable/chest_close"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chest_first" />
+            app:layout_constraintTop_toBottomOf="@+id/include_chest_first" />
 
-        <ImageView
-            android:id="@+id/chest_four"
+        <include
+            android:id="@+id/include_chest_four"
+            layout="@layout/chest_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_margin="20dp"
-            android:clickable="true"
-            android:contentDescription="@string/chest_scene"
-            android:focusable="true"
-            android:src="@drawable/chest_close"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chest_second" />
+            app:layout_constraintTop_toBottomOf="@+id/include_chest_second" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
