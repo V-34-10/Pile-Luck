@@ -1,5 +1,6 @@
 package com.pyramidal.luuck.ui.main.scene.games
 
+import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,16 +13,14 @@ import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.FragmentGameFifeBinding
 import com.pyramidal.luuck.ui.main.scene.SlotAdapter
 import com.pyramidal.luuck.ui.main.scene.model.SlotItem
+import com.pyramidal.luuck.ui.main.settings.BalanceResetListener
 import com.pyramidal.luuck.ui.utils.StakeManager
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.setStakeManager
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.updateStakeUI
 
 
-class GameFifeFragment : Fragment() {
+class GameFifeFragment : Fragment(), BalanceResetListener {
     private lateinit var binding: FragmentGameFifeBinding
-    private lateinit var stakeManager: StakeManager
-    private var totalSum: Int = 0
-    private var totalSumStr: String = ""
     private lateinit var slotAdapter: SlotAdapter
     private lateinit var slotItems: List<SlotItem>
     private var slotList = mutableListOf(
@@ -41,12 +40,6 @@ class GameFifeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentGameFifeBinding.inflate(layoutInflater, container, false)
-
-        totalSumStr = getString(R.string.title_total)
-        val totalSumDigitsOnly = totalSumStr.replace(Regex("\\D"), "")
-        totalSum = totalSumDigitsOnly.toIntOrNull() ?: 0
-        setStakeManager(totalSum)
-
         return binding.root
     }
 
@@ -60,16 +53,7 @@ class GameFifeFragment : Fragment() {
 
     private fun controlButton() {
         val animation = AnimationUtils.loadAnimation(context, R.anim.scale_up)
-        binding.btnMinus?.setOnClickListener {
-            binding.btnMinus!!.startAnimation(animation)
-            stakeManager.decreaseStake()
-            updateStakeUI(binding, stakeManager)
-        }
-        binding.btnPlus?.setOnClickListener {
-            binding.btnPlus!!.startAnimation(animation)
-            stakeManager.increaseStake()
-            updateStakeUI(binding, stakeManager)
-        }
+
     }
 
     private fun initSlotsRecycler() {
@@ -79,5 +63,10 @@ class GameFifeFragment : Fragment() {
             layoutManager = GridLayoutManager(context, 3)
             adapter = slotAdapter
         }
+    }
+
+    @SuppressLint("SetTextI18n")
+    override fun resetBalanceToDefault(newBalance: Int) {
+        binding.textTotal?.text ?: "Total $newBalance"
     }
 }

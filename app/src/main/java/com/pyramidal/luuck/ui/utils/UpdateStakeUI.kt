@@ -27,10 +27,6 @@ object UpdateStakeUI {
             binding.textBid.text = currentStake.toString()
             binding.btnMinus.isEnabled = stakeManager.canDecreaseStake()
             binding.btnPlus.isEnabled = stakeManager.canIncreaseStake()
-        } else if (binding is FragmentGameFifeBinding) {
-            binding.textBid!!.text = currentStake.toString()
-            binding.btnMinus!!.isEnabled = stakeManager.canDecreaseStake()
-            binding.btnPlus!!.isEnabled = stakeManager.canIncreaseStake()
         }
     }
 

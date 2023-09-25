@@ -183,39 +183,13 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/button_bid"
         app:layout_constraintStart_toStartOf="parent">
-
-        <ImageView
-            android:id="@+id/btn_minus"
-            android:layout_width="@dimen/dp75"
-            android:layout_height="0dp"
-            android:layout_marginStart="25dp"
-            android:clickable="true"
-            android:contentDescription="@string/btn_minus"
-            android:focusable="true"
-            android:src="@drawable/btn_minus_three_game"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ImageContrastCheck" />
-
-        <ImageView
-            android:id="@+id/btn_plus"
-            android:layout_width="@dimen/dp75"
-            android:layout_height="0dp"
-            android:layout_marginStart="10dp"
-            android:clickable="true"
-            android:contentDescription="@string/btn_exit"
-            android:focusable="true"
-            android:src="@drawable/btn_plus_three_game"
-            app:layout_constraintStart_toEndOf="@+id/text_bid"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ImageContrastCheck" />
 
         <TextView
             android:id="@+id/text_bid"
             android:layout_width="@dimen/dp175"
             android:layout_height="0dp"
-            android:layout_marginStart="10dp"
             android:background="@drawable/text_background_three_game"
             android:fontFamily="@font/alumni_sans_inline_one"
             android:padding="@dimen/dp10"
@@ -223,7 +197,8 @@
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="@dimen/size_textDescription"
-            app:layout_constraintStart_toEndOf="@+id/btn_minus"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
