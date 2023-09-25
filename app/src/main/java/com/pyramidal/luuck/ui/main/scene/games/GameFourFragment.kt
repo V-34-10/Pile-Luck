@@ -73,16 +73,32 @@ class GameFourFragment : Fragment() {
             override fun onAnimationStart(animation: Animation?) {}
 
             override fun onAnimationEnd(animation: Animation?) {
-                val possibleWinAmounts = listOf(0, 150, 300, 500)
-                val winAmount = possibleWinAmounts.random()
+                val possibleWinAmounts = listOf(0, 0.5, 1, 2)
+                val winAmount = possibleWinAmounts.random().toInt()
 
-                chestLayout.winAmountText.text = "+$winAmount"
+                chestLayout.winAmountText.text = "x$winAmount"
                 chestLayout.winAmountText.visibility = View.VISIBLE
+
+                //add to balance
+                val currentBid = extractNumberFromText(binding.textBid.text.toString())
+                val currentBalance = extractNumberFromText(binding.textTotal.text.toString())
+                val newBalance = currentBalance + (currentBid * winAmount)
+                binding.textTotal.text = "Total $newBalance"
+
+                //add to win
+                val currentWin = extractNumberFromText(binding.textWin.text.toString())
+                val newWin = currentWin + (currentBid * winAmount)
+                binding.textTotal.text = "WIN $newWin"
             }
 
             override fun onAnimationRepeat(animation: Animation?) {}
         })
 
         chestLayout.chestClosed.startAnimation(openChestAnimation)
+    }
+
+    private fun extractNumberFromText(text: String): Int {
+        val digitsOnly = text.replace(Regex("\\D"), "")
+        return digitsOnly.toIntOrNull() ?: 0
     }
 }
