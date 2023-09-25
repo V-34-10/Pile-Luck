@@ -11,24 +11,21 @@ import android.view.animation.AnimationUtils
 import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.ChestLayoutBinding
 import com.pyramidal.luuck.databinding.FragmentGameFourBinding
+import com.pyramidal.luuck.ui.main.settings.BalanceResetListener
 import com.pyramidal.luuck.ui.utils.StakeManager
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.setStakeManager
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.updateStakeUI
 
-class GameFourFragment : Fragment() {
+class GameFourFragment : Fragment(), BalanceResetListener {
     private lateinit var binding: FragmentGameFourBinding
     private lateinit var stakeManager: StakeManager
-    private var totalSum: Int = 0
-    private var totalSumStr: String = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentGameFourBinding.inflate(layoutInflater, container, false)
 
-        totalSumStr = getString(R.string.title_total)
-        val totalSumDigitsOnly = totalSumStr.replace(Regex("\\D"), "")
-        totalSum = totalSumDigitsOnly.toIntOrNull() ?: 0
+        val totalSum = extractNumberFromText(binding.textTotal.text.toString())
         setStakeManager(totalSum)
 
         return binding.root
@@ -100,5 +97,10 @@ class GameFourFragment : Fragment() {
     private fun extractNumberFromText(text: String): Int {
         val digitsOnly = text.replace(Regex("\\D"), "")
         return digitsOnly.toIntOrNull() ?: 0
+    }
+
+    @SuppressLint("SetTextI18n")
+    override fun resetBalanceToDefault(newBalance: Int) {
+        binding.textTotal.text = "Total $newBalance"
     }
 }

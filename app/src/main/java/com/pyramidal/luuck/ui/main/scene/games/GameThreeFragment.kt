@@ -1,5 +1,6 @@
 package com.pyramidal.luuck.ui.main.scene.games
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,12 +12,13 @@ import android.view.animation.RotateAnimation
 import android.widget.Toast
 import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.FragmentGameThreeBinding
+import com.pyramidal.luuck.ui.main.settings.BalanceResetListener
 import com.pyramidal.luuck.ui.utils.StakeManager
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.setStakeManager
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.updateStakeUI
 import java.util.Random
 
-class GameThreeFragment : Fragment() {
+class GameThreeFragment : Fragment(), BalanceResetListener {
     private lateinit var binding: FragmentGameThreeBinding
     private lateinit var stakeManager: StakeManager
     private var totalSum: Int = 0
@@ -138,5 +140,10 @@ class GameThreeFragment : Fragment() {
             normalizedDegrees += 360  // Нормалізуємо до діапазону [0, 360]
         }
         return normalizedDegrees
+    }
+
+    @SuppressLint("SetTextI18n")
+    override fun resetBalanceToDefault(newBalance: Int) {
+        binding.textTotal.text = "Total $newBalance"
     }
 }

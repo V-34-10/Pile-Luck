@@ -1,6 +1,7 @@
 package com.pyramidal.luuck.ui.main.settings
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -24,9 +25,13 @@ import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.ActivityMenuBinding
 import com.pyramidal.luuck.databinding.SettingsActivityBinding
 import com.pyramidal.luuck.ui.main.menu.MenuActivity
+import com.pyramidal.luuck.ui.main.scene.games.GameFifeFragment
+import com.pyramidal.luuck.ui.main.scene.games.GameFirstFragment
+import com.pyramidal.luuck.ui.main.scene.games.GameFourFragment
+import com.pyramidal.luuck.ui.main.scene.games.GameThreeFragment
 import com.pyramidal.luuck.ui.utils.HideUIConfigUtils
 
-class SettingsActivity : AppCompatActivity() {
+class SettingsActivity : AppCompatActivity(), BalanceResetListener {
     private val binding by lazy { SettingsActivityBinding.inflate(layoutInflater) }
     private val bindingMenu by lazy { ActivityMenuBinding.inflate(layoutInflater) }
     private lateinit var sharedPref: SharedPreferences
@@ -67,7 +72,7 @@ class SettingsActivity : AppCompatActivity() {
         }
         binding.textResetScore.setOnClickListener {
             binding.textResetScore.startAnimation(animation)
-            //TODO score clean
+            resetBalanceToDefault(10000)
         }
     }
 
@@ -139,6 +144,7 @@ class SettingsActivity : AppCompatActivity() {
         setOvalColor(isVibrationOn, binding.vibrationBar.progressBarLayout)
     }
 
+    @SuppressLint("DiscouragedApi")
     private fun setOvalColor(isActive: Boolean, progressBar: ViewGroup) {
         val ovalColor = if (isActive) {
             resources.getColor(R.color.startColorGradient)
@@ -177,5 +183,15 @@ class SettingsActivity : AppCompatActivity() {
 
     private fun disableSystemVibration() {
         vibrator.cancel()
+    }
+
+    override fun resetBalanceToDefault(newBalance: Int) {
+        val fragmentManager = supportFragmentManager
+        val fragments = fragmentManager.fragments
+        for (fragment in fragments) {
+            if (fragment is BalanceResetListener) {
+                fragment.resetBalanceToDefault(newBalance)
+            }
+        }
     }
 }
