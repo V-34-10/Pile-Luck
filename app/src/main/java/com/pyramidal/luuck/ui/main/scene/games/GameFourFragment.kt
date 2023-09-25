@@ -59,6 +59,24 @@ class GameFourFragment : Fragment(), BalanceResetListener {
         binding.includeChestFour.chestClosed.setOnClickListener {
             openChest(binding.includeChestFour)
         }
+        val chestPairs = listOf(
+            binding.includeChestFirst,
+            binding.includeChestSecond,
+            binding.includeChestThree,
+            binding.includeChestFour
+        )
+        chestPairs.forEach { chestLayout ->
+            chestLayout.chestClosed.visibility = View.VISIBLE
+            chestLayout.chestOpen.visibility = View.GONE
+            chestLayout.winAmountText.visibility = View.GONE
+        }
+        binding.btnSpin.setOnClickListener {
+            binding.btnSpin.startAnimation(animation)
+            chestPairs.forEach { chestLayout ->
+                chestLayout.chestClosed.visibility = View.GONE
+                chestLayout.chestOpen.visibility = View.VISIBLE
+            }
+        }
     }
 
     @SuppressLint("SetTextI18n")
