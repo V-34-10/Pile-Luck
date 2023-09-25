@@ -53,7 +53,25 @@ class GameFifeFragment : Fragment(), BalanceResetListener {
 
     private fun controlButton() {
         val animation = AnimationUtils.loadAnimation(context, R.anim.scale_up)
+        val buttonBidPairs = listOf(
+            binding.buttonBidFirst to 50,
+            binding.buttonBidSecond to 100,
+            binding.buttonBidThree to 150,
+            binding.buttonBidFour to 200,
+            binding.buttonBidFife to 500,
+            binding.buttonBidSix to 750
+        )
 
+        buttonBidPairs.forEach { (button, bidValue) ->
+            button?.setOnClickListener {
+                button.startAnimation(animation)
+                binding.textBid?.text = bidValue.toString()
+            }
+        }
+        binding.btnSpin?.setOnClickListener {
+            binding.btnSpin?.startAnimation(animation)
+
+        }
     }
 
     private fun initSlotsRecycler() {

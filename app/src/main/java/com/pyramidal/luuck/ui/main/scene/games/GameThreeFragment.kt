@@ -135,9 +135,9 @@ class GameThreeFragment : Fragment(), BalanceResetListener {
     }
 
     private fun normalizeDegrees(degrees: Float): Float {
-        var normalizedDegrees = degrees % 360  // Відкидаємо повні обороти
+        var normalizedDegrees = degrees % 360
         if (normalizedDegrees < 0) {
-            normalizedDegrees += 360  // Нормалізуємо до діапазону [0, 360]
+            normalizedDegrees += 360
         }
         return normalizedDegrees
     }

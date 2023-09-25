@@ -81,5 +81,6 @@
     <string name="wheel_scene">wheel_scene</string>
     <string name="chest_scene">chest_scene</string>
     <string name="title_landscape">Please switch to landscape mode</string>
+    <string name="btn_bid">btn bid</string>
 
 </resources>
