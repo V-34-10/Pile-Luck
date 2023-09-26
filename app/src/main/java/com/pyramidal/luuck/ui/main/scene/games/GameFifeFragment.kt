@@ -23,16 +23,27 @@ class GameFifeFragment : Fragment(), BalanceResetListener {
     private lateinit var binding: FragmentGameFifeBinding
     private lateinit var slotAdapter: SlotAdapter
     private lateinit var slotItems: List<SlotItem>
-    private var slotList = mutableListOf(
+    private var slotListDefault = mutableListOf(
+        R.drawable.slot_005,
+        R.drawable.slot_005,
+        R.drawable.slot_005,
+        R.drawable.slot_005,
+        R.drawable.slot_005,
+        R.drawable.slot_005,
+        R.drawable.slot_005,
+        R.drawable.slot_005,
+        R.drawable.slot_005
+    )
+    private var slotListGame = mutableListOf(
+        R.drawable.slot_006,
         R.drawable.slot_001,
-        R.drawable.slot_005,
-        R.drawable.slot_005,
-        R.drawable.slot_002,
         R.drawable.slot_003,
-        R.drawable.slot_005,
-        R.drawable.slot_005,
-        R.drawable.slot_005,
-        R.drawable.slot_004
+        R.drawable.slot_004,
+        R.drawable.slot_006,
+        R.drawable.slot_001,
+        R.drawable.slot_004,
+        R.drawable.slot_002,
+        R.drawable.slot_006
     )
 
     override fun onCreateView(
@@ -70,12 +81,14 @@ class GameFifeFragment : Fragment(), BalanceResetListener {
         }
         binding.btnSpin?.setOnClickListener {
             binding.btnSpin?.startAnimation(animation)
-
+            slotListGame.shuffle()
+            slotItems = slotListGame.map { SlotItem(it) }
+            binding.sceneGames?.let { it1 -> slotAdapter.updateData(slotItems, it1) }
         }
     }
 
     private fun initSlotsRecycler() {
-        slotItems = slotList.map { SlotItem(it) }
+        slotItems = slotListDefault.map { SlotItem(it) }
         slotAdapter = SlotAdapter(slotItems)
         binding.sceneGames?.apply {
             layoutManager = GridLayoutManager(context, 3)

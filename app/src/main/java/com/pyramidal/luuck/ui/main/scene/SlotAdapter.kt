@@ -53,6 +53,14 @@ class SlotAdapter (private var dataList: List<SlotItem>) :
         diffResult.dispatchUpdatesTo(this)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateData(newData: List<SlotItem>, recyclerView: RecyclerView) {
+        dataList = newData
+        val animation = AnimationUtils.loadAnimation(recyclerView.context, R.anim.slot_animation)
+        recyclerView.startAnimation(animation)
+        notifyDataSetChanged()
+    }
+
     fun playSpinAnimation(recyclerView: RecyclerView, context: Context) {
         val itemCount = itemCount
         for (i in 0 until itemCount) {
