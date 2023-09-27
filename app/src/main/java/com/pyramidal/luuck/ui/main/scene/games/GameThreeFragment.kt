@@ -32,10 +32,6 @@ class GameThreeFragment : Fragment(), BalanceResetListener {
         totalSumStr = getString(R.string.title_total)
         val totalSumDigitsOnly = totalSumStr.replace(Regex("\\D"), "")
         totalSum = totalSumDigitsOnly.toIntOrNull() ?: 0
-        /*val minStakePercentage = 0.05 // 5%
-        val maxStakePercentage = 0.10 // 10%
-        val stakeStep = 50
-        stakeManager = StakeManager(totalSum, minStakePercentage, maxStakePercentage, stakeStep)*/
         stakeManager = setStakeManager(totalSum)
 
         return binding.root

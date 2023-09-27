@@ -1,9 +1,11 @@
 package com.pyramidal.luuck.ui.main.scene
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.ActivitySceneBinding
+import com.pyramidal.luuck.ui.main.menu.MenuActivity
 import com.pyramidal.luuck.ui.main.scene.games.GameFifeFragment
 import com.pyramidal.luuck.ui.main.scene.games.GameFirstFragment
 import com.pyramidal.luuck.ui.main.scene.games.GameFourFragment
@@ -23,7 +25,13 @@ class SceneActivity : AppCompatActivity() {
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
-        super.onBackPressed()
+        if (supportFragmentManager.backStackEntryCount > 0) {
+            supportFragmentManager.popBackStack()
+        } else {
+            val go = Intent(this@SceneActivity, MenuActivity::class.java)
+            startActivity(go)
+            finish()
+        }
     }
 
     private fun initFragmentGame() {
@@ -35,7 +43,7 @@ class SceneActivity : AppCompatActivity() {
             "RomeEgypt" -> {
                 val fragmentA = GameFirstFragment()
                 bundle.putString("name_game", "RomeEgypt")
-                fragmentA .arguments = bundle
+                fragmentA.arguments = bundle
                 fragmentTransaction.replace(R.id.fragment_container, fragmentA)
             }
 
