@@ -3,6 +3,8 @@ package com.pyramidal.luuck.ui.main.scene.games
 import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -71,74 +73,12 @@ class GameFirstFragment : Fragment(), BalanceResetListener {
     private fun controlButton() {
         val animation = AnimationUtils.loadAnimation(context, R.anim.scale_up)
         binding.btnSpin.setOnClickListener {
-            /*if (isAnimationInProgress) {
-                return@setOnClickListener
-            }
-
-            /*slotDataList.shuffle()
-            slotItems = slotDataList.map { SlotItem(it) }
-            slotAdapter.updateData(slotItems)
-
-            //slotAdapter.playSpinAnimation(binding.sceneGame, requireContext())
-
-            binding.sceneGame.postDelayed({
-                slotAdapter.playSpinAnimation(binding.sceneGame, requireContext())
-            }, 100)*/
-
-            animation.setAnimationListener(object : Animation.AnimationListener {
-                override fun onAnimationStart(animation: Animation?) {
-                    isAnimationInProgress = true
-                }
-
-                override fun onAnimationEnd(animation: Animation?) {
-                    isAnimationInProgress = false
-                }
-
-                override fun onAnimationRepeat(animation: Animation?) {}
-            })
-            binding.btnSpin.startAnimation(animation)
-
-            switchGame()
-            slotAdapter.updateData(slotItems)
-
-            if (slotItems.size == binding.sceneGame.layoutManager?.childCount) {
-                slotAdapter.playSpinAnimation(binding.sceneGame, requireContext())
-            } else {
-                binding.sceneGame.post {
-                    slotAdapter.playSpinAnimation(binding.sceneGame, requireContext())
-                }
-            }*/
-
             if (isAnimationInProgress) {
                 return@setOnClickListener
             }
 
-            /*animation.setAnimationListener(object : Animation.AnimationListener {
-                override fun onAnimationStart(animation: Animation?) {
-                    isAnimationInProgress = true
-                }
-
-                override fun onAnimationEnd(animation: Animation?) {
-                    isAnimationInProgress = false
-                }
-
-                override fun onAnimationRepeat(animation: Animation?) {}
-            })
-
-            switchGame()
-            slotAdapter.updateData(slotItems)
-
-            binding.sceneGame.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
-                override fun onPreDraw(): Boolean {
-                    binding.sceneGame.viewTreeObserver.removeOnPreDrawListener(this)
-
-                    if (slotItems.size == binding.sceneGame.layoutManager?.childCount) {
-                        slotAdapter.playSpinAnimation(binding.sceneGame, requireContext())
-                    }
-
-                    return true
-                }
-            })*/
+            stopAnimations()
+            slotAdapter.updateData(emptyList())
 
             animation.setAnimationListener(object : Animation.AnimationListener {
                 override fun onAnimationStart(animation: Animation?) {
@@ -152,10 +92,9 @@ class GameFirstFragment : Fragment(), BalanceResetListener {
                 override fun onAnimationRepeat(animation: Animation?) {}
             })
 
-            switchGame()
+            randomListGame()
             slotAdapter.updateData(slotItems)
             slotAdapter.playSpinAnimation(binding.sceneGame, requireContext())
-
         }
         binding.btnMinus.setOnClickListener {
             binding.btnMinus.startAnimation(animation)
@@ -166,6 +105,29 @@ class GameFirstFragment : Fragment(), BalanceResetListener {
             binding.btnPlus.startAnimation(animation)
             stakeManager.increaseStake()
             updateStakeUI(binding, stakeManager)
+        }
+    }
+
+    private fun stopAnimations() {
+        val itemCount = slotAdapter.itemCount
+        for (i in 0 until itemCount) {
+            val holder =
+                binding.sceneGame.findViewHolderForAdapterPosition(i) as? SlotAdapter.SlotViewHolder
+            holder?.itemView?.clearAnimation()
+        }
+    }
+
+    private fun randomListGame() {
+        when (arguments?.getString("name_game")) {
+            "RomeEgypt" -> {
+                slotFirstList.shuffle()
+                slotItems = slotFirstList.map { SlotItem(it) }
+            }
+
+            "HelioPOPolis" -> {
+                slotSecondList.shuffle()
+                slotItems = slotSecondList.map { SlotItem(it) }
+            }
         }
     }
 
