@@ -26,7 +26,7 @@ class GameFourFragment : Fragment(), BalanceResetListener {
         binding = FragmentGameFourBinding.inflate(layoutInflater, container, false)
 
         val totalSum = extractNumberFromText(binding.textTotal.text.toString())
-        setStakeManager(totalSum)
+        stakeManager = setStakeManager(totalSum)
 
         return binding.root
     }

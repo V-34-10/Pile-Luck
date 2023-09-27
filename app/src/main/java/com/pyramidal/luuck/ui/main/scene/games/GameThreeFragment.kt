@@ -36,7 +36,7 @@ class GameThreeFragment : Fragment(), BalanceResetListener {
         val maxStakePercentage = 0.10 // 10%
         val stakeStep = 50
         stakeManager = StakeManager(totalSum, minStakePercentage, maxStakePercentage, stakeStep)*/
-        setStakeManager(totalSum)
+        stakeManager = setStakeManager(totalSum)
 
         return binding.root
     }

@@ -23,7 +23,7 @@ class SceneActivity : AppCompatActivity() {
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
-        //no back click
+        super.onBackPressed()
     }
 
     private fun initFragmentGame() {

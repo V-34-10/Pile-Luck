@@ -58,7 +58,7 @@ class GameFirstFragment : Fragment(), BalanceResetListener {
         totalSumStr = getString(R.string.title_total)
         val totalSumDigitsOnly = totalSumStr.replace(Regex("\\D"), "")
         totalSum = totalSumDigitsOnly.toIntOrNull() ?: 0
-        setStakeManager(totalSum)
+        stakeManager = setStakeManager(totalSum)
 
         return binding.root
     }
