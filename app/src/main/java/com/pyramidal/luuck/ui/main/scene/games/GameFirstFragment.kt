@@ -3,8 +3,6 @@ package com.pyramidal.luuck.ui.main.scene.games
 import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -73,6 +71,7 @@ class GameFirstFragment : Fragment(), BalanceResetListener {
     private fun controlButton() {
         val animation = AnimationUtils.loadAnimation(context, R.anim.scale_up)
         binding.btnSpin.setOnClickListener {
+            binding.btnSpin.startAnimation(animation)
             if (isAnimationInProgress) {
                 return@setOnClickListener
             }
