@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.animation.RotateAnimation
-import android.widget.Toast
 import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.FragmentGameThreeBinding
 import com.pyramidal.luuck.ui.main.settings.BalanceResetListener
@@ -70,10 +69,22 @@ class GameThreeFragment : Fragment(), BalanceResetListener {
                 override fun onAnimationEnd(animation: Animation?) {
                     // Store the current rotation angle
                     currentRotation += randomAngle
-                    val degrees = binding.arrow.rotation
-                    val coefficient = calculateCoefficient(degrees)
-                    /*Toast.makeText(requireContext(), coefficient.toString(), Toast.LENGTH_LONG)
-                        .show()*/
+
+                    val bidDigits =
+                        binding.textBid.text.toString().replace(Regex("\\D"), "").toIntOrNull() ?: 0
+                    val newSumWin = bidDigits * calculateCoefficient(currentRotation)
+
+                    val lastSumWin =
+                        binding.textWin.text.toString().replace(Regex("\\D"), "").toIntOrNull() ?: 0
+                    val totalSum =
+                        binding.textTotal.text.toString().replace(Regex("\\D"), "").toIntOrNull()
+                            ?: 0
+
+                    val updatedSumWin = lastSumWin + newSumWin
+                    val updatedTotalSum = totalSum + newSumWin
+
+                    binding.textWin.text = updatedSumWin.toString()
+                    binding.textTotal.text = updatedTotalSum.toString()
 
                 }
 
@@ -103,29 +114,16 @@ class GameThreeFragment : Fragment(), BalanceResetListener {
     }
 
     private fun calculateCoefficient(degrees: Float): Float {
-        val normalizedDegrees =
-            normalizeDegrees(degrees)  //normalizeDegrees [0, 360]
-
-        Toast.makeText(
-            requireContext(),
-            "Normalized Degrees: $normalizedDegrees",
-            Toast.LENGTH_SHORT
-        )
-            .show()
-        return when (normalizedDegrees) {
-            in 0f..10f, in 175f..202f -> 2f // 2x
-            in 15f..48f, in 205f..235f -> 1.3f // 1.3x
-            in 50f..90f, in 240f..270f -> 1f // 1x
-            in 95f..130f, in 337f..360f -> 2f // 2x
-            in 130f..150f, in 270f..290f -> 0f // 0x
+        return when (normalizeDegrees(degrees)) {  //normalizeDegrees [0, 360]
+            in 5f..32f, in 180f..212f -> 1f // 1x
+            in 0f..10f, in 240f..280f -> 2f // 2x
+            in 35f..65f, in 213f..235f -> 1.3f // 1.3x
+            in 105f..139f -> 1f // 1x
+            in 140f..150f, in 310f..358f -> 2f // 2x
+            in 140f..177f, in 281f..305f -> 0f // 0x
+            in 70f..100f -> 2f // 2x
             else -> {
-                Toast.makeText(
-                    requireContext(),
-                    "Invalid normalizedDegrees: $normalizedDegrees",
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
-                -1f
+                return 1f
             }
         }
     }
@@ -135,7 +133,7 @@ class GameThreeFragment : Fragment(), BalanceResetListener {
         if (normalizedDegrees < 0) {
             normalizedDegrees += 360
         }
-        return normalizedDegrees
+        return if (normalizedDegrees == 360f) 0f else normalizedDegrees
     }
 
     @SuppressLint("SetTextI18n")
