@@ -49,7 +49,7 @@ class PhoneFragment : Fragment() {
             val phoneNumber = binding.phoneNumber.text.toString().trim()
             val fullPhoneNumber = selectedCountryCode + phoneNumber
 
-            if (phoneNumber.isEmpty()) {
+            /*if (phoneNumber.isEmpty()) {
                 Toast.makeText(
                     context,
                     "Phone number cannot be empty",
@@ -72,9 +72,32 @@ class PhoneFragment : Fragment() {
                     "Invalid phone: $fullPhoneNumber correct format: +380 ${context?.getString(R.string.phone_hint)}",
                     Toast.LENGTH_LONG
                 ).show()
-            }
+            }*/
 
-            loadingNextActivity()
+            if (hasConsecutiveDigits(fullPhoneNumber)) {
+                Toast.makeText(
+                    context,
+                    "Invalid phone: $fullPhoneNumber (consecutive digits not allowed)",
+                    Toast.LENGTH_LONG
+                ).show()
+                return@setOnClickListener
+            } else if (phoneNumber.isEmpty()) {
+                Toast.makeText(
+                    context,
+                    "Phone number cannot be empty",
+                    Toast.LENGTH_LONG
+                ).show()
+                return@setOnClickListener
+            } else if (isPhoneValid(fullPhoneNumber)) {
+                savePhoneToSharedPreferences(fullPhoneNumber)
+                loadingNextActivity()
+            } else {
+                Toast.makeText(
+                    context,
+                    "Invalid phone: $fullPhoneNumber correct format: +380 ${context?.getString(R.string.phone_hint)}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
         binding.btnBack.setOnClickListener {
             binding.btnBack.startAnimation(animation)
@@ -93,6 +116,7 @@ class PhoneFragment : Fragment() {
         val regex = Regex(consecutiveDigitsPattern)
         return regex.containsMatchIn(phoneNumber)
     }
+
     private fun isPhoneValid(phone: String): Boolean {
         if (hasConsecutiveDigits(phone)) {
             return false
