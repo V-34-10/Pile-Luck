@@ -40,17 +40,14 @@ class EmailFragment : Fragment() {
             val enteredEmail = binding.emailLayout.text.toString()
             if (isEmailValid(enteredEmail)) {
                 saveEmailToSharedPreferences(enteredEmail)
+                loadingNextActivity()
             } else {
                 Toast.makeText(
                     context,
                     "Invalid email: $enteredEmail correct format: ${context?.getString(R.string.testEmail)}",
                     Toast.LENGTH_LONG
                 ).show()
-                return@setOnClickListener
             }
-            loadingNextActivity()
-
-
         }
         binding.btnBack.setOnClickListener {
             binding.btnBack.startAnimation(animation)
@@ -59,7 +56,7 @@ class EmailFragment : Fragment() {
     }
 
     private fun isEmailValid(email: String): Boolean {
-        val regexPattern = "^[A-Za-z0-9+_.-]+@(.+)\$".toRegex()
+        val regexPattern = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}\$".toRegex()
         return regexPattern.matches(email)
     }
 
