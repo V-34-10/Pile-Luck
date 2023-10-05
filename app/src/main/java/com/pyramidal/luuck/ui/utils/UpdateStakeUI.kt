@@ -37,4 +37,9 @@ object UpdateStakeUI {
         return StakeManager(totalSum, minStakePercentage, maxStakePercentage, stakeStep)
     }
 
+    fun extractNumberFromText(text: String): Int {
+        val digitsOnly = text.replace(Regex("\\D"), "")
+        return digitsOnly.toIntOrNull() ?: 0
+    }
+
 }

@@ -13,6 +13,7 @@ import com.pyramidal.luuck.databinding.ChestLayoutBinding
 import com.pyramidal.luuck.databinding.FragmentGameFourBinding
 import com.pyramidal.luuck.ui.main.settings.BalanceResetListener
 import com.pyramidal.luuck.ui.utils.StakeManager
+import com.pyramidal.luuck.ui.utils.UpdateStakeUI.extractNumberFromText
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.setStakeManager
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.updateStakeUI
 
@@ -27,7 +28,7 @@ class GameFourFragment : Fragment(), BalanceResetListener {
 
         val totalSum = extractNumberFromText(binding.textTotal.text.toString())
         stakeManager = setStakeManager(totalSum)
-
+        updateStakeUI(binding, stakeManager)
         return binding.root
     }
 
@@ -103,7 +104,7 @@ class GameFourFragment : Fragment(), BalanceResetListener {
                 //add to win
                 val currentWin = extractNumberFromText(binding.textWin.text.toString())
                 val newWin = currentWin + (currentBid * winAmount)
-                binding.textTotal.text = "WIN $newWin"
+                binding.textWin.text = "WIN $newWin"
             }
 
             override fun onAnimationRepeat(animation: Animation?) {}
@@ -112,10 +113,10 @@ class GameFourFragment : Fragment(), BalanceResetListener {
         chestLayout.chestClosed.startAnimation(openChestAnimation)
     }
 
-    private fun extractNumberFromText(text: String): Int {
+    /*private fun extractNumberFromText(text: String): Int {
         val digitsOnly = text.replace(Regex("\\D"), "")
         return digitsOnly.toIntOrNull() ?: 0
-    }
+    }*/
 
     @SuppressLint("SetTextI18n")
     override fun resetBalanceToDefault(newBalance: Int) {

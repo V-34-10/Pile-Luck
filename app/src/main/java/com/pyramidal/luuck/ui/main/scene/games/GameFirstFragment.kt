@@ -16,6 +16,7 @@ import com.pyramidal.luuck.ui.main.scene.SlotAdapter
 import com.pyramidal.luuck.ui.main.scene.model.SlotItem
 import com.pyramidal.luuck.ui.main.settings.BalanceResetListener
 import com.pyramidal.luuck.ui.utils.StakeManager
+import com.pyramidal.luuck.ui.utils.UpdateStakeUI
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.setStakeManager
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.updateStakeUI
 
@@ -47,19 +48,15 @@ class GameFirstFragment : Fragment(), BalanceResetListener {
     private lateinit var slotAdapter: SlotAdapter
     private var isAnimationInProgress = false
     private lateinit var stakeManager: StakeManager
-    private var totalSum: Int = 0
-    private var totalSumStr: String = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentGameFirstBinding.inflate(layoutInflater, container, false)
 
-        totalSumStr = getString(R.string.title_total)
-        val totalSumDigitsOnly = totalSumStr.replace(Regex("\\D"), "")
-        totalSum = totalSumDigitsOnly.toIntOrNull() ?: 0
+        val totalSum = UpdateStakeUI.extractNumberFromText(binding.textTotal.text.toString())
         stakeManager = setStakeManager(totalSum)
-
+        updateStakeUI(binding, stakeManager)
         return binding.root
     }
 

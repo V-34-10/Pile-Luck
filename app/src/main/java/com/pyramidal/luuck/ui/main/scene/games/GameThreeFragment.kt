@@ -13,6 +13,7 @@ import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.FragmentGameThreeBinding
 import com.pyramidal.luuck.ui.main.settings.BalanceResetListener
 import com.pyramidal.luuck.ui.utils.StakeManager
+import com.pyramidal.luuck.ui.utils.UpdateStakeUI
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.setStakeManager
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.updateStakeUI
 import java.util.Random
@@ -20,24 +21,21 @@ import java.util.Random
 class GameThreeFragment : Fragment(), BalanceResetListener {
     private lateinit var binding: FragmentGameThreeBinding
     private lateinit var stakeManager: StakeManager
-    private var totalSum: Int = 0
-    private var totalSumStr: String = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentGameThreeBinding.inflate(layoutInflater, container, false)
 
-        totalSumStr = getString(R.string.title_total)
-        val totalSumDigitsOnly = totalSumStr.replace(Regex("\\D"), "")
-        totalSum = totalSumDigitsOnly.toIntOrNull() ?: 0
+        val totalSum = UpdateStakeUI.extractNumberFromText(binding.textTotal.text.toString())
         stakeManager = setStakeManager(totalSum)
+        updateStakeUI(binding, stakeManager)
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setTextBid()
+        //setTextBid()
         controlButton()
     }
 
@@ -106,12 +104,12 @@ class GameThreeFragment : Fragment(), BalanceResetListener {
         }
     }
 
-    private fun setTextBid() {
+    /*private fun setTextBid() {
         val totalSumDigitsOnly = totalSumStr.replace(Regex("\\D"), "")
         val totalSum = totalSumDigitsOnly.toIntOrNull() ?: 0
         val fivePercent = (totalSum * 0.05).toInt()
         binding.textBid.text = fivePercent.toString()
-    }
+    }*/
 
     private fun calculateCoefficient(degrees: Float): Float {
         return when (normalizeDegrees(degrees)) {  //normalizeDegrees [0, 360]
