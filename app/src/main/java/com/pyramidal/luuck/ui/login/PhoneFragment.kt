@@ -112,7 +112,7 @@ class PhoneFragment : Fragment() {
     }
 
     private fun hasConsecutiveDigits(phoneNumber: String): Boolean {
-        val consecutiveDigitsPattern = "(\\d)\\1{5,}"
+        val consecutiveDigitsPattern = "(\\\\d)\\\\1+"
         val regex = Regex(consecutiveDigitsPattern)
         return regex.containsMatchIn(phoneNumber)
     }
