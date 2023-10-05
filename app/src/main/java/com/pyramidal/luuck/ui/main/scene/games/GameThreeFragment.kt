@@ -68,15 +68,11 @@ class GameThreeFragment : Fragment(), BalanceResetListener {
                     // Store the current rotation angle
                     currentRotation += randomAngle
 
-                    val bidDigits =
-                        binding.textBid.text.toString().replace(Regex("\\D"), "").toIntOrNull() ?: 0
+                    val bidDigits = binding.textBid.text.toString().replace(Regex("[^\\d]"), "").toIntOrNull() ?: 0
                     val newSumWin = bidDigits * calculateCoefficient(currentRotation)
 
-                    val lastSumWin =
-                        binding.textWin.text.toString().replace(Regex("\\D"), "").toIntOrNull() ?: 0
-                    val totalSum =
-                        binding.textTotal.text.toString().replace(Regex("\\D"), "").toIntOrNull()
-                            ?: 0
+                    val lastSumWin = binding.textWin.text.toString().toIntOrNull() ?: 0
+                    val totalSum = binding.textTotal.text.toString().toIntOrNull() ?: 0
 
                     val updatedSumWin = lastSumWin + newSumWin
                     val updatedTotalSum = totalSum + newSumWin
