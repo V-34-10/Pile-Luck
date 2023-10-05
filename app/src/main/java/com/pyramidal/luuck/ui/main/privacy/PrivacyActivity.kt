@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
+import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.animation.AnimationUtils
 import android.webkit.WebSettings
@@ -72,6 +73,16 @@ class PrivacyActivity : AppCompatActivity() {
             }
         }
         return super.onKeyDown(keyCode, event)
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        if (WebViewShow.canGoBack()) {
+            WebViewShow.goBack()
+        } else {
+            binding.WebViewShow.visibility = GONE
+            WebViewShow.destroy()
+        }
     }
 
     private fun loadingLoginActivity() {

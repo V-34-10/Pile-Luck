@@ -1,5 +1,6 @@
 package com.pyramidal.luuck.ui.login
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.animation.AnimationUtils
 import com.pyramidal.luuck.R
 import com.pyramidal.luuck.ui.main.privacy.RemotePrivacy
 import com.pyramidal.luuck.databinding.FragmentSignUpBinding
+import com.pyramidal.luuck.ui.main.privacy.PrivacyActivity
 
 class SignUpFragment : Fragment() {
 
@@ -29,7 +31,9 @@ class SignUpFragment : Fragment() {
         val animation = AnimationUtils.loadAnimation(context, R.anim.scale_up)
         binding.textPrivacy.setOnClickListener {
             binding.textPrivacy.startAnimation(animation)
-            this.context?.let { it1 -> RemotePrivacy.openPrivacyLink(it1) }
+            val go = Intent(activity, PrivacyActivity::class.java)
+            startActivity(go)
+            fragmentManager?.beginTransaction()?.remove(this)?.commit()
         }
         binding.btnPhone.setOnClickListener {
             binding.btnPhone.startAnimation(animation)
