@@ -81,8 +81,23 @@ class GameFirstFragment : Fragment(), BalanceResetListener {
                     isAnimationInProgress = true
                 }
 
+                @SuppressLint("SetTextI18n")
                 override fun onAnimationEnd(animation: Animation?) {
                     isAnimationInProgress = false
+
+                    val bidDigits =
+                        binding.textBid.text.toString().replace(Regex("[^\\d]"), "").toIntOrNull()
+                            ?: 0
+                    val newSumWin = bidDigits * calculateWinCoefficient(slotItems)
+
+                    val lastSumWin = binding.textWin.text.toString().toIntOrNull() ?: 0
+                    val totalSum = binding.textTotal.text.toString().toIntOrNull() ?: 0
+
+                    val updatedSumWin = lastSumWin + newSumWin
+                    val updatedTotalSum = totalSum + newSumWin
+
+                    binding.textWin.text = "WIN $updatedSumWin"
+                    binding.textTotal.text = "Total $updatedTotalSum"
                 }
 
                 override fun onAnimationRepeat(animation: Animation?) {}
@@ -101,6 +116,16 @@ class GameFirstFragment : Fragment(), BalanceResetListener {
             binding.btnPlus.startAnimation(animation)
             stakeManager.increaseStake()
             updateStakeUI(binding, stakeManager)
+        }
+    }
+
+    private fun calculateWinCoefficient(slotItems: List<SlotItem>): Float {
+        val centralRow = slotItems.subList(3, 6)
+        val uniqueItems = centralRow.distinct()
+        return when (uniqueItems.size) {
+            1 -> 5.0f
+            2 -> 1.5f
+            else -> 0.0f
         }
     }
 

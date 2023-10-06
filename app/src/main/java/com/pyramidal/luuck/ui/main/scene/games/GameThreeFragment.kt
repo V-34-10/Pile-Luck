@@ -64,11 +64,14 @@ class GameThreeFragment : Fragment(), BalanceResetListener {
 
                 }
 
+                @SuppressLint("SetTextI18n")
                 override fun onAnimationEnd(animation: Animation?) {
                     // Store the current rotation angle
                     currentRotation += randomAngle
 
-                    val bidDigits = binding.textBid.text.toString().replace(Regex("[^\\d]"), "").toIntOrNull() ?: 0
+                    val bidDigits =
+                        binding.textBid.text.toString().replace(Regex("[^\\d]"), "").toIntOrNull()
+                            ?: 0
                     val newSumWin = bidDigits * calculateCoefficient(currentRotation)
 
                     val lastSumWin = binding.textWin.text.toString().toIntOrNull() ?: 0
@@ -77,8 +80,8 @@ class GameThreeFragment : Fragment(), BalanceResetListener {
                     val updatedSumWin = lastSumWin + newSumWin
                     val updatedTotalSum = totalSum + newSumWin
 
-                    binding.textWin.text = updatedSumWin.toString()
-                    binding.textTotal.text = updatedTotalSum.toString()
+                    binding.textWin.text = "WIN $updatedSumWin"
+                    binding.textTotal.text = "Total $updatedTotalSum"
 
                 }
 
