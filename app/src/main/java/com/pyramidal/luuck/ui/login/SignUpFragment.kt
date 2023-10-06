@@ -33,7 +33,6 @@ class SignUpFragment : Fragment() {
             binding.textPrivacy.startAnimation(animation)
             val go = Intent(activity, PrivacyActivity::class.java)
             startActivity(go)
-            fragmentManager?.beginTransaction()?.remove(this)?.commit()
         }
         binding.btnPhone.setOnClickListener {
             binding.btnPhone.startAnimation(animation)
