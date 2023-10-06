@@ -11,17 +11,14 @@ import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.GridLayoutManager
 import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.FragmentGameFifeBinding
-import com.pyramidal.luuck.ui.main.scene.SlotAdapter
+import com.pyramidal.luuck.ui.main.scene.SlotMinerAdapter
 import com.pyramidal.luuck.ui.main.scene.model.SlotItem
 import com.pyramidal.luuck.ui.main.settings.BalanceResetListener
-import com.pyramidal.luuck.ui.utils.StakeManager
-import com.pyramidal.luuck.ui.utils.UpdateStakeUI.setStakeManager
-import com.pyramidal.luuck.ui.utils.UpdateStakeUI.updateStakeUI
 
 
 class GameFifeFragment : Fragment(), BalanceResetListener {
     private lateinit var binding: FragmentGameFifeBinding
-    private lateinit var slotAdapter: SlotAdapter
+    private lateinit var slotAdapter: SlotMinerAdapter
     private lateinit var slotItems: List<SlotItem>
     private var slotListDefault = mutableListOf(
         R.drawable.slot_005,
@@ -34,18 +31,6 @@ class GameFifeFragment : Fragment(), BalanceResetListener {
         R.drawable.slot_005,
         R.drawable.slot_005
     )
-    private var slotListGame = mutableListOf(
-        R.drawable.slot_006,
-        R.drawable.slot_001,
-        R.drawable.slot_003,
-        R.drawable.slot_004,
-        R.drawable.slot_006,
-        R.drawable.slot_001,
-        R.drawable.slot_004,
-        R.drawable.slot_002,
-        R.drawable.slot_006
-    )
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -81,15 +66,14 @@ class GameFifeFragment : Fragment(), BalanceResetListener {
         }
         binding.btnSpin?.setOnClickListener {
             binding.btnSpin?.startAnimation(animation)
-            slotListGame.shuffle()
-            slotItems = slotListGame.map { SlotItem(it) }
-            binding.sceneGames?.let { it1 -> slotAdapter.updateData(slotItems, it1) }
+            slotItems = slotListDefault.map { SlotItem(it) }
+            binding.sceneGames?.let { slotAdapter.updateData(slotItems) }
         }
     }
 
     private fun initSlotsRecycler() {
         slotItems = slotListDefault.map { SlotItem(it) }
-        slotAdapter = SlotAdapter(slotItems)
+        slotAdapter = SlotMinerAdapter(slotItems)
         binding.sceneGames?.apply {
             layoutManager = GridLayoutManager(context, 3)
             adapter = slotAdapter
