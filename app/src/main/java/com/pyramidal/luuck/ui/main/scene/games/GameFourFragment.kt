@@ -96,8 +96,13 @@ class GameFourFragment : Fragment(), BalanceResetListener {
                 //add to balance
                 val currentBid = extractNumberFromText(binding.textBid.text.toString())
                 val currentBalance = extractNumberFromText(binding.textTotal.text.toString())
-                val newBalance = currentBalance + (currentBid * winAmount)
-                binding.textTotal.text = "Total $newBalance"
+                if (winAmount == 0) {
+                    val newBalance = currentBalance - currentBid
+                    binding.textTotal.text = "Total $newBalance"
+                } else {
+                    val newBalance = currentBalance + (currentBid * winAmount)
+                    binding.textTotal.text = "Total $newBalance"
+                }
 
                 //add to win
                 val currentWin = extractNumberFromText(binding.textWin.text.toString())
@@ -110,11 +115,6 @@ class GameFourFragment : Fragment(), BalanceResetListener {
 
         chestLayout.chestClosed.startAnimation(openChestAnimation)
     }
-
-    /*private fun extractNumberFromText(text: String): Int {
-        val digitsOnly = text.replace(Regex("\\D"), "")
-        return digitsOnly.toIntOrNull() ?: 0
-    }*/
 
     @SuppressLint("SetTextI18n")
     override fun resetBalanceToDefault(newBalance: Int) {

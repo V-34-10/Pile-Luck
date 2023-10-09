@@ -35,7 +35,6 @@ class GameThreeFragment : Fragment(), BalanceResetListener {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        //setTextBid()
         controlButton()
     }
 
@@ -60,9 +59,7 @@ class GameThreeFragment : Fragment(), BalanceResetListener {
             binding.wheel.startAnimation(rotateAnimation)
 
             rotateAnimation.setAnimationListener(object : Animation.AnimationListener {
-                override fun onAnimationStart(animation: Animation?) {
-
-                }
+                override fun onAnimationStart(animation: Animation?) {}
 
                 @SuppressLint("SetTextI18n")
                 override fun onAnimationEnd(animation: Animation?) {
@@ -70,27 +67,28 @@ class GameThreeFragment : Fragment(), BalanceResetListener {
                     currentRotation += randomAngle
 
                     val bidDigits =
-                        binding.textBid.text.toString().replace(Regex("[^\\d]"), "").toIntOrNull()
-                            ?: 0
+                        UpdateStakeUI.extractNumberFromText(binding.textBid.text.toString())
                     val newSumWin = bidDigits * calculateCoefficient(currentRotation)
 
-                    val lastSumWin = binding.textWin.text.toString().toIntOrNull() ?: 0
-                    val totalSum = binding.textTotal.text.toString().toIntOrNull() ?: 0
+                    val lastSumWin =
+                        UpdateStakeUI.extractNumberFromText(binding.textWin.text.toString())
+                    val totalSum =
+                        UpdateStakeUI.extractNumberFromText(binding.textTotal.text.toString())
 
                     val updatedSumWin = lastSumWin + newSumWin
-                    val updatedTotalSum = totalSum + newSumWin
+                    val updatedTotalSum = if (calculateCoefficient(currentRotation).toInt() == 0) {
+                        totalSum - bidDigits
+                    } else {
+                        totalSum + newSumWin
+                    }
 
                     binding.textWin.text = "WIN $updatedSumWin"
                     binding.textTotal.text = "Total $updatedTotalSum"
-
                 }
 
-                override fun onAnimationRepeat(animation: Animation?) {
-
-                }
+                override fun onAnimationRepeat(animation: Animation?) {}
             })
         }
-
         binding.btnMinus.setOnClickListener {
             binding.btnMinus.startAnimation(animation)
             stakeManager.decreaseStake()
@@ -102,13 +100,6 @@ class GameThreeFragment : Fragment(), BalanceResetListener {
             updateStakeUI(binding, stakeManager)
         }
     }
-
-    /*private fun setTextBid() {
-        val totalSumDigitsOnly = totalSumStr.replace(Regex("\\D"), "")
-        val totalSum = totalSumDigitsOnly.toIntOrNull() ?: 0
-        val fivePercent = (totalSum * 0.05).toInt()
-        binding.textBid.text = fivePercent.toString()
-    }*/
 
     private fun calculateCoefficient(degrees: Float): Float {
         return when (normalizeDegrees(degrees)) {  //normalizeDegrees [0, 360]
