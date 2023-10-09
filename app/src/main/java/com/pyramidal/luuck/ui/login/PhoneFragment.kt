@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import com.pyramidal.luuck.R
-import com.pyramidal.luuck.databinding.FragmentEmailBinding
 import com.pyramidal.luuck.databinding.FragmentPhoneBinding
 import com.pyramidal.luuck.ui.main.menu.MenuActivity
 
@@ -48,31 +47,6 @@ class PhoneFragment : Fragment() {
             val selectedCountryCode = binding.codeCountry.selectedCountryCode
             val phoneNumber = binding.phoneNumber.text.toString().trim()
             val fullPhoneNumber = selectedCountryCode + phoneNumber
-
-            /*if (phoneNumber.isEmpty()) {
-                Toast.makeText(
-                    context,
-                    "Phone number cannot be empty",
-                    Toast.LENGTH_LONG
-                ).show()
-                return@setOnClickListener
-            }else if (hasConsecutiveDigits(fullPhoneNumber)) {
-                Toast.makeText(
-                    context,
-                    "Invalid phone: $fullPhoneNumber (consecutive digits not allowed)",
-                    Toast.LENGTH_LONG
-                ).show()
-                return@setOnClickListener
-            } else if (isPhoneValid(fullPhoneNumber)) {
-                savePhoneToSharedPreferences(fullPhoneNumber)
-                loadingNextActivity()
-            } else {
-                Toast.makeText(
-                    context,
-                    "Invalid phone: $fullPhoneNumber correct format: +380 ${context?.getString(R.string.phone_hint)}",
-                    Toast.LENGTH_LONG
-                ).show()
-            }*/
 
             if (hasConsecutiveDigits(fullPhoneNumber)) {
                 Toast.makeText(
@@ -112,7 +86,7 @@ class PhoneFragment : Fragment() {
     }
 
     private fun hasConsecutiveDigits(phoneNumber: String): Boolean {
-        val consecutiveDigitsPattern = "(\\\\d)\\\\1+"
+        val consecutiveDigitsPattern = "(\\d)\\1+"
         val regex = Regex(consecutiveDigitsPattern)
         return regex.containsMatchIn(phoneNumber)
     }
@@ -121,7 +95,13 @@ class PhoneFragment : Fragment() {
         if (hasConsecutiveDigits(phone)) {
             return false
         }
-        val pattern = Patterns.PHONE// check phone
+
+        val digitCount = phone.count { it.isDigit() }
+        if (digitCount != 12) {
+            return false
+        }
+
+        val pattern = Patterns.PHONE
         return pattern.matcher(phone).matches()
     }
 
