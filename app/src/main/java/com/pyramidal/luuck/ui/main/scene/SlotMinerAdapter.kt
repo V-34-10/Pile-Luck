@@ -1,17 +1,14 @@
 package com.pyramidal.luuck.ui.main.scene
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import android.widget.ImageView
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.pyramidal.luuck.R
+import com.pyramidal.luuck.ui.main.scene.games.GameFifeFragment
 import com.pyramidal.luuck.ui.main.scene.model.SlotItem
-import com.pyramidal.luuck.ui.utils.SlotItemDiffCallback
 import java.util.Random
 
 class SlotMinerAdapter(private var dataList: List<SlotItem>) :
@@ -27,7 +24,7 @@ class SlotMinerAdapter(private var dataList: List<SlotItem>) :
         R.drawable.slot_002,
         R.drawable.slot_006
     )
-
+    private var itemClickListener: SlotItemClickListener? = null
     private var openSlotCount = 0
     private var maxOpenSlotCount = 3
 
@@ -45,6 +42,7 @@ class SlotMinerAdapter(private var dataList: List<SlotItem>) :
         val slotItem = dataList[position]
         holder.slotImageView.setImageResource(slotItem.imageResId)
         holder.itemView.setOnClickListener {
+            itemClickListener?.onItemClick(position, slotItem)
             if (openSlotCount < maxOpenSlotCount) {
                 val randomImageIndex = generateRandomImageIndex()
                 slotListGame.shuffle()
@@ -55,6 +53,10 @@ class SlotMinerAdapter(private var dataList: List<SlotItem>) :
                 openSlotCount++
             }
         }
+    }
+
+    fun setItemClickListener(listener: GameFifeFragment) {
+        itemClickListener = listener
     }
 
     override fun getItemCount(): Int {
