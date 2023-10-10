@@ -16,6 +16,7 @@ import com.pyramidal.luuck.ui.main.scene.SlotMinerAdapter
 import com.pyramidal.luuck.ui.main.scene.model.SlotItem
 import com.pyramidal.luuck.ui.main.settings.BalanceResetListener
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI
+import com.pyramidal.luuck.ui.utils.UpdateStakeUI.extractNumberFromText
 
 
 class GameFifeFragment : Fragment(), BalanceResetListener, SlotItemClickListener {
@@ -32,6 +33,12 @@ class GameFifeFragment : Fragment(), BalanceResetListener, SlotItemClickListener
         R.drawable.slot_005,
         R.drawable.slot_005,
         R.drawable.slot_005
+    )
+    private var slotListCorrect = setOf(
+        R.drawable.slot_001,
+        R.drawable.slot_002,
+        R.drawable.slot_003,
+        R.drawable.slot_004
     )
 
     override fun onCreateView(
@@ -86,7 +93,7 @@ class GameFifeFragment : Fragment(), BalanceResetListener, SlotItemClickListener
 
     @SuppressLint("SetTextI18n")
     override fun resetBalanceToDefault(newBalance: Int) {
-        binding.textTotal?.text ?: "Total $newBalance"
+        binding.textTotal?.text = "Total $newBalance"
     }
 
     @SuppressLint("SetTextI18n")
@@ -94,33 +101,25 @@ class GameFifeFragment : Fragment(), BalanceResetListener, SlotItemClickListener
         if (isSlotItemOfCorrectType(slotItem)) {
             updateBalance()
         } else {
-            val currentBid = UpdateStakeUI.extractNumberFromText(binding.textBid?.text.toString())
-            val currentBalance =
-                UpdateStakeUI.extractNumberFromText(binding.textTotal?.text.toString())
-            val newBalance = currentBalance - currentBid
-            binding.textTotal?.text = "Total $newBalance"
+            val currentBid = extractNumberFromText(binding.textBid?.text.toString())
+            var currentBalance = extractNumberFromText(binding.textTotal?.text.toString())
+            currentBalance -= currentBid
+            binding.textTotal?.text = "Total $currentBalance"
         }
     }
 
     private fun isSlotItemOfCorrectType(slotItem: SlotItem): Boolean {
-        val slotListGame = mutableListOf(
-            R.drawable.slot_001,
-            R.drawable.slot_002,
-            R.drawable.slot_003,
-            R.drawable.slot_004
-        )
-        return slotListGame.contains(slotItem.imageResId)
+        return slotListCorrect.contains(slotItem.imageResId)
     }
 
     @SuppressLint("SetTextI18n")
     private fun updateBalance() {
-        val currentBid = UpdateStakeUI.extractNumberFromText(binding.textBid?.text.toString())
-        val currentBalance = UpdateStakeUI.extractNumberFromText(binding.textTotal?.text.toString())
-        val newBalance = currentBalance + (currentBid * 2)
-        binding.textTotal?.text = "Total $newBalance"
-
-        val currentWin = UpdateStakeUI.extractNumberFromText(binding.textWin?.text.toString())
-        val newWin = currentWin + (currentBid * 2)
-        binding.textWin?.text = "WIN $newWin"
+        val currentBid = extractNumberFromText(binding.textBid?.text.toString())
+        var currentBalance = extractNumberFromText(binding.textTotal?.text.toString())
+        var currentWin = extractNumberFromText(binding.textWin?.text.toString())
+        currentBalance += (currentBid * 2)
+        binding.textTotal?.text = "Total $currentBalance"
+        currentWin += (currentBid * 2)
+        binding.textWin?.text = "WIN $currentWin"
     }
 }

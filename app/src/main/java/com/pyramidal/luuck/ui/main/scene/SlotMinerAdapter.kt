@@ -42,14 +42,13 @@ class SlotMinerAdapter(private var dataList: List<SlotItem>) :
         val slotItem = dataList[position]
         holder.slotImageView.setImageResource(slotItem.imageResId)
         holder.itemView.setOnClickListener {
-            itemClickListener?.onItemClick(position, slotItem)
             if (openSlotCount < maxOpenSlotCount) {
                 val randomImageIndex = generateRandomImageIndex()
                 slotListGame.shuffle()
                 val randomImageResId = slotListGame.map { SlotItem(it) }[randomImageIndex]
 
                 holder.slotImageView.setImageResource(randomImageResId.imageResId)
-
+                itemClickListener?.onItemClick(position, randomImageResId)
                 openSlotCount++
             }
         }
