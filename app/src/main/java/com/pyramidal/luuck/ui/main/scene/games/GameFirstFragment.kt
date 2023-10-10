@@ -87,18 +87,18 @@ class GameFirstFragment : Fragment(), BalanceResetListener {
                     isAnimationInProgress = false
 
                     val bidDigits = extractNumberFromText(binding.textBid.text.toString())
-                    val lastSumWin = extractNumberFromText(binding.textWin.text.toString())
-                    val totalSum = extractNumberFromText(binding.textTotal.text.toString())
+                    var sumWin = extractNumberFromText(binding.textWin.text.toString())
+                    var totalSum = extractNumberFromText(binding.textTotal.text.toString())
 
                     if (calculateWinCoefficient(slotItems).toInt() == 0) {
-                        val updatedTotalSum = totalSum - bidDigits
-                        binding.textTotal.text = "Total $updatedTotalSum"
+                        totalSum -= bidDigits
+                        binding.textTotal.text = "Total $totalSum"
                     } else {
                         val newSumWin = bidDigits * calculateWinCoefficient(slotItems)
-                        val updatedTotalSum = totalSum + newSumWin
-                        binding.textTotal.text = "Total $updatedTotalSum"
-                        val updatedSumWin = lastSumWin + newSumWin
-                        binding.textWin.text = "WIN $updatedSumWin"
+                        totalSum += newSumWin.toInt()
+                        binding.textTotal.text = "Total $totalSum"
+                        sumWin += newSumWin.toInt()
+                        binding.textWin.text = "WIN $sumWin"
                     }
                 }
 
