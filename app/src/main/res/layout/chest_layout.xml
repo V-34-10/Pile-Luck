@@ -12,21 +12,9 @@
         android:contentDescription="@string/chest_scene"
         android:focusable="true"
         android:src="@drawable/chest_close"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- Add an image for the open chest -->
-    <ImageView
-        android:id="@+id/chestOpen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/chest_scene"
-        android:src="@drawable/chest_open"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/chestClosed"
-        app:layout_constraintEnd_toEndOf="@+id/chestClosed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

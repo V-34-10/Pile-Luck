@@ -69,8 +69,7 @@ class GameFourFragment : Fragment(), BalanceResetListener {
         binding.btnSpin.setOnClickListener {
             binding.btnSpin.startAnimation(animation)
             chestPairs.forEach { chestLayout ->
-                chestLayout.chestClosed.visibility = View.VISIBLE
-                chestLayout.chestOpen.visibility = View.GONE
+                chestLayout.chestClosed.setImageResource(R.drawable.chest_close)
                 chestLayout.winAmountText.visibility = View.GONE
             }
         }
@@ -90,8 +89,7 @@ class GameFourFragment : Fragment(), BalanceResetListener {
 
                 chestLayout.winAmountText.text = "x$winAmount"
                 chestLayout.winAmountText.visibility = View.VISIBLE
-                chestLayout.chestOpen.visibility = View.VISIBLE
-                chestLayout.chestClosed.visibility = View.GONE
+                chestLayout.chestClosed.setImageResource(R.drawable.chest_open)
 
                 //add to balance
                 val currentBid = extractNumberFromText(binding.textBid.text.toString())
