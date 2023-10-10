@@ -17,6 +17,7 @@ import com.pyramidal.luuck.ui.main.scene.model.SlotItem
 import com.pyramidal.luuck.ui.main.settings.BalanceResetListener
 import com.pyramidal.luuck.ui.utils.StakeManager
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI
+import com.pyramidal.luuck.ui.utils.UpdateStakeUI.extractNumberFromText
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.setStakeManager
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.updateStakeUI
 
@@ -54,7 +55,7 @@ class GameFirstFragment : Fragment(), BalanceResetListener {
     ): View {
         binding = FragmentGameFirstBinding.inflate(layoutInflater, container, false)
 
-        val totalSum = UpdateStakeUI.extractNumberFromText(binding.textTotal.text.toString())
+        val totalSum = extractNumberFromText(binding.textTotal.text.toString())
         stakeManager = setStakeManager(totalSum)
         updateStakeUI(binding, stakeManager)
         return binding.root
@@ -85,24 +86,20 @@ class GameFirstFragment : Fragment(), BalanceResetListener {
                 override fun onAnimationEnd(animation: Animation?) {
                     isAnimationInProgress = false
 
-                    val bidDigits =
-                        UpdateStakeUI.extractNumberFromText(binding.textBid.text.toString())
-                    val newSumWin = bidDigits * calculateWinCoefficient(slotItems)
+                    val bidDigits = extractNumberFromText(binding.textBid.text.toString())
+                    val lastSumWin = extractNumberFromText(binding.textWin.text.toString())
+                    val totalSum = extractNumberFromText(binding.textTotal.text.toString())
 
-                    val lastSumWin =
-                        UpdateStakeUI.extractNumberFromText(binding.textWin.text.toString())
-                    val totalSum =
-                        UpdateStakeUI.extractNumberFromText(binding.textTotal.text.toString())
-
-                    val updatedSumWin = lastSumWin + newSumWin
-                    val updatedTotalSum = if (calculateWinCoefficient(slotItems).toInt() == 0) {
-                        totalSum - bidDigits
+                    if (calculateWinCoefficient(slotItems).toInt() == 0) {
+                        val updatedTotalSum = totalSum - bidDigits
+                        binding.textTotal.text = "Total $updatedTotalSum"
                     } else {
-                        totalSum + newSumWin
+                        val newSumWin = bidDigits * calculateWinCoefficient(slotItems)
+                        val updatedTotalSum = totalSum + newSumWin
+                        binding.textTotal.text = "Total $updatedTotalSum"
+                        val updatedSumWin = lastSumWin + newSumWin
+                        binding.textWin.text = "WIN $updatedSumWin"
                     }
-
-                    binding.textWin.text = "WIN $updatedSumWin"
-                    binding.textTotal.text = "Total $updatedTotalSum"
                 }
 
                 override fun onAnimationRepeat(animation: Animation?) {}

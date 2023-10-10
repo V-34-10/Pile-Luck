@@ -89,6 +89,7 @@ class GameFifeFragment : Fragment(), BalanceResetListener, SlotItemClickListener
         binding.textTotal?.text ?: "Total $newBalance"
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onItemClick(position: Int, slotItem: SlotItem) {
         if (isSlotItemOfCorrectType(slotItem)) {
             updateBalance()
@@ -97,7 +98,7 @@ class GameFifeFragment : Fragment(), BalanceResetListener, SlotItemClickListener
             val currentBalance =
                 UpdateStakeUI.extractNumberFromText(binding.textTotal?.text.toString())
             val newBalance = currentBalance - currentBid
-            binding.textTotal?.text ?: "Total $newBalance"
+            binding.textTotal?.text = "Total $newBalance"
         }
     }
 
@@ -116,10 +117,10 @@ class GameFifeFragment : Fragment(), BalanceResetListener, SlotItemClickListener
         val currentBid = UpdateStakeUI.extractNumberFromText(binding.textBid?.text.toString())
         val currentBalance = UpdateStakeUI.extractNumberFromText(binding.textTotal?.text.toString())
         val newBalance = currentBalance + (currentBid * 2)
-        binding.textTotal?.text ?: "Total $newBalance"
+        binding.textTotal?.text = "Total $newBalance"
 
         val currentWin = UpdateStakeUI.extractNumberFromText(binding.textWin?.text.toString())
         val newWin = currentWin + (currentBid * 2)
-        binding.textWin?.text ?: "WIN $newWin"
+        binding.textWin?.text = "WIN $newWin"
     }
 }
