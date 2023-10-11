@@ -40,10 +40,6 @@ class PrivacyActivity : AppCompatActivity() {
             binding.btnYes.startAnimation(animation)
             loadingLoginActivity()
         }
-        binding.btnNo.setOnClickListener {
-            binding.btnNo.startAnimation(animation)
-            loadingLoginActivity()
-        }
     }
 
     @SuppressLint("SetJavaScriptEnabled")
