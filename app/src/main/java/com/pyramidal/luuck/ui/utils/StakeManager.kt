@@ -6,7 +6,7 @@ class StakeManager(
     private val maxStakePercentage: Double,
     private val stakeStep: Int
 ) {
-    private var currentStake = 0
+    private var currentStake = 100
     fun getCurrentStake(): Int {
         return currentStake
     }

@@ -31,8 +31,8 @@ object UpdateStakeUI {
     }
 
     fun setStakeManager(totalSum: Int): StakeManager {
-        val minStakePercentage = 0.05 // 5%
-        val maxStakePercentage = 0.10 // 10%
+        val minStakePercentage = 0.01 // 1%
+        val maxStakePercentage = 1.0 // 100%
         val stakeStep = 50
         return StakeManager(totalSum, minStakePercentage, maxStakePercentage, stakeStep)
     }
