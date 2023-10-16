@@ -30,4 +30,5 @@
     <dimen name="dp100">100dp</dimen>
     <dimen name="dp85">85dp</dimen>
     <dimen name="dp90">90dp</dimen>
+    <dimen name="dp285">285dp</dimen>
 </resources>

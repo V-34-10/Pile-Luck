@@ -6,38 +6,33 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.animation.AnimationUtils
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.pyramidal.luuck.R
-import com.pyramidal.luuck.databinding.ActivityPrivacyBinding
+import com.pyramidal.luuck.databinding.ActivityPrivacySecondBinding
+import com.pyramidal.luuck.databinding.ActivityWebViewPrivacyBinding
 import com.pyramidal.luuck.ui.login.LoginActivity
 import com.pyramidal.luuck.ui.utils.HideUIConfigUtils
 
-class PrivacyActivity : AppCompatActivity() {
+class WebViewPrivacyActivity : AppCompatActivity() {
     private lateinit var WebViewShow: WebView
     private var mainLink: String = "https://www.google.com/" //TODO change on release!!!
-    private val binding by lazy { ActivityPrivacyBinding.inflate(layoutInflater) }
+    private val binding by lazy { ActivityWebViewPrivacyBinding.inflate(layoutInflater) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val view = binding.root
         setContentView(view)
         HideUIConfigUtils.hideUINavigation(this)
+        initWebView()
         controlButton()
     }
 
     private fun controlButton() {
         val animation = AnimationUtils.loadAnimation(this, R.anim.scale_up)
-        binding.btnPrivacy.setOnClickListener {
-            binding.btnPrivacy.startAnimation(animation)
-            binding.WebViewShow.visibility = VISIBLE
-            initWebView()
-        }
-        binding.btnYes.setOnClickListener {
-            binding.btnYes.startAnimation(animation)
+        binding.btnAccept.setOnClickListener {
+            binding.btnAccept.startAnimation(animation)
             loadingLoginActivity()
         }
     }
@@ -71,19 +66,8 @@ class PrivacyActivity : AppCompatActivity() {
         return super.onKeyDown(keyCode, event)
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {
-        if (WebViewShow.canGoBack()) {
-            WebViewShow.goBack()
-        } else {
-            binding.WebViewShow.visibility = GONE
-            WebViewShow.destroy()
-        }
-    }
-
     private fun loadingLoginActivity() {
-        // run LoginActivity
-        val go = Intent(this@PrivacyActivity, LoginActivity::class.java)
+        val go = Intent(this@WebViewPrivacyActivity, PrivacySecondActivity::class.java)
         startActivity(go)
         finish()
     }

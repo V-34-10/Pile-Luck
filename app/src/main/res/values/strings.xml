@@ -82,5 +82,8 @@
     <string name="chest_scene">chest_scene</string>
     <string name="title_landscape">Please switch to landscape mode</string>
     <string name="btn_bid">btn bid</string>
+    <string name="title_description_policy">You can read our privacy policy</string>
+    <string name="title_privacy_second">Privacy Policy</string>
+    <string name="btn_accept">btn_accept</string>
 
 </resources>
