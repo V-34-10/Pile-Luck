@@ -1,6 +1,7 @@
 package com.pyramidal.luuck.ui.main.scene.games
 
 import android.annotation.SuppressLint
+import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.FragmentGameFirstBinding
@@ -18,7 +20,9 @@ import com.pyramidal.luuck.ui.main.settings.BalanceResetListener
 import com.pyramidal.luuck.ui.utils.StakeManager
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.extractNumberFromText
+import com.pyramidal.luuck.ui.utils.UpdateStakeUI.saveNewBalance
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.setStakeManager
+import com.pyramidal.luuck.ui.utils.UpdateStakeUI.updateBalance
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.updateStakeUI
 
 class GameFirstFragment : Fragment(), BalanceResetListener {
@@ -49,6 +53,7 @@ class GameFirstFragment : Fragment(), BalanceResetListener {
     private lateinit var slotAdapter: SlotAdapter
     private var isAnimationInProgress = false
     private lateinit var stakeManager: StakeManager
+    private lateinit var sharedPref: SharedPreferences
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -64,6 +69,8 @@ class GameFirstFragment : Fragment(), BalanceResetListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initSlotsRecycler()
         controlButton()
+        //updateBalance
+        activity?.let { updateBalance(it, binding) }
     }
 
     private fun controlButton() {
@@ -99,6 +106,9 @@ class GameFirstFragment : Fragment(), BalanceResetListener {
                         binding.textTotal.text = "Total $totalSum"
                         sumWin += newSumWin.toInt()
                         binding.textWin.text = "WIN $sumWin"
+
+                        //saveBalance
+                        activity?.let { it1 -> saveNewBalance(it1, binding) }
                     }
                 }
 

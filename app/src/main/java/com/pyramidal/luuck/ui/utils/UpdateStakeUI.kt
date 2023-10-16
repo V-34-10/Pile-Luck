@@ -1,12 +1,17 @@
 package com.pyramidal.luuck.ui.utils
 
+import android.content.Context
+import android.content.SharedPreferences
+import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
+import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.FragmentGameFifeBinding
 import com.pyramidal.luuck.databinding.FragmentGameFirstBinding
 import com.pyramidal.luuck.databinding.FragmentGameFourBinding
 import com.pyramidal.luuck.databinding.FragmentGameThreeBinding
 
 object UpdateStakeUI {
+    private lateinit var sharedPref: SharedPreferences
     fun updateStakeUI(
         binding: ViewBinding,
         stakeManager: StakeManager
@@ -42,4 +47,28 @@ object UpdateStakeUI {
         return digitsOnly.toIntOrNull() ?: 0
     }
 
+    fun saveNewBalance(context: Context, binding: ViewBinding) {
+        sharedPref = context.getSharedPreferences("my_prefs", AppCompatActivity.MODE_PRIVATE)
+        val editor = sharedPref.edit()
+        val currentBalance: String = when (binding) {
+            is FragmentGameFirstBinding -> binding.textTotal.text.toString()
+            is FragmentGameThreeBinding -> binding.textTotal.text.toString()
+            is FragmentGameFourBinding -> binding.textTotal.text.toString()
+            is FragmentGameFifeBinding -> binding.textTotal?.text.toString()
+            else -> context.getString(R.string.title_total)
+        }
+        editor.putString("balance", currentBalance)
+        editor.apply()
+    }
+
+    fun updateBalance(context: Context, binding: ViewBinding) {
+        sharedPref = context.getSharedPreferences("my_prefs", AppCompatActivity.MODE_PRIVATE)!!
+        val balance = sharedPref.contains("balance")
+        when (binding) {
+            is FragmentGameFirstBinding -> binding.textTotal.text = balance.toString()
+            is FragmentGameThreeBinding -> binding.textTotal.text = balance.toString()
+            is FragmentGameFourBinding -> binding.textTotal.text = balance.toString()
+            is FragmentGameFifeBinding -> binding.textTotal?.text = balance.toString()
+        }
+    }
 }

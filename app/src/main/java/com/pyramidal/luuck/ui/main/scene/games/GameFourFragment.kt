@@ -14,8 +14,11 @@ import com.pyramidal.luuck.databinding.ChestLayoutBinding
 import com.pyramidal.luuck.databinding.FragmentGameFourBinding
 import com.pyramidal.luuck.ui.main.settings.BalanceResetListener
 import com.pyramidal.luuck.ui.utils.StakeManager
+import com.pyramidal.luuck.ui.utils.UpdateStakeUI
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.extractNumberFromText
+import com.pyramidal.luuck.ui.utils.UpdateStakeUI.saveNewBalance
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.setStakeManager
+import com.pyramidal.luuck.ui.utils.UpdateStakeUI.updateBalance
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.updateStakeUI
 
 class GameFourFragment : Fragment(), BalanceResetListener {
@@ -36,6 +39,8 @@ class GameFourFragment : Fragment(), BalanceResetListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         controlButton()
+        //updateBalance
+        activity?.let { updateBalance(it, binding) }
     }
 
     private fun controlButton() {
@@ -108,6 +113,9 @@ class GameFourFragment : Fragment(), BalanceResetListener {
                 val currentWin = extractNumberFromText(binding.textWin.text.toString())
                 val newWin = currentWin + (currentBid * winAmount)
                 binding.textWin.text = "WIN $newWin"
+
+                //saveBalance
+                activity?.let { it1 -> saveNewBalance(it1, binding) }
             }
 
             override fun onAnimationRepeat(animation: Animation?) {}

@@ -15,6 +15,7 @@ import com.pyramidal.luuck.ui.main.settings.BalanceResetListener
 import com.pyramidal.luuck.ui.utils.StakeManager
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.extractNumberFromText
+import com.pyramidal.luuck.ui.utils.UpdateStakeUI.saveNewBalance
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.setStakeManager
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.updateStakeUI
 import java.util.Random
@@ -37,6 +38,8 @@ class GameThreeFragment : Fragment(), BalanceResetListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         controlButton()
+        //updateBalance
+        activity?.let { UpdateStakeUI.updateBalance(it, binding) }
     }
 
     private fun controlButton() {
@@ -80,6 +83,9 @@ class GameThreeFragment : Fragment(), BalanceResetListener {
                         binding.textTotal.text = "Total $totalSum"
                         sumWin += newSumWin.toInt()
                         binding.textWin.text = "WIN $sumWin"
+
+                        //saveBalance
+                        activity?.let { it1 -> saveNewBalance(it1, binding) }
                     }
                 }
 

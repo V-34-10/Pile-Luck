@@ -17,6 +17,7 @@ import com.pyramidal.luuck.ui.main.scene.model.SlotItem
 import com.pyramidal.luuck.ui.main.settings.BalanceResetListener
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.extractNumberFromText
+import com.pyramidal.luuck.ui.utils.UpdateStakeUI.saveNewBalance
 
 
 class GameFifeFragment : Fragment(), BalanceResetListener, SlotItemClickListener {
@@ -55,6 +56,8 @@ class GameFifeFragment : Fragment(), BalanceResetListener, SlotItemClickListener
             initSlotsRecycler()
             controlButton()
             slotAdapter.setItemClickListener(this)
+            //updateBalance
+            activity?.let { UpdateStakeUI.updateBalance(it, binding) }
         }
     }
 
@@ -100,6 +103,8 @@ class GameFifeFragment : Fragment(), BalanceResetListener, SlotItemClickListener
     override fun onItemClick(position: Int, slotItem: SlotItem) {
         if (isSlotItemOfCorrectType(slotItem)) {
             updateBalance()
+            //saveBalance
+            activity?.let { it1 -> saveNewBalance(it1, binding) }
         } else {
             val currentBid = extractNumberFromText(binding.textBid?.text.toString())
             var currentBalance = extractNumberFromText(binding.textTotal?.text.toString())
