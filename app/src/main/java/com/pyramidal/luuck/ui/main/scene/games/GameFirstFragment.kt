@@ -25,7 +25,7 @@ import com.pyramidal.luuck.ui.utils.UpdateStakeUI.setStakeManager
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.updateBalance
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.updateStakeUI
 
-class GameFirstFragment : Fragment(), BalanceResetListener {
+class GameFirstFragment : BalanceResetListener, BaseGameFragment() {
     private lateinit var binding: FragmentGameFirstBinding
     private var slotFirstList = mutableListOf(
         R.drawable.slot_1,
@@ -53,7 +53,6 @@ class GameFirstFragment : Fragment(), BalanceResetListener {
     private lateinit var slotAdapter: SlotAdapter
     private var isAnimationInProgress = false
     private lateinit var stakeManager: StakeManager
-    private lateinit var sharedPref: SharedPreferences
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -71,6 +70,11 @@ class GameFirstFragment : Fragment(), BalanceResetListener {
         controlButton()
         //updateBalance
         activity?.let { updateBalance(it, binding) }
+        if (savedInstanceState != null) {
+            val balance = binding.textTotal.text.toString()
+            val stake = binding.textBid.text.toString()
+            updateBalanceAndStake(balance, stake)
+        }
     }
 
     private fun controlButton() {

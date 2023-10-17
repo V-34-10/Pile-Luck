@@ -20,7 +20,7 @@ import com.pyramidal.luuck.ui.utils.UpdateStakeUI.extractNumberFromText
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.saveNewBalance
 
 
-class GameFifeFragment : Fragment(), BalanceResetListener, SlotItemClickListener {
+class GameFifeFragment : BalanceResetListener, SlotItemClickListener, BaseGameFragment() {
     private lateinit var binding: FragmentGameFifeBinding
     private lateinit var slotAdapter: SlotMinerAdapter
     private lateinit var slotItems: List<SlotItem>
@@ -58,6 +58,11 @@ class GameFifeFragment : Fragment(), BalanceResetListener, SlotItemClickListener
             slotAdapter.setItemClickListener(this)
             //updateBalance
             activity?.let { UpdateStakeUI.updateBalance(it, binding) }
+            if (savedInstanceState != null) {
+                val balance = binding.textTotal?.text.toString()
+                val stake = binding.textBid?.text.toString()
+                updateBalanceAndStake(balance, stake)
+            }
         }
     }
 

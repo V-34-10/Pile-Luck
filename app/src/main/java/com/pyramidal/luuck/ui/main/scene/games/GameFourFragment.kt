@@ -21,7 +21,7 @@ import com.pyramidal.luuck.ui.utils.UpdateStakeUI.setStakeManager
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.updateBalance
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.updateStakeUI
 
-class GameFourFragment : Fragment(), BalanceResetListener {
+class GameFourFragment : BalanceResetListener, BaseGameFragment() {
     private lateinit var binding: FragmentGameFourBinding
     private lateinit var stakeManager: StakeManager
     override fun onCreateView(
@@ -41,6 +41,11 @@ class GameFourFragment : Fragment(), BalanceResetListener {
         controlButton()
         //updateBalance
         activity?.let { updateBalance(it, binding) }
+        if (savedInstanceState != null) {
+            val balance = binding.textTotal.text.toString()
+            val stake = binding.textBid.text.toString()
+            updateBalanceAndStake(balance, stake)
+        }
     }
 
     private fun controlButton() {

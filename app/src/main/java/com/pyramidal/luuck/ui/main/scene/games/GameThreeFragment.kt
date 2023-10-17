@@ -2,7 +2,6 @@ package com.pyramidal.luuck.ui.main.scene.games
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,14 +12,14 @@ import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.FragmentGameThreeBinding
 import com.pyramidal.luuck.ui.main.settings.BalanceResetListener
 import com.pyramidal.luuck.ui.utils.StakeManager
-import com.pyramidal.luuck.ui.utils.UpdateStakeUI
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.extractNumberFromText
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.saveNewBalance
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.setStakeManager
+import com.pyramidal.luuck.ui.utils.UpdateStakeUI.updateBalance
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.updateStakeUI
 import java.util.Random
 
-class GameThreeFragment : Fragment(), BalanceResetListener {
+class GameThreeFragment : BalanceResetListener, BaseGameFragment() {
     private lateinit var binding: FragmentGameThreeBinding
     private lateinit var stakeManager: StakeManager
     override fun onCreateView(
@@ -39,7 +38,12 @@ class GameThreeFragment : Fragment(), BalanceResetListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         controlButton()
         //updateBalance
-        activity?.let { UpdateStakeUI.updateBalance(it, binding) }
+        activity?.let { updateBalance(it, binding) }
+        if (savedInstanceState != null) {
+            val balance = binding.textTotal.text.toString()
+            val stake = binding.textBid.text.toString()
+            updateBalanceAndStake(balance, stake)
+        }
     }
 
     private fun controlButton() {
