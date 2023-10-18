@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 
 open class BaseGameFragment : Fragment() {
-    private lateinit var Balance: String
+    /*private lateinit var Balance: String
     private lateinit var Stake: String
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -25,5 +25,27 @@ open class BaseGameFragment : Fragment() {
     protected fun updateBalanceAndStake(balance: String, stake: String) {
         Balance = balance
         Stake = stake
+    }*/
+
+    var balance: String? = null
+    var stake: String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (savedInstanceState != null) {
+            balance = savedInstanceState.getString("balance")
+            stake = savedInstanceState.getString("stake")
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("balance", balance)
+        outState.putString("stake", stake)
+    }
+
+    protected fun updateBalanceAndStake(balance: String, stake: String) {
+        this.balance = balance
+        this.stake = stake
     }
 }
