@@ -63,12 +63,18 @@ object UpdateStakeUI {
 
     fun updateBalance(context: Context, binding: ViewBinding) {
         sharedPref = context.getSharedPreferences("my_prefs", AppCompatActivity.MODE_PRIVATE)!!
-        val balance = sharedPref.contains("balance")
+        val currentBalance = sharedPref.getString("balance", context.getString(R.string.title_total))
+
         when (binding) {
-            is FragmentGameFirstBinding -> binding.textTotal.text = balance.toString()
-            is FragmentGameThreeBinding -> binding.textTotal.text = balance.toString()
-            is FragmentGameFourBinding -> binding.textTotal.text = balance.toString()
-            is FragmentGameFifeBinding -> binding.textTotal?.text = balance.toString()
+            is FragmentGameFirstBinding -> binding.textTotal.text = currentBalance
+            is FragmentGameThreeBinding -> binding.textTotal.text = currentBalance
+            is FragmentGameFourBinding -> binding.textTotal.text = currentBalance
+            is FragmentGameFifeBinding -> binding.textTotal?.text = currentBalance
         }
+    }
+
+    fun isBalanceSaved(context: Context): Boolean {
+        val sharedPref = context.getSharedPreferences("my_prefs", AppCompatActivity.MODE_PRIVATE)
+        return sharedPref.contains("balance")
     }
 }
