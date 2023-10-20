@@ -3,11 +3,11 @@ package com.pyramidal.luuck.ui.main.scene.games
 import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.FragmentGameFifeBinding
@@ -21,7 +21,7 @@ import com.pyramidal.luuck.ui.utils.UpdateStakeUI.isBalanceSaved
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.saveNewBalance
 
 
-class GameFifeFragment : BalanceResetListener, SlotItemClickListener, BaseGameFragment() {
+class GameFifeFragment : Fragment(), BalanceResetListener, SlotItemClickListener {
     private lateinit var binding: FragmentGameFifeBinding
     private lateinit var slotAdapter: SlotMinerAdapter
     private lateinit var slotItems: List<SlotItem>
@@ -60,14 +60,36 @@ class GameFifeFragment : BalanceResetListener, SlotItemClickListener, BaseGameFr
             //updateBalance
             activity?.let { context ->
                 if (isBalanceSaved(context)) {
-                    UpdateStakeUI.updateBalance(context, binding)
+                    //updateBalance(context, binding)
+                    val (restoredBalance) = UpdateStakeUI.updateBalance(context)
+                    binding.textTotal?.text = restoredBalance.toString()
                 }
             }
-            if (savedInstanceState != null) {
-                val balance = binding.textTotal?.text.toString()
-                val stake = binding.textBid?.text.toString()
-                updateBalanceAndStake(balance, stake)
-            }
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("balance", binding.textTotal?.text.toString())
+        outState.putString("stake", binding.textBid?.text.toString())
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        if (savedInstanceState != null) {
+            binding.textTotal?.text =
+                savedInstanceState.getString(
+                    "balance",
+                    activity?.getString(R.string.title_total) ?: "Total 10000"
+                )
+        }
+        if (savedInstanceState != null) {
+            binding.textBid?.text =
+                savedInstanceState.getString(
+                    "stake",
+                    activity?.getString(R.string.title_bid) ?: "100"
+                )
         }
     }
 
@@ -114,7 +136,13 @@ class GameFifeFragment : BalanceResetListener, SlotItemClickListener, BaseGameFr
         if (isSlotItemOfCorrectType(slotItem)) {
             updateBalance()
             //saveBalance
-            activity?.let { it1 -> saveNewBalance(it1, binding) }
+            activity?.let { it1 ->
+                saveNewBalance(
+                    it1,
+                    binding.textTotal?.text.toString(),
+                    binding.textBid?.text.toString()
+                )
+            }
         } else {
             val currentBid = extractNumberFromText(binding.textBid?.text.toString())
             var currentBalance = extractNumberFromText(binding.textTotal?.text.toString())

@@ -5,7 +5,6 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import com.pyramidal.luuck.R
-import com.pyramidal.luuck.databinding.FragmentGameFifeBinding
 import com.pyramidal.luuck.databinding.FragmentGameFirstBinding
 import com.pyramidal.luuck.databinding.FragmentGameFourBinding
 import com.pyramidal.luuck.databinding.FragmentGameThreeBinding
@@ -18,20 +17,24 @@ object UpdateStakeUI {
     ) {
         val currentStake = stakeManager.getCurrentStake()
 
-        if (binding is FragmentGameFirstBinding) {
-            // Update UI with the current stake value
-            binding.textBid.text = currentStake.toString()
-            // Enable/disable buttons based on stake limits
-            binding.btnMinus.isEnabled = stakeManager.canDecreaseStake()
-            binding.btnPlus.isEnabled = stakeManager.canIncreaseStake()
-        } else if (binding is FragmentGameThreeBinding) {
-            binding.textBid.text = currentStake.toString()
-            binding.btnMinus.isEnabled = stakeManager.canDecreaseStake()
-            binding.btnPlus.isEnabled = stakeManager.canIncreaseStake()
-        } else if (binding is FragmentGameFourBinding) {
-            binding.textBid.text = currentStake.toString()
-            binding.btnMinus.isEnabled = stakeManager.canDecreaseStake()
-            binding.btnPlus.isEnabled = stakeManager.canIncreaseStake()
+        when (binding) {
+            is FragmentGameFirstBinding -> {
+                binding.textBid.text = currentStake.toString()
+                binding.btnMinus.isEnabled = stakeManager.canDecreaseStake()
+                binding.btnPlus.isEnabled = stakeManager.canIncreaseStake()
+            }
+
+            is FragmentGameThreeBinding -> {
+                binding.textBid.text = currentStake.toString()
+                binding.btnMinus.isEnabled = stakeManager.canDecreaseStake()
+                binding.btnPlus.isEnabled = stakeManager.canIncreaseStake()
+            }
+
+            is FragmentGameFourBinding -> {
+                binding.textBid.text = currentStake.toString()
+                binding.btnMinus.isEnabled = stakeManager.canDecreaseStake()
+                binding.btnPlus.isEnabled = stakeManager.canIncreaseStake()
+            }
         }
     }
 
@@ -47,30 +50,19 @@ object UpdateStakeUI {
         return digitsOnly.toIntOrNull() ?: 0
     }
 
-    fun saveNewBalance(context: Context, binding: ViewBinding) {
+    fun saveNewBalance(context: Context, balance: String, stake: String?) {
         sharedPref = context.getSharedPreferences("my_prefs", AppCompatActivity.MODE_PRIVATE)
         val editor = sharedPref.edit()
-        val currentBalance: String = when (binding) {
-            is FragmentGameFirstBinding -> binding.textTotal.text.toString()
-            is FragmentGameThreeBinding -> binding.textTotal.text.toString()
-            is FragmentGameFourBinding -> binding.textTotal.text.toString()
-            is FragmentGameFifeBinding -> binding.textTotal?.text.toString()
-            else -> context.getString(R.string.title_total)
-        }
-        editor.putString("balance", currentBalance)
+        editor.putString("balance", balance)
+        editor.putString("stake", stake)
         editor.apply()
     }
 
-    fun updateBalance(context: Context, binding: ViewBinding) {
+    fun updateBalance(context: Context): Pair<String?, String?> {
         sharedPref = context.getSharedPreferences("my_prefs", AppCompatActivity.MODE_PRIVATE)!!
-        val currentBalance = sharedPref.getString("balance", context.getString(R.string.title_total))
-
-        when (binding) {
-            is FragmentGameFirstBinding -> binding.textTotal.text = currentBalance
-            is FragmentGameThreeBinding -> binding.textTotal.text = currentBalance
-            is FragmentGameFourBinding -> binding.textTotal.text = currentBalance
-            is FragmentGameFifeBinding -> binding.textTotal?.text = currentBalance
-        }
+        val balance = sharedPref.getString("balance", context.getString(R.string.title_total))
+        val stake = sharedPref.getString("stake", context.getString(R.string.title_bid))
+        return Pair(balance, stake)
     }
 
     fun isBalanceSaved(context: Context): Boolean {

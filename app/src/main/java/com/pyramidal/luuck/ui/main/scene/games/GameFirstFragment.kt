@@ -1,17 +1,14 @@
 package com.pyramidal.luuck.ui.main.scene.games
 
 import android.annotation.SuppressLint
-import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.FragmentGameFirstBinding
@@ -19,7 +16,6 @@ import com.pyramidal.luuck.ui.main.scene.SlotAdapter
 import com.pyramidal.luuck.ui.main.scene.model.SlotItem
 import com.pyramidal.luuck.ui.main.settings.BalanceResetListener
 import com.pyramidal.luuck.ui.utils.StakeManager
-import com.pyramidal.luuck.ui.utils.UpdateStakeUI
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.extractNumberFromText
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.isBalanceSaved
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.saveNewBalance
@@ -27,7 +23,7 @@ import com.pyramidal.luuck.ui.utils.UpdateStakeUI.setStakeManager
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.updateBalance
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.updateStakeUI
 
-class GameFirstFragment :Fragment(), BalanceResetListener/*, BaseGameFragment()*/ {
+class GameFirstFragment : Fragment(), BalanceResetListener {
     private lateinit var binding: FragmentGameFirstBinding
     private var slotFirstList = mutableListOf(
         R.drawable.slot_1,
@@ -55,9 +51,6 @@ class GameFirstFragment :Fragment(), BalanceResetListener/*, BaseGameFragment()*
     private lateinit var slotAdapter: SlotAdapter
     private var isAnimationInProgress = false
     private lateinit var stakeManager: StakeManager
-    private var balance: String? = null
-    private var stake: String? = null
-    //private val gameViewModel: GameViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -67,10 +60,7 @@ class GameFirstFragment :Fragment(), BalanceResetListener/*, BaseGameFragment()*
         val totalSum = extractNumberFromText(binding.textTotal.text.toString())
         stakeManager = setStakeManager(totalSum)
         updateStakeUI(binding, stakeManager)
-        if (savedInstanceState != null) {
-            balance = savedInstanceState.getString("balance")
-            stake= savedInstanceState.getString("stake")
-        }
+
         return binding.root
     }
 
@@ -80,35 +70,44 @@ class GameFirstFragment :Fragment(), BalanceResetListener/*, BaseGameFragment()*
         //updateBalance
         activity?.let { context ->
             if (isBalanceSaved(context)) {
-                updateBalance(context, binding)
+                //updateBalance(context, binding)
+                val (restoredBalance) = updateBalance(context)
+                binding.textTotal.text = restoredBalance.toString()
             }
         }
-        if (savedInstanceState != null) {
-            binding.textTotal.text = balance
-            binding.textBid.text = stake
-        }
-        /*gameViewModel.balance = binding.textTotal.text.toString()
-        gameViewModel.stake = binding.textBid.text.toString()
-
-        val balance = gameViewModel.balance
-        val stake = gameViewModel.stake
-        // Update UI with balance and stake
-        binding.textTotal.text = balance
-        binding.textBid.text = stake*/
     }
-
-    /*override fun onResume() {
-        super.onResume()
-        // Update balance and stake in ViewModel when needed
-        gameViewModel.balance = binding.textTotal.text.toString()
-        gameViewModel.stake = binding.textBid.text.toString()
-    }*/
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString("balance", balance)
-        outState.putString("stake", stake)
+        outState.putString("balance", binding.textTotal.text.toString())
+        outState.putString("stake", binding.textBid.text.toString())
     }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        if (savedInstanceState != null) {
+            binding.textTotal.text =
+                savedInstanceState.getString(
+                    "balance",
+                    activity?.getString(R.string.title_total) ?: "Total 10000"
+                )
+        }
+        if (savedInstanceState != null) {
+            binding.textBid.text =
+                savedInstanceState.getString(
+                    "stake",
+                    activity?.getString(R.string.title_bid) ?: "100"
+                )
+        }
+    }
+
+    /*override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        val (restoredBalance, restoredStake) = updateBalance(requireContext())
+        binding.textTotal.text = restoredBalance.toString()
+        binding.textBid.text = restoredStake.toString()
+    }*/
 
     private fun controlButton() {
         val animation = AnimationUtils.loadAnimation(context, R.anim.scale_up)
@@ -145,7 +144,13 @@ class GameFirstFragment :Fragment(), BalanceResetListener/*, BaseGameFragment()*
                         binding.textWin.text = "WIN $sumWin"
 
                         //saveBalance
-                        activity?.let { it1 -> saveNewBalance(it1, binding) }
+                        activity?.let { it1 ->
+                            saveNewBalance(
+                                it1,
+                                "Total $totalSum",
+                                bidDigits.toString()
+                            )
+                        }
                     }
                 }
 

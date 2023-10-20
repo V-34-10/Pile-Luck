@@ -1,12 +1,10 @@
 package com.pyramidal.luuck.ui.main.scene
 
 import android.content.Intent
-import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.ActivitySceneBinding
-import com.pyramidal.luuck.databinding.FragmentGameFirstBinding
 import com.pyramidal.luuck.ui.main.menu.MenuActivity
 import com.pyramidal.luuck.ui.main.scene.games.GameFifeFragment
 import com.pyramidal.luuck.ui.main.scene.games.GameFirstFragment
