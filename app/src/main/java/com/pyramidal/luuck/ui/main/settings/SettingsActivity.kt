@@ -1,6 +1,5 @@
 package com.pyramidal.luuck.ui.main.settings
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -19,20 +18,13 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.ActivityMenuBinding
 import com.pyramidal.luuck.databinding.SettingsActivityBinding
 import com.pyramidal.luuck.ui.main.menu.MenuActivity
-import com.pyramidal.luuck.ui.main.scene.games.GameFifeFragment
-import com.pyramidal.luuck.ui.main.scene.games.GameFirstFragment
-import com.pyramidal.luuck.ui.main.scene.games.GameFourFragment
-import com.pyramidal.luuck.ui.main.scene.games.GameThreeFragment
 import com.pyramidal.luuck.ui.utils.HideUIConfigUtils
-import com.pyramidal.luuck.ui.utils.UpdateStakeUI
 
-class SettingsActivity : AppCompatActivity()/*, BalanceResetListener*/ {
+class SettingsActivity : AppCompatActivity() {
     private val binding by lazy { SettingsActivityBinding.inflate(layoutInflater) }
     private val bindingMenu by lazy { ActivityMenuBinding.inflate(layoutInflater) }
     private lateinit var sharedPref: SharedPreferences
@@ -187,15 +179,8 @@ class SettingsActivity : AppCompatActivity()/*, BalanceResetListener*/ {
     }
 
     private fun resetBalanceToDefault() {
-        /*val fragmentManager = supportFragmentManager
-        val fragments = fragmentManager.fragments
-        for (fragment in fragments) {
-            if (fragment is BalanceResetListener) {
-                fragment.resetBalanceToDefault(newBalance)
-            }
-        }*/
         sharedPref = getSharedPreferences("my_prefs", MODE_PRIVATE)
-        val editor = UpdateStakeUI.sharedPref.edit()
+        val editor = sharedPref.edit()
         editor.putString("balance", getString(R.string.title_total))
         editor.apply()
     }
