@@ -30,8 +30,9 @@ import com.pyramidal.luuck.ui.main.scene.games.GameFirstFragment
 import com.pyramidal.luuck.ui.main.scene.games.GameFourFragment
 import com.pyramidal.luuck.ui.main.scene.games.GameThreeFragment
 import com.pyramidal.luuck.ui.utils.HideUIConfigUtils
+import com.pyramidal.luuck.ui.utils.UpdateStakeUI
 
-class SettingsActivity : AppCompatActivity(), BalanceResetListener {
+class SettingsActivity : AppCompatActivity()/*, BalanceResetListener*/ {
     private val binding by lazy { SettingsActivityBinding.inflate(layoutInflater) }
     private val bindingMenu by lazy { ActivityMenuBinding.inflate(layoutInflater) }
     private lateinit var sharedPref: SharedPreferences
@@ -72,7 +73,7 @@ class SettingsActivity : AppCompatActivity(), BalanceResetListener {
         }
         binding.textResetScore.setOnClickListener {
             binding.textResetScore.startAnimation(animation)
-            resetBalanceToDefault(10000)
+            resetBalanceToDefault()
         }
     }
 
@@ -185,13 +186,25 @@ class SettingsActivity : AppCompatActivity(), BalanceResetListener {
         vibrator.cancel()
     }
 
-    override fun resetBalanceToDefault(newBalance: Int) {
-        val fragmentManager = supportFragmentManager
+    private fun resetBalanceToDefault() {
+        /*val fragmentManager = supportFragmentManager
         val fragments = fragmentManager.fragments
         for (fragment in fragments) {
             if (fragment is BalanceResetListener) {
                 fragment.resetBalanceToDefault(newBalance)
             }
-        }
+        }*/
+        sharedPref = getSharedPreferences("my_prefs", MODE_PRIVATE)
+        val editor = UpdateStakeUI.sharedPref.edit()
+        editor.putString("balance", getString(R.string.title_total))
+        editor.apply()
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val go = Intent(this@SettingsActivity, MenuActivity::class.java)
+        startActivity(go)
+        finish()
     }
 }

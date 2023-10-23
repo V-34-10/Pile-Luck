@@ -14,14 +14,13 @@ import com.pyramidal.luuck.databinding.FragmentGameFifeBinding
 import com.pyramidal.luuck.ui.main.scene.SlotItemClickListener
 import com.pyramidal.luuck.ui.main.scene.SlotMinerAdapter
 import com.pyramidal.luuck.ui.main.scene.model.SlotItem
-import com.pyramidal.luuck.ui.main.settings.BalanceResetListener
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.extractNumberFromText
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.isBalanceSaved
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.saveNewBalance
 
 
-class GameFifeFragment : Fragment(), BalanceResetListener, SlotItemClickListener {
+class GameFifeFragment : Fragment(), SlotItemClickListener {
     private lateinit var binding: FragmentGameFifeBinding
     private lateinit var slotAdapter: SlotMinerAdapter
     private lateinit var slotItems: List<SlotItem>
@@ -124,11 +123,6 @@ class GameFifeFragment : Fragment(), BalanceResetListener, SlotItemClickListener
             layoutManager = GridLayoutManager(context, 3)
             adapter = slotAdapter
         }
-    }
-
-    @SuppressLint("SetTextI18n")
-    override fun resetBalanceToDefault(newBalance: Int) {
-        binding.textTotal?.text = "Total $newBalance"
     }
 
     @SuppressLint("SetTextI18n")

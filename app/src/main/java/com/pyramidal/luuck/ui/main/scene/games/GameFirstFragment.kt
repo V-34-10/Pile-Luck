@@ -14,7 +14,6 @@ import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.FragmentGameFirstBinding
 import com.pyramidal.luuck.ui.main.scene.SlotAdapter
 import com.pyramidal.luuck.ui.main.scene.model.SlotItem
-import com.pyramidal.luuck.ui.main.settings.BalanceResetListener
 import com.pyramidal.luuck.ui.utils.StakeManager
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.extractNumberFromText
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.isBalanceSaved
@@ -23,7 +22,7 @@ import com.pyramidal.luuck.ui.utils.UpdateStakeUI.setStakeManager
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.updateBalance
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.updateStakeUI
 
-class GameFirstFragment : Fragment(), BalanceResetListener {
+class GameFirstFragment : Fragment() {
     private lateinit var binding: FragmentGameFirstBinding
     private var slotFirstList = mutableListOf(
         R.drawable.slot_1,
@@ -239,10 +238,5 @@ class GameFirstFragment : Fragment(), BalanceResetListener {
             layoutManager = GridLayoutManager(context, 3)
             adapter = slotAdapter
         }
-    }
-
-    @SuppressLint("SetTextI18n")
-    override fun resetBalanceToDefault(newBalance: Int) {
-        binding.textTotal.text = "Total $newBalance"
     }
 }

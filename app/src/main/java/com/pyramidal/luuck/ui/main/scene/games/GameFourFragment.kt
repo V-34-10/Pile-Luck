@@ -1,8 +1,6 @@
 package com.pyramidal.luuck.ui.main.scene.games
 
 import android.annotation.SuppressLint
-import android.content.pm.ActivityInfo
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +11,6 @@ import androidx.fragment.app.Fragment
 import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.ChestLayoutBinding
 import com.pyramidal.luuck.databinding.FragmentGameFourBinding
-import com.pyramidal.luuck.ui.main.settings.BalanceResetListener
 import com.pyramidal.luuck.ui.utils.StakeManager
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.extractNumberFromText
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.isBalanceSaved
@@ -22,7 +19,7 @@ import com.pyramidal.luuck.ui.utils.UpdateStakeUI.setStakeManager
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.updateBalance
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.updateStakeUI
 
-class GameFourFragment : Fragment(), BalanceResetListener {
+class GameFourFragment : Fragment() {
     private lateinit var binding: FragmentGameFourBinding
     private lateinit var stakeManager: StakeManager
     override fun onCreateView(
@@ -30,11 +27,11 @@ class GameFourFragment : Fragment(), BalanceResetListener {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentGameFourBinding.inflate(layoutInflater, container, false)
-
+        view?.rotation = 0f
         val totalSum = extractNumberFromText(binding.textTotal.text.toString())
         stakeManager = setStakeManager(totalSum)
         updateStakeUI(binding, stakeManager)
-        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+
         return binding.root
     }
 
@@ -160,10 +157,5 @@ class GameFourFragment : Fragment(), BalanceResetListener {
         })
 
         chestLayout.chestClosed.startAnimation(openChestAnimation)
-    }
-
-    @SuppressLint("SetTextI18n")
-    override fun resetBalanceToDefault(newBalance: Int) {
-        binding.textTotal.text = "Total $newBalance"
     }
 }
