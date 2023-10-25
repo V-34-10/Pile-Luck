@@ -85,15 +85,19 @@ class GameFourFragment : Fragment() {
         }
         binding.includeChestFirst.chestClosed.setOnClickListener {
             openChest(binding.includeChestFirst)
+            binding.includeChestFirst.chestClosed.isClickable = false
         }
         binding.includeChestSecond.chestClosed.setOnClickListener {
             openChest(binding.includeChestSecond)
+            binding.includeChestSecond.chestClosed.isClickable = false
         }
         binding.includeChestThree.chestClosed.setOnClickListener {
             openChest(binding.includeChestThree)
+            binding.includeChestThree.chestClosed.isClickable = false
         }
         binding.includeChestFour.chestClosed.setOnClickListener {
             openChest(binding.includeChestFour)
+            binding.includeChestFour.chestClosed.isClickable = false
         }
         val chestPairs = listOf(
             binding.includeChestFirst,
@@ -107,6 +111,10 @@ class GameFourFragment : Fragment() {
                 chestLayout.chestClosed.setImageResource(R.drawable.chest_close)
                 chestLayout.winAmountText.visibility = View.GONE
             }
+            binding.includeChestFirst.chestClosed.isClickable = true
+            binding.includeChestSecond.chestClosed.isClickable = true
+            binding.includeChestThree.chestClosed.isClickable = true
+            binding.includeChestFour.chestClosed.isClickable = true
         }
     }
 
