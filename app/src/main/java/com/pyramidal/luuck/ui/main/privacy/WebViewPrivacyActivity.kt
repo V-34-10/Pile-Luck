@@ -33,7 +33,7 @@ class WebViewPrivacyActivity : AppCompatActivity() {
         val animation = AnimationUtils.loadAnimation(this, R.anim.scale_up)
         binding.btnAccept.setOnClickListener {
             binding.btnAccept.startAnimation(animation)
-            loadingLoginActivity()
+            loadingPrivacyActivity()
         }
     }
 
@@ -66,8 +66,13 @@ class WebViewPrivacyActivity : AppCompatActivity() {
         return super.onKeyDown(keyCode, event)
     }
 
-    private fun loadingLoginActivity() {
-        val go = Intent(this@WebViewPrivacyActivity, PrivacySecondActivity::class.java)
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        //no backClick
+    }
+
+    private fun loadingPrivacyActivity() {
+        val go = Intent(this@WebViewPrivacyActivity, PrivacyActivity::class.java)
         startActivity(go)
         finish()
     }

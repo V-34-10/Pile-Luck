@@ -17,6 +17,7 @@ import com.pyramidal.luuck.databinding.ActivitySplashBinding
 import com.pyramidal.luuck.ui.login.LoginActivity
 import com.pyramidal.luuck.ui.main.menu.MenuActivity
 import com.pyramidal.luuck.ui.main.privacy.PrivacyActivity
+import com.pyramidal.luuck.ui.main.privacy.WebViewPrivacyActivity
 import com.pyramidal.luuck.ui.utils.HideUIConfigUtils
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
@@ -46,8 +47,8 @@ class LoadingActivity : AppCompatActivity(), CoroutineScope {
 
         Handler().postDelayed({
             if (!flag) {
-                // run PrivacyActivity
-                val go = Intent(this@LoadingActivity, PrivacyActivity::class.java)
+                // run WebViewPrivacyActivity
+                val go = Intent(this@LoadingActivity, WebViewPrivacyActivity::class.java)
                 startActivity(go)
                 val editor = sharedPref.edit()
                 editor.putBoolean("flag_key", true)
