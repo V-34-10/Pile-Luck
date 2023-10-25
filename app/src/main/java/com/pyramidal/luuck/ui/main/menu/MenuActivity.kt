@@ -98,8 +98,8 @@ class MenuActivity : AppCompatActivity() {
         }
     }
 
-    @Deprecated("Deprecated in Java")
+    @Deprecated("Deprecated in Java", ReplaceWith("finish()"))
     override fun onBackPressed() {
-        //no back click
+        finish()
     }
 }

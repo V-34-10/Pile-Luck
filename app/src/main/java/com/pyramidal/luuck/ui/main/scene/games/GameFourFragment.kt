@@ -27,7 +27,6 @@ class GameFourFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentGameFourBinding.inflate(layoutInflater, container, false)
-        view?.rotation = 0f
         val totalSum = extractNumberFromText(binding.textTotal.text.toString())
         stakeManager = setStakeManager(totalSum)
         updateStakeUI(binding, stakeManager)
