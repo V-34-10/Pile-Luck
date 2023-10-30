@@ -69,44 +69,33 @@ class GameFirstFragment : Fragment() {
         //updateBalance
         activity?.let { context ->
             if (isBalanceSaved(context)) {
-                //updateBalance(context, binding)
                 val (restoredBalance) = updateBalance(context)
                 binding.textTotal.text = restoredBalance.toString()
             }
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putString("balance", binding.textTotal.text.toString())
-        outState.putString("stake", binding.textBid.text.toString())
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        if (savedInstanceState != null) {
-            binding.textTotal.text =
-                savedInstanceState.getString(
-                    "balance",
-                    activity?.getString(R.string.title_total) ?: "Total 10000"
-                )
-        }
-        if (savedInstanceState != null) {
-            binding.textBid.text =
-                savedInstanceState.getString(
-                    "stake",
-                    activity?.getString(R.string.title_bid) ?: "100"
-                )
+    override fun onPause() {
+        super.onPause()
+        context?.let {
+            saveNewBalance(
+                it,
+                binding.textTotal.text.toString(),
+                binding.textBid.text.toString()
+            )
         }
     }
 
-    /*override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        val (restoredBalance, restoredStake) = updateBalance(requireContext())
-        binding.textTotal.text = restoredBalance.toString()
-        binding.textBid.text = restoredStake.toString()
-    }*/
+    override fun onResume() {
+        super.onResume()
+        activity?.let { context ->
+            if (isBalanceSaved(context)) {
+                val (restoredBalance, restoredStake) = updateBalance(context)
+                binding.textTotal.text = restoredBalance.toString()
+                binding.textBid.text = restoredStake.toString()
+            }
+        }
+    }
 
     private fun controlButton() {
         val animation = AnimationUtils.loadAnimation(context, R.anim.scale_up)

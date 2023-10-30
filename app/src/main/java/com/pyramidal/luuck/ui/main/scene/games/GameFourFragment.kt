@@ -19,6 +19,7 @@ import com.pyramidal.luuck.ui.utils.UpdateStakeUI.setStakeManager
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.updateBalance
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.updateStakeUI
 
+//TODO 2) Перевертається в landscape режим і відображається невірно
 class GameFourFragment : Fragment() {
     private lateinit var binding: FragmentGameFourBinding
     private lateinit var stakeManager: StakeManager
@@ -39,35 +40,31 @@ class GameFourFragment : Fragment() {
         //updateBalance
         activity?.let { context ->
             if (isBalanceSaved(context)) {
-                //updateBalance(context, binding)
                 val (restoredBalance) = updateBalance(context)
                 binding.textTotal.text = restoredBalance.toString()
             }
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putString("balance", binding.textTotal.text.toString())
-        outState.putString("stake", binding.textBid.text.toString())
+    override fun onPause() {
+        super.onPause()
+        context?.let {
+            saveNewBalance(
+                it,
+                binding.textTotal.text.toString(),
+                binding.textBid.text.toString()
+            )
+        }
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        if (savedInstanceState != null) {
-            binding.textTotal.text =
-                savedInstanceState.getString(
-                    "balance",
-                    activity?.getString(R.string.title_total) ?: "Total 10000"
-                )
-        }
-        if (savedInstanceState != null) {
-            binding.textBid.text =
-                savedInstanceState.getString(
-                    "stake",
-                    activity?.getString(R.string.title_bid) ?: "100"
-                )
+    override fun onResume() {
+        super.onResume()
+        activity?.let { context ->
+            if (isBalanceSaved(context)) {
+                val (restoredBalance, restoredStake) = updateBalance(context)
+                binding.textTotal.text = restoredBalance.toString()
+                binding.textBid.text = restoredStake.toString()
+            }
         }
     }
 
