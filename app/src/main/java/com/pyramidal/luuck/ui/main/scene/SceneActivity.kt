@@ -1,6 +1,7 @@
 package com.pyramidal.luuck.ui.main.scene
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.pyramidal.luuck.R
@@ -28,6 +29,7 @@ class SceneActivity : AppCompatActivity() {
         if (supportFragmentManager.backStackEntryCount > 0) {
             supportFragmentManager.popBackStack()
         } else {
+            this.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
             val go = Intent(this@SceneActivity, MenuActivity::class.java)
             startActivity(go)
             finish()
@@ -60,6 +62,7 @@ class SceneActivity : AppCompatActivity() {
             }
 
             "FortunePlay" -> {
+                this.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
                 val fragmentB = GameFourFragment()
                 fragmentTransaction.replace(R.id.fragment_container, fragmentB)
             }

@@ -19,7 +19,6 @@ import com.pyramidal.luuck.ui.utils.UpdateStakeUI.setStakeManager
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.updateBalance
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.updateStakeUI
 
-//TODO 2) Перевертається в landscape режим і відображається невірно
 class GameFourFragment : Fragment() {
     private lateinit var binding: FragmentGameFourBinding
     private lateinit var stakeManager: StakeManager
