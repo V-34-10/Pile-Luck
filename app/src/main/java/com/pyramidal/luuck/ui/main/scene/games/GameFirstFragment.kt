@@ -1,7 +1,6 @@
 package com.pyramidal.luuck.ui.main.scene.games
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.FragmentGameFirstBinding
-import com.pyramidal.luuck.ui.main.menu.MenuActivity
 import com.pyramidal.luuck.ui.main.scene.SlotAdapter
 import com.pyramidal.luuck.ui.main.scene.model.SlotItem
 import com.pyramidal.luuck.ui.utils.StakeManager
@@ -83,7 +81,8 @@ class GameFirstFragment : Fragment() {
             saveNewBalance(
                 it,
                 binding.textTotal.text.toString(),
-                binding.textBid.text.toString()
+                binding.textBid.text.toString(),
+                binding.textWin.text.toString()
             )
         }
     }
@@ -92,9 +91,10 @@ class GameFirstFragment : Fragment() {
         super.onResume()
         activity?.let { context ->
             if (isBalanceSaved(context)) {
-                val (restoredBalance, restoredStake) = updateBalance(context)
+                val (restoredBalance, restoredStake, restoredWin) = updateBalance(context)
                 binding.textTotal.text = restoredBalance.toString()
                 binding.textBid.text = restoredStake.toString()
+                binding.textWin.text = restoredWin.toString()
             }
         }
     }
@@ -138,7 +138,8 @@ class GameFirstFragment : Fragment() {
                             saveNewBalance(
                                 it1,
                                 "Total $totalSum",
-                                bidDigits.toString()
+                                bidDigits.toString(),
+                                "WIN $sumWin"
                             )
                         }
                     }

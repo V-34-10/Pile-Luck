@@ -1,7 +1,6 @@
 package com.pyramidal.luuck.ui.main.scene.games
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,6 @@ import androidx.fragment.app.Fragment
 import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.ChestLayoutBinding
 import com.pyramidal.luuck.databinding.FragmentGameFourBinding
-import com.pyramidal.luuck.ui.main.menu.MenuActivity
 import com.pyramidal.luuck.ui.utils.StakeManager
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.extractNumberFromText
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.isBalanceSaved
@@ -53,7 +51,8 @@ class GameFourFragment : Fragment() {
             saveNewBalance(
                 it,
                 binding.textTotal.text.toString(),
-                binding.textBid.text.toString()
+                binding.textBid.text.toString(),
+                binding.textWin.text.toString()
             )
         }
     }
@@ -62,9 +61,10 @@ class GameFourFragment : Fragment() {
         super.onResume()
         activity?.let { context ->
             if (isBalanceSaved(context)) {
-                val (restoredBalance, restoredStake) = updateBalance(context)
+                val (restoredBalance, restoredStake, restoredWin) = updateBalance(context)
                 binding.textTotal.text = restoredBalance.toString()
                 binding.textBid.text = restoredStake.toString()
+                binding.textWin.text = restoredWin.toString()
             }
         }
     }
@@ -157,7 +157,8 @@ class GameFourFragment : Fragment() {
                     saveNewBalance(
                         it1,
                         binding.textTotal.text.toString(),
-                        binding.textBid.text.toString()
+                        binding.textBid.text.toString(),
+                        binding.textWin.text.toString()
                     )
                 }
             }

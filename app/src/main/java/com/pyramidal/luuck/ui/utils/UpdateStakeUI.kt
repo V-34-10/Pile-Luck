@@ -50,19 +50,21 @@ object UpdateStakeUI {
         return digitsOnly.toIntOrNull() ?: 0
     }
 
-    fun saveNewBalance(context: Context, balance: String, stake: String?) {
+    fun saveNewBalance(context: Context, balance: String, stake: String?, win: String?) {
         sharedPref = context.getSharedPreferences("my_prefs", AppCompatActivity.MODE_PRIVATE)
         val editor = sharedPref.edit()
         editor.putString("balance", balance)
         editor.putString("stake", stake)
+        editor.putString("win", win)
         editor.apply()
     }
 
-    fun updateBalance(context: Context): Pair<String?, String?> {
+    fun updateBalance(context: Context): Triple<String?, String?, String?> {
         sharedPref = context.getSharedPreferences("my_prefs", AppCompatActivity.MODE_PRIVATE)!!
         val balance = sharedPref.getString("balance", context.getString(R.string.title_total))
         val stake = sharedPref.getString("stake", context.getString(R.string.title_bid))
-        return Pair(balance, stake)
+        val win = sharedPref.getString("win", context.getString(R.string.title_win))
+        return Triple(balance, stake, win)
     }
 
     fun isBalanceSaved(context: Context): Boolean {

@@ -1,7 +1,6 @@
 package com.pyramidal.luuck.ui.main.scene.games
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.FragmentGameFifeBinding
-import com.pyramidal.luuck.ui.main.menu.MenuActivity
 import com.pyramidal.luuck.ui.main.scene.SlotItemClickListener
 import com.pyramidal.luuck.ui.main.scene.SlotMinerAdapter
 import com.pyramidal.luuck.ui.main.scene.model.SlotItem
@@ -61,9 +59,12 @@ class GameFifeFragment : Fragment(), SlotItemClickListener {
             //updateBalance
             activity?.let { context ->
                 if (isBalanceSaved(context)) {
-                    val (restoredBalance, restoredStake) = UpdateStakeUI.updateBalance(context)
+                    val (restoredBalance, restoredStake, restoredWin) = UpdateStakeUI.updateBalance(
+                        context
+                    )
                     binding.textTotal?.text = restoredBalance.toString()
                     binding.textBid?.text = restoredStake.toString()
+                    binding.textWin?.text = restoredWin.toString()
                 }
             }
         }
@@ -115,7 +116,8 @@ class GameFifeFragment : Fragment(), SlotItemClickListener {
                 saveNewBalance(
                     it1,
                     binding.textTotal?.text.toString(),
-                    binding.textBid?.text.toString()
+                    binding.textBid?.text.toString(),
+                    binding.textWin?.text.toString()
                 )
             }
         } else {
