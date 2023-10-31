@@ -34,19 +34,6 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="TextContrastCheck" />
 
-        <TextView
-            android:id="@+id/text_description"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:fontFamily="@font/alumni_sans_inline_one"
-            android:text="@string/title_description"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/size_textDescription"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_privacy" />
-
         <ImageView
             android:id="@+id/btn_privacy"
             android:layout_width="@dimen/dp275"
@@ -57,7 +44,7 @@
             android:src="@drawable/btn_privacy"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_description"
+            app:layout_constraintTop_toBottomOf="@+id/text_privacy"
             tools:ignore="ImageContrastCheck" />
 
         <TextView
