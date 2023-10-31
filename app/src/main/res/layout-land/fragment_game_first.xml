@@ -132,4 +132,17 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <ImageView
+        android:id="@+id/btn_back"
+        android:layout_width="@dimen/dp70"
+        android:layout_height="0dp"
+        android:layout_marginStart="5dp"
+        android:clickable="true"
+        android:contentDescription="@string/btn_back"
+        android:focusable="true"
+        android:src="@drawable/btn_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ImageContrastCheck" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

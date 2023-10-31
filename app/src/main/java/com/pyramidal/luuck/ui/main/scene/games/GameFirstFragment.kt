@@ -1,6 +1,7 @@
 package com.pyramidal.luuck.ui.main.scene.games
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.FragmentGameFirstBinding
+import com.pyramidal.luuck.ui.main.menu.MenuActivity
 import com.pyramidal.luuck.ui.main.scene.SlotAdapter
 import com.pyramidal.luuck.ui.main.scene.model.SlotItem
 import com.pyramidal.luuck.ui.utils.StakeManager
@@ -158,6 +160,10 @@ class GameFirstFragment : Fragment() {
             binding.btnPlus.startAnimation(animation)
             stakeManager.increaseStake()
             updateStakeUI(binding, stakeManager)
+        }
+        binding.btnBack.setOnClickListener {
+            binding.btnBack.startAnimation(animation)
+            activity?.onBackPressed()
         }
     }
 

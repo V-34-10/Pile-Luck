@@ -1,6 +1,7 @@
 package com.pyramidal.luuck.ui.main.scene.games
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import android.view.animation.RotateAnimation
 import androidx.fragment.app.Fragment
 import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.FragmentGameThreeBinding
+import com.pyramidal.luuck.ui.main.menu.MenuActivity
 import com.pyramidal.luuck.ui.utils.StakeManager
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.extractNumberFromText
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.isBalanceSaved
@@ -134,6 +136,10 @@ class GameThreeFragment : Fragment() {
             binding.btnPlus.startAnimation(animation)
             stakeManager.increaseStake()
             updateStakeUI(binding, stakeManager)
+        }
+        binding.btnBack.setOnClickListener {
+            binding.btnBack.startAnimation(animation)
+            activity?.onBackPressed()
         }
     }
 

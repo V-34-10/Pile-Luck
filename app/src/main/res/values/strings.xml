@@ -74,7 +74,7 @@
     <string name="title_game_fife">"EgyptPlay"</string>
     <string name="title_win">WIN 0</string>
     <string name="title_total">Total 10000</string>
-    <string name="title_bid">1000</string>
+    <string name="title_bid">100</string>
     <string name="btn_minus">btn_minus</string>
     <string name="btn_spin">btn_spin</string>
     <string name="arrow_scene">arrow_scene</string>

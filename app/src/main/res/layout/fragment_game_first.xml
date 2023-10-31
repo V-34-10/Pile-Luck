@@ -16,11 +16,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="@dimen/dp65"
+            android:layout_height="0dp"
+            android:clickable="true"
+            android:contentDescription="@string/btn_back"
+            android:focusable="true"
+            android:src="@drawable/btn_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ImageContrastCheck" />
+
         <TextView
             android:id="@+id/text_win"
-            android:layout_width="@dimen/dp175"
+            android:layout_width="@dimen/dp145"
             android:layout_height="0dp"
-            android:layout_marginTop="35dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/text_background"
             android:fontFamily="@font/alumni_sans_inline_one"
             android:padding="@dimen/dp10"
@@ -28,15 +41,15 @@
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="@dimen/size_textDescription"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_back"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/text_total"
             android:layout_width="@dimen/dp175"
             android:layout_height="0dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="35dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/text_background"
             android:fontFamily="@font/alumni_sans_inline_one"
             android:padding="@dimen/dp10"
