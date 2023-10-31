@@ -15,6 +15,7 @@ import android.webkit.WebViewClient
 import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.ActivityPrivacyBinding
 import com.pyramidal.luuck.ui.login.LoginActivity
+import com.pyramidal.luuck.ui.main.menu.MenuActivity
 import com.pyramidal.luuck.ui.utils.HideUIConfigUtils
 
 class PrivacyActivity : AppCompatActivity() {
@@ -38,7 +39,7 @@ class PrivacyActivity : AppCompatActivity() {
         }
         binding.btnYes.setOnClickListener {
             binding.btnYes.startAnimation(animation)
-            loadingLoginActivity()
+            loadingMenuActivity()
         }
     }
 
@@ -81,9 +82,9 @@ class PrivacyActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadingLoginActivity() {
-        // run LoginActivity
-        val go = Intent(this@PrivacyActivity, LoginActivity::class.java)
+    private fun loadingMenuActivity() {
+        // run MenuActivity
+        val go = Intent(this@PrivacyActivity, MenuActivity::class.java)
         startActivity(go)
         finish()
     }

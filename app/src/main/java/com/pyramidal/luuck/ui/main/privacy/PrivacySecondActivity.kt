@@ -9,6 +9,7 @@ import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.ActivityPrivacyBinding
 import com.pyramidal.luuck.databinding.ActivityPrivacySecondBinding
 import com.pyramidal.luuck.ui.login.LoginActivity
+import com.pyramidal.luuck.ui.main.menu.MenuActivity
 import com.pyramidal.luuck.ui.utils.HideUIConfigUtils
 
 class PrivacySecondActivity : AppCompatActivity() {
@@ -29,12 +30,12 @@ class PrivacySecondActivity : AppCompatActivity() {
         }
         binding.btnAccept.setOnClickListener {
             binding.btnAccept.startAnimation(animation)
-            loadingLoginActivity()
+            loadingMenuActivity()
         }
     }
 
-    private fun loadingLoginActivity() {
-        val go = Intent(this@PrivacySecondActivity, LoginActivity::class.java)
+    private fun loadingMenuActivity() {
+        val go = Intent(this@PrivacySecondActivity, MenuActivity::class.java)
         startActivity(go)
         finish()
     }
