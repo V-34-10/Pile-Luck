@@ -41,6 +41,12 @@ class LoadingActivity : AppCompatActivity(), CoroutineScope {
 
     private fun loadingNextActivity() {
         initSharedPreferences()
+
+        //skip login
+        val editorEmail = sharedPref?.edit()
+        editorEmail?.putString("email_key", "authorized")
+        editorEmail?.apply()
+
         val flag = sharedPref.getBoolean("flag_key", false)
         val hasEmail = sharedPref?.contains("email_key") ?: false
         val hasPhone = sharedPref?.contains("phone_key") ?: false
