@@ -130,22 +130,7 @@
         android:textColor="@color/white"
         android:textSize="@dimen/size_textDescription"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-
-    <TextView
-        android:id="@+id/text_remove_account"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_margin="50dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:fontFamily="@font/alumni_sans_inline_one"
-        android:text="@string/title_remove_account"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="@dimen/size_textDescription"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

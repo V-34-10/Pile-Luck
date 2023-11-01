@@ -52,17 +52,6 @@ class SettingsActivity : AppCompatActivity() {
             startActivity(go)
             finish()
         }
-
-        binding.textRemoveAccount.setOnClickListener {
-            binding.textRemoveAccount.startAnimation(animation)
-            sharedPref = getSharedPreferences("my_prefs", MODE_PRIVATE)
-            val editor = sharedPref.edit()
-            editor.clear()
-            editor.apply()
-            // change block games
-            bindingMenu.gameThree.setImageResource(R.drawable.item_small_block)
-            bindingMenu.gameFour.setImageResource(R.drawable.item_small3_block)
-        }
         binding.textResetScore.setOnClickListener {
             binding.textResetScore.startAnimation(animation)
             resetBalanceToDefault()
