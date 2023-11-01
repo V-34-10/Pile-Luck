@@ -19,14 +19,12 @@ import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.pyramidal.luuck.R
-import com.pyramidal.luuck.databinding.ActivityMenuBinding
 import com.pyramidal.luuck.databinding.SettingsActivityBinding
 import com.pyramidal.luuck.ui.main.menu.MenuActivity
 import com.pyramidal.luuck.ui.utils.HideUIConfigUtils
 
 class SettingsActivity : AppCompatActivity() {
     private val binding by lazy { SettingsActivityBinding.inflate(layoutInflater) }
-    private val bindingMenu by lazy { ActivityMenuBinding.inflate(layoutInflater) }
     private lateinit var sharedPref: SharedPreferences
     private val audioManager by lazy { getSystemService(Context.AUDIO_SERVICE) as AudioManager }
     private var previousVolume: Int = 0

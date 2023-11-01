@@ -1,6 +1,7 @@
 package com.pyramidal.luuck.ui.main.scene
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +16,7 @@ import com.pyramidal.luuck.ui.utils.HideUIConfigUtils
 
 class SceneActivity : AppCompatActivity() {
     private val binding by lazy { ActivitySceneBinding.inflate(layoutInflater) }
+    private lateinit var sharedPref: SharedPreferences
     val bundle = Bundle()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,10 +32,18 @@ class SceneActivity : AppCompatActivity() {
             supportFragmentManager.popBackStack()
         } else {
             this.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+            resetWinToDefault()
             val go = Intent(this@SceneActivity, MenuActivity::class.java)
             startActivity(go)
             finish()
         }
+    }
+
+    private fun resetWinToDefault() {
+        sharedPref = getSharedPreferences("my_prefs", MODE_PRIVATE)
+        val editor = sharedPref.edit()
+        editor.putString("win", getString(R.string.title_win))
+        editor.apply()
     }
 
     private fun initFragmentGame() {
