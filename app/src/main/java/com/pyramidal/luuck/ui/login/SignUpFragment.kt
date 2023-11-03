@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import com.pyramidal.luuck.R
-import com.pyramidal.luuck.ui.main.privacy.RemotePrivacy
 import com.pyramidal.luuck.databinding.FragmentSignUpBinding
 import com.pyramidal.luuck.ui.main.privacy.PrivacyActivity
 

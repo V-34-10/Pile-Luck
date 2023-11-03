@@ -1,7 +1,6 @@
 package com.pyramidal.luuck.ui.main.scene
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -13,11 +12,9 @@ import com.pyramidal.luuck.ui.main.scene.games.GameFirstFragment
 import com.pyramidal.luuck.ui.main.scene.games.GameFourFragment
 import com.pyramidal.luuck.ui.main.scene.games.GameThreeFragment
 import com.pyramidal.luuck.ui.utils.HideUIConfigUtils
-import com.pyramidal.luuck.ui.utils.UpdateStakeUI.resetWinToDefault
 
 class SceneActivity : AppCompatActivity() {
     private val binding by lazy { ActivitySceneBinding.inflate(layoutInflater) }
-    private lateinit var sharedPref: SharedPreferences
     val bundle = Bundle()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
