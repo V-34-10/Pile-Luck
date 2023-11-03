@@ -2,16 +2,14 @@ package com.pyramidal.luuck.ui.main.menu
 
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.animation.AnimationUtils
+import androidx.appcompat.app.AppCompatActivity
 import com.pyramidal.luuck.R
 import com.pyramidal.luuck.databinding.ActivityMenuBinding
-import com.pyramidal.luuck.ui.login.LoginActivity
 import com.pyramidal.luuck.ui.main.scene.SceneActivity
 import com.pyramidal.luuck.ui.main.settings.SettingsActivity
 import com.pyramidal.luuck.ui.utils.HideUIConfigUtils
-import com.pyramidal.luuck.ui.utils.UpdateStakeUI
 import com.pyramidal.luuck.ui.utils.UpdateStakeUI.resetWinToDefault
 
 class MenuActivity : AppCompatActivity() {
@@ -40,14 +38,6 @@ class MenuActivity : AppCompatActivity() {
         binding.btnExit.setOnClickListener {
             binding.btnExit.startAnimation(animation)
             resetWinToDefault(this)
-            finish()
-        }
-
-        binding.btnRegister.setOnClickListener {
-            binding.btnRegister.startAnimation(animation)
-            // run LoginActivity
-            val go = Intent(this@MenuActivity, LoginActivity::class.java)
-            startActivity(go)
             finish()
         }
         binding.btnSettings.setOnClickListener {

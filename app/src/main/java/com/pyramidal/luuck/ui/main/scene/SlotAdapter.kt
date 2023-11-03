@@ -38,9 +38,6 @@ class SlotAdapter (private var dataList: List<SlotItem>) :
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateData(newData: List<SlotItem>) {
-        /*dataList = newData
-        notifyDataSetChanged()*/
-
         // Зберігаємо попередній список даних
         previousDataList = dataList.toList()
 
@@ -51,14 +48,6 @@ class SlotAdapter (private var dataList: List<SlotItem>) :
         val diffCallback = SlotItemDiffCallback(previousDataList, newData)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         diffResult.dispatchUpdatesTo(this)
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun updateData(newData: List<SlotItem>, recyclerView: RecyclerView) {
-        dataList = newData
-        val animation = AnimationUtils.loadAnimation(recyclerView.context, R.anim.slot_animation)
-        recyclerView.startAnimation(animation)
-        notifyDataSetChanged()
     }
 
     fun playSpinAnimation(recyclerView: RecyclerView, context: Context) {

@@ -1,14 +1,11 @@
 package com.pyramidal.luuck.ui.main.privacy
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.view.animation.AnimationUtils
+import androidx.appcompat.app.AppCompatActivity
 import com.pyramidal.luuck.R
-import com.pyramidal.luuck.databinding.ActivityPrivacyBinding
 import com.pyramidal.luuck.databinding.ActivityPrivacySecondBinding
-import com.pyramidal.luuck.ui.login.LoginActivity
 import com.pyramidal.luuck.ui.main.menu.MenuActivity
 import com.pyramidal.luuck.ui.utils.HideUIConfigUtils
 
