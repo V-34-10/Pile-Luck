@@ -13,6 +13,7 @@ import com.pyramidal.luuck.ui.main.scene.games.GameFirstFragment
 import com.pyramidal.luuck.ui.main.scene.games.GameFourFragment
 import com.pyramidal.luuck.ui.main.scene.games.GameThreeFragment
 import com.pyramidal.luuck.ui.utils.HideUIConfigUtils
+import com.pyramidal.luuck.ui.utils.UpdateStakeUI.resetWinToDefault
 
 class SceneActivity : AppCompatActivity() {
     private val binding by lazy { ActivitySceneBinding.inflate(layoutInflater) }
@@ -32,18 +33,10 @@ class SceneActivity : AppCompatActivity() {
             supportFragmentManager.popBackStack()
         } else {
             this.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
-            resetWinToDefault()
             val go = Intent(this@SceneActivity, MenuActivity::class.java)
             startActivity(go)
             finish()
         }
-    }
-
-    private fun resetWinToDefault() {
-        sharedPref = getSharedPreferences("my_prefs", MODE_PRIVATE)
-        val editor = sharedPref.edit()
-        editor.putString("win", getString(R.string.title_win))
-        editor.apply()
     }
 
     private fun initFragmentGame() {

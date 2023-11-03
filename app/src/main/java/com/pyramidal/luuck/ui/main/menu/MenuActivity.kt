@@ -11,6 +11,8 @@ import com.pyramidal.luuck.ui.login.LoginActivity
 import com.pyramidal.luuck.ui.main.scene.SceneActivity
 import com.pyramidal.luuck.ui.main.settings.SettingsActivity
 import com.pyramidal.luuck.ui.utils.HideUIConfigUtils
+import com.pyramidal.luuck.ui.utils.UpdateStakeUI
+import com.pyramidal.luuck.ui.utils.UpdateStakeUI.resetWinToDefault
 
 class MenuActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMenuBinding.inflate(layoutInflater) }
@@ -37,6 +39,7 @@ class MenuActivity : AppCompatActivity() {
         val animation = AnimationUtils.loadAnimation(this, R.anim.scale_up)
         binding.btnExit.setOnClickListener {
             binding.btnExit.startAnimation(animation)
+            resetWinToDefault(this)
             finish()
         }
 

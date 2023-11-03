@@ -67,6 +67,13 @@ object UpdateStakeUI {
         return Triple(balance, stake, win)
     }
 
+    fun resetWinToDefault(context: Context) {
+        sharedPref = context.getSharedPreferences("my_prefs", AppCompatActivity.MODE_PRIVATE)!!
+        val editor = sharedPref.edit()
+        editor.putString("win", context.getString(R.string.title_win))
+        editor.apply()
+    }
+
     fun isBalanceSaved(context: Context): Boolean {
         val sharedPref = context.getSharedPreferences("my_prefs", AppCompatActivity.MODE_PRIVATE)
         return sharedPref.contains("balance")
